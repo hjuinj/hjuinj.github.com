@@ -1,0 +1,68 @@
+---
+title: "bacterial transcription"
+author: "hjuinj"
+date: "3 November 2015"
+output: html_document
+---
+
+#Steps:
+### Initiation:
+1. Recruitment of RNAP holoenzyme around the winded DNA (Binding assay: Gel shift, template assay, DNase footprinting)
+            - Inclusive of all the subunit interaction between the enzyme and promoter region
+2. Open complex formation, melting DNA open (DNA unwinding assay)
+            - Unwind from -11 upto +3 site
+            - Driven by additional interaction between RNAP holoenzyme and the DNA
+3. Sigma-2 region bind to non-template ss-DNA (incoporation assay to measure the ratio of unstale and processive ternary compelx)
+            - A,T bases separated by 4 bases (upstream to transcription) flips out of the helix and bind with the enzyme,
+            - The commited step for transcription, once reached transcription almost certainly will be completed. 
+            - _Unstable ternary complex formation_
+            - No primer needed so two rNTPs come togther
+            - The first rNTP typically a purine (**A**/G)
+            - The strong interaction that allow promoter to be recongnized by holoenzyme leads to high affinity that prevent RNAP to move away from the TSS while sigma 3,4 domains sits in the RNA exiting channel, both leading to abortive RNA strands
+            
+4. Stable Ternary complex formation - processive transcription 
+      - More and more DNA unwind at the enzymic active site, if the unleash of conjestion is by downstream region of RNA then abortive. Whereas this unwinding could also contribute to breaking the strong promoter sequence binding, which leads to processive transcription
+      - To expalin the mechanistic origin of the abortive RNA transcription FRET was used which showed that the physical distance between upstream DNA and transcribed DNA region shortened
+      
+### Elongation:
+This stage does not require sigma domain (promotor interaction no longer needed). In this
+stage, the complex incorporates new rNTPs, while unwinding the DNA helix and also dessociate the synthesised ss-RNA with the template DNA.
+
+Incorrect incorportion of RNTPs slows synthesis due to incorrect H-bonding. An immediate 
+action to 'proof-reading' is done by the pyrophosphate. While trying to leave the active 
+site via the rNTP channel, the pp is reincorporated, and this would act as repair
+because the window of time for next RNTP to bind is longer due to sub-optimal H-bonding.
+But once a new RNTP has attached or when pp has left the channel this schema would no longer work.
+
+The stalling of polymerisation could translocate a segment of RNA back into the rNTP channel which (in bacteria) a separate enzyme 
+[TFIIS](http://www.rcsb.org/pdb/explore.do?structureId=1y1y) hydrolytically cleaves a few nucleotides.
+
+
+### (Bacterial) Termination:
+1. Intrinsic termination.
+A structural hairpin forms with a GC rich region in the RNA, while a U rich region 7-9
+nucleotide 3-primer (so should still be attached to the template) to the C region causes dissociation. 
+This is intrinsic because signal for termination is encoded in the sequence of the formed RNA.
+
+2. Rho dependent termination.
+Requries Rho helicase. It binds to a C rich region of the RNA after it exit the RNAP.
+The Rho once bound tranlocate towards the holoenzyme and pulls the RNA out of the active site and thus terminate the synthesis. 
+
+
+
+------------------------------------------------------------
+
+# (Bacterial) Transcription Regulation
+### Through the intrinsic quality of promoter sequence
+> Promoters vary in their sequences and spacing. As long as a promoter sequence is similar to a consensus binding sequence of a σ-factor, the promoter will express the downstream gene with the help of that σ-factor. The degree of similarity of a promoter to a consensus sequence will determine how strongly the promoter recruits the corresponding σ-factor. Promoters with a perfect match to a σ-factor consensus sequence are rare and would have very strong affinity for the σ-factor. Most promoters have a couple of nucleotides that differ from consensus. It is important to note though that some nucleotides in the consensus are more important for σ binding than others. The TTG... nucleotides of the -35 consensus are more important than the ...ACA nucleotides; for the -10 region, the TA...T nucleotides are more important than the ...AA. nucleotides. The sequence in this example only differs in two, less conserved nucleotides and would still strongly recruit σ70.
+
+### Alternative sigma-factor
+recongnise different promoter sequence
+
+>Most bacterial promoters are only recognized by σ70. Some are regulated by additional σ-factors in response to environmental stimuli. Even when a cell is stressed though and needs to initiate say a heat shock response through σ32, σ70 is still needed to promote transcription of σ32 as well as essential genes.
+### Binding of seq specific transcription factors 
+
+**Repressor** can work by further reducing the rate limiting step, or hinder another step in the series of reaction to make it the new rds. that binds to the sequence specific region between -35 and -10 region is the most stragiht forward to regulate.
+
+
+**Activator** can only increase the rate limiting step which can make it no longer the rds.
