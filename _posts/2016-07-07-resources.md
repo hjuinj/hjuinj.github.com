@@ -1,9 +1,8 @@
 ---
 title: "Resouces"
 layout: post
-author: "hjuinj"
-date: "06 July 2016"
-output: html_document
+category : Resources
+tags : [resources]
 ---
 
 
