@@ -43,3 +43,11 @@ def tree(probArray):
 		print("merge " + str(a) + " and " + str(b))
 		probArray[probArray.index(min(probArray))] += temp
 ```
+
+
+# Band Sharing
+Wireless communcation for multiple user is achieved by frequency division multiplexing(FDM) and letting each user have a separate band of frequency
+
+The signal is modulated up from the low frequency the original message (e.g. voice) to
+the high freq that is allowed to transmit. Modulation is achieved using:
+cos(low)cos(high) = 0.5(cos(low+high) + cos(high-low))

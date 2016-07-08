@@ -6,10 +6,8 @@ layout: default
 
 
 
-{% include /html/setup %}
-{% include /html/post.html %}
-<!-- 
 {% include JB/setup %}
+{% include ../html/post.html %}
+<!-- 
 {% include themes/bootstrap-3/post.html %}
 
--->

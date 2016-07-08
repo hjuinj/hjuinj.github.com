@@ -37,3 +37,12 @@ employing precalculated descriptor values.
 
 
 solvent moleucles could be a cause of the observed activity cliffs
+
+
+In the Bayesian interpretation, ‘‘probability’’ indicates the degree of personal belief in a
+proposition, in contrast to the frequentist interpretation of probability as the relative
+frequency of occurrence of an event.
+
+
+#Compound Scoring 
+ligand-based scoring schemes assess the similarity (or distance) to known reference ligands (templates) that exhibit the desired biological activity.
