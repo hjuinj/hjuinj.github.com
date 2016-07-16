@@ -20,7 +20,8 @@ Here is RDkit in Python:
 
 * Rpubchem
 
-
+* SMARTS Overlay Tool
+<http://cdkdepict-openchem.rhcloud.com/depict.html>
 ---
 
 # MOLECULAR DYNAMICS
@@ -28,22 +29,22 @@ Here is RDkit in Python:
 Beginner's tutorial:
 <https://westpa.github.io/westpa/tutorials/openmm.html#preparing-the-openmm-files>
 
- 
+
 
 Full documentation:
 <http://docs.openmm.org/6.1.0/userguide/introduction.html>
 
- 
+
 
 ---
 
 # MOLECULAR MODELLING
 * PyMol
 
- 
+
 * VMD
 
- 
+
 
 ---
 
@@ -52,7 +53,7 @@ Full documentation:
 Thorough introduction of NLP using NLTK:
 <http://www.nltk.org/book>
 
- 
+
 
 ---
 
