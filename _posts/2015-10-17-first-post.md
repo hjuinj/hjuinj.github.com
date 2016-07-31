@@ -1,8 +1,9 @@
 ---
-title : Once in a Lifetime...
+title : "Once in a Lifetime..."
 layout : post
 category : generic
-tags : [mumble]
+tags : 
+- mumble
 ---
 
 The last time I wrote a blog post was too long ago. I was using this service called Qzone. 
@@ -32,7 +33,7 @@ I aim to explain what were once esoteric concepts to me or present interesting l
 
 So what's in this for **me**? Well, manifold really. For one, I think writting blogs can definitly improve my writing skill. Those papers ain't gonna write themselves.
 
-##Anything else?
+## Anything else?
 YES!!!!!! As you can see this blog is hosted on github, using Jekyll, which is a new tool I am learning to use, along with other funky stuffs I am or planning to work on, (text scrappers, plugins, open sourced projects, etc).
 
 I have taken far far far too many online courses. It is time to put those knowledege to test. I enjoy science, I enjoy technology. Atoms + Bits -> the way forward (R much?).
@@ -42,8 +43,9 @@ So, I hope I will keep up, well, who knows...
 
 I would like to leave you with this, which I signatured at the end of every blog post I had on Qzone, when I was that little kid:
 
-![onepiece](/assets/img/generic/人的梦想.jpg)
-
-
+<div style="text-align:center">
+<!-- ![onepiece](/assets/img/generic/人的梦想.jpg) -->
+<img src = "/assets/img/generic/人的梦想.jpg" alt = "onepiece" />
+</div>
 
 

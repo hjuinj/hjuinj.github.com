@@ -4,6 +4,10 @@ layout: post
 category : Resources
 tags : [resources]
 ---
+<center>
+ <b> <font size="5">Table of Content </font> </b>
+</center>
+
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [CHEMINFORMATICS](#cheminformatics)
@@ -13,6 +17,10 @@ tags : [resources]
 - [PROGRAMMING](#programming)
 
 <!-- /TOC -->
+---
+---
+---
+
 
 # CHEMINFORMATICS
 * CDK
@@ -20,6 +28,7 @@ tags : [resources]
 * RDKit
 Here is RDkit in Python:
 <http://www.rdkit.org/docs/GettingStartedInPython.html>
+
 * Knime
 
 * NCI
@@ -34,6 +43,7 @@ Here is RDkit in Python:
 
 # MOLECULAR DYNAMICS
 * OpenMM
+
 Beginner's tutorial:
 <https://westpa.github.io/westpa/tutorials/openmm.html#preparing-the-openmm-files>
 
@@ -61,12 +71,11 @@ Full documentation:
 Thorough introduction of NLP using NLTK:
 <http://www.nltk.org/book>
 
-
-
 ---
 
 # PROGRAMMING
 * R
 Advanced R:
 <http://adv-r.had.co.nz/>
+
 ---
