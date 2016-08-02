@@ -3,6 +3,8 @@ layout: page
 title: 厚積
 //tagline : Supporting tagline
 ---
+<div id = "index-whole">
+
 {% include JB/setup %}
 
 {% include header.html %}
@@ -26,3 +28,4 @@ title: 厚積
 {% include footer.html %}
 
 {% include googleanalytics.html %}
+</div>
