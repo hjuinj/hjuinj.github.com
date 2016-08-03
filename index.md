@@ -13,15 +13,18 @@ title: 厚積
   {% for post in site.posts %}
   <div class = "ind-posts">
     <li>
-    <span>
-    <img src = "/assets/img/icon.png" >
-    {{ post.date | date_to_string }}
-    </span> 
-    &raquo;
-     <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}
-    </a>
+       <span>
+       {% if post.icon %}
+          <img src = "/assets/img/Icon/{{post.icon}}" height = "26"  width = "26">
+       {% else %}
+          <img src = "/assets/img/Icon/default.png" height = "26" width = "26">
+       {% endif %}
+          {{ post.date | date_to_string }}
+       </span> 
+     &raquo;
+     <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}    </a>
     </li>
-    </div>
+  </div>
   {% endfor %}
 </ul>
 

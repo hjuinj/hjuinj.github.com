@@ -2,7 +2,11 @@
 title: "Resources"
 layout: post
 category : Resources
-tags : [resources]
+tags : 
+    - resources
+    - chemistry
+    - biology
+    - software
 ---
 <center>
  <b> <font size="5">Table of Content </font> </b>

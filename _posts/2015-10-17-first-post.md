@@ -1,9 +1,9 @@
 ---
 title : "Once in a Lifetime..."
 layout : post
-category : generic
+category : Generic
 tags : 
-- mumble
+    - mumble
 ---
 
 The last time I wrote a blog post was too long ago. I was using this service called Qzone. 

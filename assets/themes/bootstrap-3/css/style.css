@@ -14,11 +14,13 @@
 /*.navbar .nav {
   float: right; }
 */
+
+/* This is the for the title section in homepage */
 div#page {
   height : 30%;
 }
 body.page-body{
-  background-image: url('/assets/img/pale-blue-dot.jpg');
+  background-image: url('/assets/img/Background/pale-blue-dot.jpg');
   max-width:100%;
   max-height:100%;
   font-family :  Verdana, Sans-serif;

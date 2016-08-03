@@ -1,8 +1,11 @@
 ---
-title: "Recent Peruse #0"
+title: "Recent Reads #0"
 layout: post
 category : Scholastic
-tags : [casual reading]
+tags : 
+    - casual reading
+    - science
+    - notes
 ---
 I hope will be the first of a continuous, regular series of posts providing brief summaries concerning different areas of the scientific literature. By attempting to rephrase the encountered material I can probably better understand the underlying theory. It also allows me to keep a record of what I have done.
 

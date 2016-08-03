@@ -1,10 +1,13 @@
 ---
 title: "Hatree-Fock"
 layout: post
-category : Resources
+category : Scholastic
 time : 23/07/2016
 tags :
   - readings
+  - notes
+  - physics
+  - chemistry
 ---
 The wavefunction of the entire system is a function with all the electronic coordinates as variables for a stationary system of nuclear coordinates.
 
