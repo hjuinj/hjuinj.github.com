@@ -1,18 +1,18 @@
-KnitPost <- function(site.path='/home/swang/Documents/workspace/Blog/hjuinj.github.com/', overwriteAll=T, overwriteOne=NULL) {
+KnitPost <- function(dir4fig, site.path='E:/hjuinj.github.com/', overwriteAll=T, overwriteOne=NULL) {
       if(!'package:knitr' %in% search()) library('knitr')
       
       ## Blog-specific directories.  This will depend on how you organize your blog.
       site.path <- site.path # directory of jekyll blog (including trailing slash)
       rmd.path <- paste0(site.path, "_drafts/_Rmd/") # directory where your Rmd-files reside (relative to base)
-      print(rmd.path)
-      fig.dir <- "assets/Rfig/" # directory to save figures
+      fig.dir <- paste0("assets/img/" , dir4fig, "/") # directory to save figures
+      dir.create(paste0(site.path, fig.dir))
       posts.path <- paste0(site.path, "_drafts") # directory for converted markdown files
       cache.path <- paste0(site.path, "_cache") # necessary for plots
       
       render_jekyll(highlight = "pygments")
       opts_knit$set(base.url = '/', base.dir = site.path)
       #opts_chunk$set(fig.path=fig.dir, fig.width=8.5, fig.height=5.25, dev='svg', cache=F, warning=F, message=F, cache.path=cache.path, tidy=F)   
-      opts_chunk$set(fig.path=fig.dir, fig.width=15, fig.height=15, dev='svg', cache=F, warning=F, message=F, cache.path=cache.path, tidy=F)   
+      opts_chunk$set(fig.path=fig.dir, fig.width=10, fig.height=10, dev='svg', cache=F, warning=F, message=F, cache.path=cache.path, tidy=F)   
       
       
       setwd(rmd.path) # setwd to base
@@ -51,4 +51,4 @@ KnitPost <- function(site.path='/home/swang/Documents/workspace/Blog/hjuinj.gith
       }
       
 }
-KnitPost()
+KnitPost("ICchem")
