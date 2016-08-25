@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+        <title>Main()</title>
+        <description>Main() - </description>
+        <link>http://hjuinj.github.io</link>
+        <atom:link href="http://hjuinj.github.io/rss.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Fri, 26 Aug 2016 01:36:38 +0800</lastBuildDate>
+        <pubDate>Fri, 26 Aug 2016 01:36:38 +0800</pubDate>
+        <ttl>60</ttl>
+
+
+        <item>
+                <title>Flock Simulation II - Three Added Functionalities</title>
+                <description>&lt;p&gt;Since the &lt;a href=&quot;/project/2016/07/23/flock_1&quot;&gt;previous post&lt;/a&gt;, I have added three more functionalities:&lt;/p&gt;
+
+&lt;p&gt;First, as delineated last time, I suspect the jiggling motion of the flock simulation I showed last time was due to the individual memebers making too large turns between time steps. Animals all have a maximum degree they can turn with respect to their orientations (imagine a vector draw from its body to its head). It is more natural to define turning directoins in terms of polar coordinates (angles) rather than cartesians. What I have done is to keep a register of the direction each member is moving at (the angle theta and phi are defined with respect to the positive x-axis). One can quite easily transform the polar into cartesian.&lt;/p&gt;
+
+&lt;p&gt;The code is as below, appended into the flock class. Here, each member are still moving randomly, but only within a restricted angle (45 degree by default).&lt;/p&gt;
+
+&lt;pre&gt;
+    &lt;code class=&quot;python&quot;&gt;
+    def directionalVel(self):
+        self.updateCollisions()
+        #TODO world dimension
+        speed = np.random.normal((self.world.dim[0][1] - self.world.dim[0][0])/float(self.world.resolution), 0.001, self.members)
+        theta = np.add(np.random.normal(0, self.orientation/2, self.members) , [i[0] for i in self.directions] )
+        if len(self.world.dim) == 3:
+            phi = np.add(np.random.normal(0, self.orientation/2, self.members) , [i[1] for i in self.directions] )
+            x = np.multiply(speed, np.multiply(np.sin(phi), np.cos(theta)))
+            y = np.multiply(speed, np.multiply(np.sin(phi), np.sin(theta)))
+            z = np.multiply(speed, np.cos(phi))
+            coords = [ x, y, z ]
+            self.updateDirections(np.transpose([theta, phi]))
+            return self.updatePositions(np.transpose(coords))
+        x = np.multiply(speed, np.cos(theta))
+        y = np.multiply(speed, np.sin(theta))
+        coords = [x, y]
+        self.updateDirections([[i] for i in theta])
+        return self.updatePositions(np.transpose(coords))
+
+        &lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;The part that restricts the change in direction between time steps is going to be important when it comes to actually simulating swarms.&lt;/p&gt;
+
+&lt;p&gt;Secondly, I have added the detection for any collisions between flock members. As you probably have seen, the depth perception from the simulation is not very good, there is no way to determine whether two members are overlapping from purely looking. To do this, the pair-wise distance between members need to be calculated.&lt;/p&gt;
+
+&lt;p&gt;The pair-wise distance of the flock members is as below, using &lt;em&gt;spatial&lt;/em&gt; class in the scipy package. The positions of every member in the flock is stored in the self.positions numpy array. Here, the euclidean distance between pairs makes the most sense for me. This is also in the flock class.&lt;/p&gt;
+
+&lt;pre&gt;
+    &lt;code class=&quot;python&quot;&gt;
+    def updateCollisions(self, oriColor = &#39;green&#39;, colColor = &#39;red&#39;):
+        # default color collision to red
+        collisions = self.isCollision()
+        #self.colors[collisions] = colColor
+        #self.colors[~collisions] = oriColor
+        self.colors = [colColor if i in collisions else oriColor for i in xrange(self.members) ]
+
+    def isCollision(self, lim = 0.01):
+        # Condesned matrix format
+        disMat = spatial.distance.squareform(self.pairDistance() &amp;lt; lim)
+        return [int(i[0]) for i,v in np.ndenumerate(np.sum(disMat, axis = 0)) if v &amp;gt; 1] # only overlap with itself
+
+    def pairDistance(self):
+        return spatial.distance.pdist(self.positions)
+        &lt;/code&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;Combing the first two modifications yields the following simulation video:&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;
+&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/c6_FnZSKMWM&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;At the start few second of the video, you can see some of the points are red, indicating members are overlapping. I hope you observe that the jittering motion seen in the last post has disappeared here.&lt;/p&gt;
+
+&lt;p&gt;Lastly, to make the analysis somewhat more quantitative, I have written a plotting function to show how the distance between the members in a flock evolve with time. This is a simple function defined in the world class. Where time step is plotted on the x-axis and the sum of all pair-wise distance at a time step is plotted on the y.&lt;/p&gt;
+&lt;pre&gt;
+    &lt;code class=&quot;python&quot;&gt;
+    def plotAvgDist(self, flock, func, iter = 1000):
+        x = []
+        y = []
+        for i in xrange(iter):
+            x.append(i)
+            y.append(np.sum(flock.pairDistance()))
+            flock.positions = func()
+        plt.plot(x,y)
+        plt.show()
+    &lt;/code&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;This is how the total pair-wise distance evolve with time for the animation above (in 1000 time step):&lt;/p&gt;
+
+&lt;div style=&quot;text-align:center&quot;&gt;
+&lt;img src=&quot;/assets/img/Flock/II plot directional random.png&quot; alt=&quot;plot&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;For something exhibiting flock behaviour, I would expect the plot not be a incrementing function. Instead, there ought to be oscillation around a transient number.&lt;/p&gt;
+
+&lt;p&gt;For the full code, visit my github page for this project : &lt;a href=&quot;https://github.com/hjuinj/Flock-Simulation&quot;&gt;https://github.com/hjuinj/Flock-Simulation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;With these, I think I have the necessary framework at hand which allows me to write simple functions to mimic different motions, with the aim to achieve flock behaviour. One immediate idea to mind is having each member of the flock flying towards its closest neigbour, given the posed change in direction constraint. But that’s for the next time…&lt;/p&gt;
+</description>
+                <link>http://hjuinj.github.io/project/2016/08/09/Flock_2</link>
+                <guid>http://hjuinj.github.io/project/2016/08/09/Flock_2</guid>
+                <pubDate>Tue, 09 Aug 2016 00:00:00 +0800</pubDate>
+        </item>
+
+        <item>
+                <title>Flock Simulation I - Prepartory Work</title>
+                <description>&lt;p&gt;I have long been fascinated by the flock behaviour, may it be in nature, like beautiful starlings flock shown in the youtube video below, or artificial swarms like such described in Crichton’s book ‘Prey’. In its essence, it is a corporative problem between agents. I had some shallow dips into swarm literatures, I did want to do it as my third year literature review but I did not manage to find enough papers. Better weather made me open the blinds at work, and from time to time, around sunset, bird flocks start to appear, like a gentle reminder. It is now that I decided to have another, more documented, more freestyle attempt.&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/eakKfY5aHmY?list=PLU_bihxN6wlOi0_Az-tpRupYhE0tdj-8u&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;There probably are fundamental difference between swarm and flock behaviour. To me they are the same, but I will mainly use flock for now. Anyways, let’s play the creator. A natural question is &lt;em&gt;how&lt;/em&gt; do the individuals move in conjunction with one another? What would be required to achieve something like the above? I plan to write a simulational system to investigate this.&lt;/p&gt;
+
+&lt;p&gt;As I said, I am interested in the &lt;em&gt;how&lt;/em&gt; rather than the &lt;em&gt;why&lt;/em&gt;. The purpose of this project is not to decipher how flock behaviour arises in nature (the stimulus seems to be different for different species anyways). It is a mere mimic of the observed behaviour.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;I am using python for this project because its support for scientific computing and decent computation speed. This is meant to be a quick hit and run, so no compiled language. I did want to use R because I liked the look of ggplot2 more than matplotlib, but I had to install some additional programs in order to render animation, so no. I am using object-oriented paradigm for this project. The whole problem is split into a world object and a flock object. The former object contains the dimension (I will mainly focus on 3D but any dimension is allowed) in which the flock lives. More importantly it contains all the components to plot the animations for a given flock. Functions to construct plots that allow more quantitative studies are to come.&lt;/p&gt;
+
+&lt;p&gt;The World class looks like this:&lt;/p&gt;
+&lt;pre&gt;
+    &lt;code class=&quot;python&quot;&gt;
+import numpy as np
+import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d.axes3d as p3
+import matplotlib.animation as animation
+
+class World(object):
+    def __init__(self, resolution = 64,  dim = [[-1, 1], [-1, 1], [-1, 1]], trace_lim = 7):
+        self.dim, self.resolution = dim, resolution
+        # the trace for the trajectory shouldn&#39;t be too large to avoid storing too much data
+        self.trace_lim = trace_lim
+
+
+    def setDim(self, dim): self.dim = dim
+    def getDim(self): return self.dim
+
+    def drawDots3D(self, ax, coords):
+        return ax.scatter(coords[0], coords[1], coords[2])
+
+    def snapshot(self, func, *args):
+        ax = self.worldSetup()
+        func(ax, *args)
+        plt.show()
+    def worldSetup(self):
+        self.fig = plt.figure()
+        if len(self.dim)  == 2:
+            ax = plt.axes(self.fig)
+            ax.set_xlim(self.dim[0])
+            ax.set_xlabel(&#39;X&#39;)
+            ax.set_ylim(self.dim[1])
+            ax.set_ylabel(&#39;Y&#39;)
+            return ax
+
+        if len(self.dim) == 3 :
+            ax = p3.Axes3D(self.fig)
+            ax.set_xlim3d(self.dim[0])
+            ax.set_xlabel(&#39;X&#39;)
+            ax.set_ylim3d(self.dim[1])
+            ax.set_ylabel(&#39;Y&#39;)
+            ax.set_zlim3d(self.dim[2])
+            ax.set_zlabel(&#39;Z&#39;)
+            return ax
+
+    def animate3D_setup(self, flock):
+        self.members = flock.members
+        ax = self.worldSetup()
+        self.traj = [[[0 for i in range(self.trace_lim)] for j in range(len(self.dim))] for k in range(self.members)] # keep track of line trajectory
+        points  =  [ax.plot([], [], [],flock.shapes[i], c = flock.colors[i], ms = flock.sizes[i])[0] for i in range(self.members)]
+        lines = [ax.plot([], [], [],  ls = flock.traceStyle[i], lw = flock.traceSize[i], c = flock.colors[i])[0] for i in range(self.members)]
+        return points, lines
+
+    def animate3D(self, frame,  fields ):
+        if fields[1 : ] == () :
+            coord = fields[0]()
+        else:
+            coord = fields[0](fields[1 : ])
+        for i in range(self.members):
+            self.points[i].set_data(coord[i][0], coord[i][1])
+            self.points[i].set_3d_properties( coord[i][2])
+        return self.points
+
+    def animate3D_trace(self, frame, fields):
+        if fields[1 : ] == () :
+            coord = fields[0]()
+        else:
+            coord = fields[0](fields[1 : ])
+        for i in range(self.members):
+            self.points[i].set_data(coord[i][0], coord[i][1])
+            self.points[i].set_3d_properties( coord[i][2])
+            for j in range(len(self.dim)):
+                self.traj[i][j].pop(0)
+                self.traj[i][j].append(coord[i][j])
+            self.lines[i].set_data(self.traj[i][0][-self.trace_lim : ], self.traj[i][1][-self.trace_lim : ])
+            self.lines[i].set_3d_properties( self.traj[i][2][-self.trace_lim : ])
+
+        return self.points + self.lines
+
+    def playAnimation(self, flock, func, *args, **kwargs ):
+        self.points, self.lines = self.animate3D_setup(flock)
+        frames = 20
+        if &quot;frames&quot; in kwargs:
+            frames = kwargs[&quot;frames&quot;]
+        anim = animation.FuncAnimation(self.fig, func, frames = frames, fargs = (args, ), blit = True)
+        plt.show()
+
+    def saveAnimation(self, flock, func, *args, **kwargs):
+        self.points, self.lines = self.animate3D_setup(flock)
+        frames = 20
+        if &quot;frames&quot; in kwargs:
+            frames = kwargs[&quot;frames&quot;]
+        anim = animation.FuncAnimation(self.fig, func, frames = frames, fargs = (args, ), blit = True)
+        anim.save(&#39;./tmp.mp4&#39;, fps=30, extra_args=[&#39;-vcodec&#39;, &#39;libx264&#39;])
+    &lt;/code&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;The flock object basically contains the physical positions of a each member in the flock as a list as well as storing other properties such as the size and color of each individual member in lists. Rather than prepackage the position, size, color, etc of a member into a individual object, and make up a flock object as a list of individual objects, I envisage most if not all operations are performed on the flock as a whole, it is more computationally efficient to do so this way. In this class, various different functions that describes how the individuals move are to come. This will be the main meat and bone of the project in order to mimic flock behaviour.&lt;/p&gt;
+
+&lt;p&gt;The Flock class looks like this (at the point of writing):&lt;/p&gt;
+&lt;pre&gt;
+    &lt;code class=&quot;python&quot;&gt;
+from individual import Individual
+import numpy as np
+from scipy import spatial
+
+class Flock(object):
+    def __init__(self, world , members = 7):
+        self.positions, self.colors, self.shapes, self.sizes, self.traceStyle, self.traceSize= np.zeros((members, len(world.dim))),  [&quot;green&quot;] * members, [&quot;^&quot;] * members, [2] * members, [&quot;-&quot;] * members, [0.5] * members
+        self.world, self.members = world, members
+
+    def addIndividual(self, ind):
+        self.positions = np.concatenate((self.positions, [ind.position]))
+        self.colors.append(ind.color)
+        self.shapes.append(ind.shape)
+
+    def deleteIndividual(self, index = 0):
+        self.positions = np.delete(self.postions, (index), axis = 0)
+        self.colors.pop(index)
+        self.shapes.pop(index)
+
+    def getPositions(self): return self.positions
+    def setPositions(self, positions): self.positions = positions
+    def updatePositions(self, vel):
+        self.positions = np.add(self.positions, vel)
+        return self.positions
+    # def getIndividual(self, index): return self.flock[index]
+
+    def uniformVel(self):
+        coords = []
+        for d in range(len(self.world.dim)):
+            tmp = np.abs(self.world.dim[d][1] - self.world.dim[d][0])/float(self.world.resolution)
+
+            coords.append(np.random.uniform(-tmp, tmp, self.members) )
+        return self.updatePositions(np.transpose(coords))
+
+    def genRandPositions(self):
+        coords = []
+        for d in range(len(self.world.dim)):
+            coords.append(np.random.rand(self.members) * (self.world.dim[d][1] - self.world.dim[d][0]) + self.world.dim[d][0])
+        return np.transpose(coords)
+    &lt;/code&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;The following simulation shows the trajectory of 200 individuals starting at the same position and moving with random velocities (drawn from a uniform distribution). The line behind each individual indicates its past 7 locations. As expected, no flock behaviour when each individual moves irrespective or everything else.&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;
+&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/d1w7gAwvQsk&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;hr /&gt;
+&lt;p&gt;To replicate that, you can copy the above two code snippets and put them in a folder (call them world.py and flock.py respectively) along with the code below. Then run the below script. You will obviously need python installed (I’m using python2 rather than python3) as well as additional libraries matplotlib and numpy. So it might be easier to install anaconda which by default includes scientific libraries if you haven’t got python.You can visit &lt;a href=&quot;https://github.com/hjuinj/Flock-Simulation&quot;&gt;my repo&lt;/a&gt; on github for the full, evolving code.&lt;/p&gt;
+
+&lt;pre&gt;
+    &lt;code style=&quot;python&quot;&gt;
+from world import World
+from flock import Flock
+
+w = World();
+f = Flock(world = w, members = 200)
+w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
+    &lt;/code&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;The amount of code might seem to be an overkill at this point, but with the overarching framework more or less setup, it is relatively easy to write functions that are specifically dealing with the dynamics to better simulate the flock behaviour. One immediate modification to modeling the dynamics can be made, namely individuals within a flock have a orientation. There is a limit to the degree an individual can turn within one time step with respect to the initial direction it was flying, let’s leave that for the next post…&lt;/p&gt;
+</description>
+                <link>http://hjuinj.github.io/project/2016/07/23/flock_1</link>
+                <guid>http://hjuinj.github.io/project/2016/07/23/flock_1</guid>
+                <pubDate>Sat, 23 Jul 2016 00:00:00 +0800</pubDate>
+        </item>
+
+        <item>
+                <title>To Read</title>
+                <description>&lt;center&gt;
+ &lt;b&gt; &lt;font size=&quot;5&quot;&gt;Table of Content &lt;/font&gt; &lt;/b&gt;
+&lt;/center&gt;
+
+&lt;!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 --&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#cheminformatics&quot;&gt;CHEMINFORMATICS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#genetics&quot;&gt;GENETICS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#machine-learning&quot;&gt;MACHINE LEARNING&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#neuroscience&quot;&gt;NEUROSCIENCE&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#nlp&quot;&gt;NLP&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#physics&quot;&gt;PHYSICS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#programming-languages&quot;&gt;PROGRAMMING LANGUAGES&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#systems-biology&quot;&gt;SYSTEMS BIOLOGY&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- /TOC --&gt;
+&lt;hr /&gt;
+&lt;hr /&gt;
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;applied-mathematics&quot;&gt;APPLIED MATHEMATICS&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;www.dartmouth.edu/~gvc/Cybenko_MCSS.pdf&quot;&gt;Approximation by Superpositions of a Sigmoidal Function&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;shows Neural Networks with at least one hidden layer are universal approximators that can approximate any analytical function
+- &lt;a href=&quot;arxiv.org/pdf/1411.5259v1.pdf&quot;&gt;Statistical Significance for Hierarchical Clustering&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;cheminformatics&quot;&gt;CHEMINFORMATICS&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;pubs.acs.org/doi/abs/10.1021/ci049860f&quot;&gt;The Reduced Graph Descriptor in Virtual Screening and Data-Driven Clustering of High-Throughput Screening Data&lt;/a&gt;
+Pharmacophore representation of molecule&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;pubs.acs.org/doi/abs/10.1021/jm9014229&quot;&gt;Systematic Analysis of Public Domain Compound Potency Data Identifies Selective Molecular Scaffolds across Druggable Target Families&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;genetics&quot;&gt;GENETICS&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://www.nature.com/nrg/series/epigenetics/index.html&quot;&gt;Nature Genetics Reviews: Epigenetics&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://www.nature.com/nrg/series/modelling/index.html&quot;&gt;Nature Genetics Review : Modeling&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;www.cell.com/cell/collections/transcription-epigenetics&quot;&gt;Landmark Cell Reviews: Transcription and Epigenetics&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;machine-learning&quot;&gt;MACHINE LEARNING&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;del&gt;&lt;a href=&quot;https://www.tensorflow.org/versions/r0.9/tutorials/index.html&quot;&gt;TensorFlow Neural Network Tutorial&lt;/a&gt;&lt;/del&gt; (27/07/16)
+Doing the Udacity course instead&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.kaggle.com/c/facial-keypoints-detection/details/deep-learning-tutorial&quot;&gt;Deep Learning Tutorial Kaggle Facial Keypoints Image Learn&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.deeplearningbook.org/&quot;&gt;Deep Learning Textbook, MIT Press&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;arxiv.org/abs/1412.0233&quot;&gt;The Loss Surfaces of Multilayer Networks&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;molecular-modeling&quot;&gt;MOLECULAR MODELING&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;pubs.acs.org/doi/abs/10.1021/jm301016m&quot;&gt;Toward Rational Fragment-Based Lead Design without 3D Structures&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;pubs.acs.org/doi/abs/10.1021/ja066980q&quot;&gt;Classification of Water Molecules in Protein Binding Sites&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;neuroscience&quot;&gt;NEUROSCIENCE&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;www.computersinbiologyandmedicine.com/article/S0010-4825(13)00352-1/fulltext&quot;&gt;A P300-based brain computer interface system for words typing&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;www.nature.com/nature/journal/vaop/ncurrent/full/nature18933.html&quot;&gt;A multi-modal parcellation of human cerebral cortex&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;del&gt;&lt;a href=&quot;http://biorxiv.org/content/early/2016/05/26/055624&quot;&gt;Could a neuroscientist understand a microprocessor?&lt;/a&gt;&lt;/del&gt; (26/07/16)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;to be reviewed&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://onlinelibrary.wiley.com/doi/10.1207/s15516709cog0000_59/pdf&quot;&gt;Is the Brain a Quantum Computer?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;www.nature.com/ncomms/2016/160704/ncomms12142/full/ncomms12142.html&quot;&gt;High-throughput dual-colour precision imaging for brain-wide connectome with cytoarchitectonic landmarks at the cellular level&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://physics.ucsd.edu/neurophysics/courses/physics_171/annurev.neuro.28.061604.135703.pdf&quot;&gt;Dendritic Computation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;www.sciencedirect.com/science/article/pii/S0959438814000130&quot;&gt;Single neuron dynamics and computation&lt;/a&gt;
+# NLP&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf&quot;&gt;A Neural Probabilistic Language Mode&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;norvig.com/spell-correct.html&quot;&gt;How to Write a Spelling Corrector&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.nltk.org/book&quot;&gt;NLTK Toolkit&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;starting CH03&lt;/p&gt;
+
+&lt;h1 id=&quot;physics&quot;&gt;PHYSICS&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;www.nature.com/nphys/journal/vaop/ncurrent/full/nphys3830.html&quot;&gt;Ergodic dynamics and thermalization in an isolated quantum system&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Indication of reconciliation between quantum and classical physics.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;www.nature.com/nnano/journal/vaop/ncurrent/full/nnano.2016.131.html&quot;&gt;A kilobyte rewritable atomic memory&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Chlorine on top of copper, using voids and no voids to represent bits.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;www.nature.com/nature/journal/v459/n7248/full/nature08096.html&quot;&gt;Existence of collisional trajectories of Mercury, Mars and Venus with the Earth&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;programming-languages&quot;&gt;PROGRAMMING LANGUAGES&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.kaggle.com/c/street-view-getting-started-with-julia/details/knn-tutorial&quot;&gt;Learning Julia with Unsupervised Learning&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;del&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/21377121?refer=xmucpp&quot;&gt;Python Web Crawler Blog Series - Foundation&lt;/a&gt;&lt;/del&gt; (24/07/16)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/21377121?refer=xmucpp&quot;&gt;Python Web Crawler Blog Series - Advanced&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://tldp.org/LDP/abs/html/&quot;&gt;Shell Scripting Reference&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;systems-biology&quot;&gt;SYSTEMS BIOLOGY&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;www.hindawi.com/journals/bmri/2014/428570/&quot;&gt;Systems Biology in the Context of Big Data and Networks&lt;/a&gt; #Review#&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;em&gt;Date of creation : 23/07/2016&lt;/em&gt;&lt;/p&gt;
+</description>
+                <link>http://hjuinj.github.io/plan/2016/07/23/toRead</link>
+                <guid>http://hjuinj.github.io/plan/2016/07/23/toRead</guid>
+                <pubDate>Sat, 23 Jul 2016 00:00:00 +0800</pubDate>
+        </item>
+
+        <item>
+                <title>Hatree-Fock</title>
+                <description>&lt;p&gt;The wavefunction of the entire system is a function with all the electronic coordinates as variables for a stationary system of nuclear coordinates.&lt;/p&gt;
+
+&lt;p&gt;For a given nuclear coordinates arrangement, the wavefunction is a function of the electron coordinates.&lt;/p&gt;
+
+&lt;p&gt;Firstly, the joint wavefunction for the molecule is approxmiated by the product of individual molecular orbital wavefunction only depended upon each nuclear coordinate.
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Slater_determinant&quot;&gt;https://en.wikipedia.org/wiki/Slater_determinant&lt;/a&gt;
+A molecular orbital wavefunction is a better description of the environment a electron expreiences within a molecule. The overall system of the molecule is often described (approximated) by the product of the molecular orbital wavefunctions for each individual electron:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Φ&lt;/em&gt;&lt;/strong&gt; = ∏ Φ_n&lt;/p&gt;
+
+&lt;p&gt;In the Slater determinant, each element is a molecular orbital wavefunction. It is made up of all the molecular orbitals that are occupied by electrons. Hence for a N-electron system the determinant is NxN in dimention. The ith row is all the N possible wavefunctions the ith electron could reside in (can be the same MO, since each orbital accomodates two electrons).&lt;/p&gt;
+
+&lt;p&gt;The energy Hamiltonian of a polyelectronic system is attributed to three separable parts:
+1. Each occupied molecular orbital has the kinetic and potential energy from all the nuclei. This is the &lt;strong&gt;H_ii&lt;/strong&gt; part where “ii” means it is due to the same electron. (think of the Hamiltonian operator, where the potential energy part is made up of the summation of all the electrostatic potential from each nucleus)
+2. Each &lt;em&gt;pair&lt;/em&gt; of electrons experience electrostatic repulsion due to each other, denoted as &lt;strong&gt;J_ij&lt;/strong&gt; where “ij” means it is interaction between different electrons.
+3. Energy arising from spin correlation, or exchange interaction. Electron cannot reside in the same orbital if they have parallel spins. When two electrons have parallel spins, they cannot be in the same MO hence electron motions are not independent (that is even without considering part(2)). This is denoted &lt;strong&gt;K_ij&lt;/strong&gt;, which is only non-zero when i and j are in the same spin.&lt;/p&gt;
+
+&lt;p&gt;For a system of N electrons, there is N * &lt;strong&gt;H_ii&lt;/strong&gt;. There are N*(N-1) * &lt;strong&gt;J_ij&lt;/strong&gt;, similarly for &lt;strong&gt;K_ij&lt;/strong&gt;, but some of these terms would be zero. The total energy of the system would have a additional Columbic interaction between all Nuclei, for the given nuclear arrangement it is a fixed constant added onto the three terms which all dynamically depends on the trjectory of the electrons.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;The above formulation shows how the energy of a polyelectronic system is obtained from provided the MOs.&lt;/p&gt;
+
+&lt;p&gt;The MOs are obtained in this way.
+The variation theorem states the &lt;em&gt;ground state&lt;/em&gt; electronic configuration of a system will be an energy minimum. We have an expression of energy in terms of the MOs, we can find the MOs that minimises the energy with the additional requirement that MOs need to be orthonormal. This is a constraint minimisation problem. The Hatree-Fock formulation transforms this optimisation problem into the following format:&lt;/p&gt;
+
+&lt;p&gt;f̂ Φ = ϵ Φ&lt;/p&gt;
+
+&lt;p&gt;This very Schrondinger-like equation says the wavefunction of a molecular orbital where a electron resides acted upon by the Fock operator (on the left) equals the same wavefunction multiplied by a constant. The Fock operator encompasses the three energy contribution terms alluded to above. As you can see, the Fock opertor is a function of the MOs for all the other electrons in the system. No analytical solution exists for this. The numerical solution involves starting with an initial guess for the set of MOs and use them to obtain the Fock operators. Using the derived Fock operators, a better approximation of the MO wavefunctions can then be obtained, which are again plugged in to obtain a new set of Fock operators. This iterative process continuous until some convergence condition is met. This is called the &lt;strong&gt;self-consistent field&lt;/strong&gt; approach.&lt;/p&gt;
+
+&lt;p&gt;Two levels of simplifications are added to the HF formulation to reduce the search space.&lt;/p&gt;
+
+&lt;p&gt;Firstly, molecular orbitals are constructed by weighted combinations of atomic orbitals(obtained from solving for the hydrogen atom), abbreviated as LCAO:&lt;/p&gt;
+
+&lt;p&gt;Φ = ∑ c_i * φ_i&lt;/p&gt;
+
+&lt;p&gt;The set of atomic orbitals chosen to become the molecular orbitals are referred to as the &lt;strong&gt;basis set&lt;/strong&gt;. Combinations of N atomic orbitals yields N molecular orbitals, which do not necessarily need to be occupied by electrons. The difference between these molecular orbitals are therefore only in the coefficients “c_i” terms in front of the atomic orbitals.&lt;/p&gt;
+
+&lt;p&gt;Secondly, Slater type orbitals (STO) simplifies the radial part of atomic orbital wavefuntions. Such simplification contains an empirical coefficient which is estimated by the Slater Rules. Finding the solution becomes getting the “c_i”s that minimises the energy for each and every molecular orbital.&lt;/p&gt;
+</description>
+                <link>http://hjuinj.github.io/scholastic/2016/07/20/Hatree-Fock</link>
+                <guid>http://hjuinj.github.io/scholastic/2016/07/20/Hatree-Fock</guid>
+                <pubDate>Wed, 20 Jul 2016 00:00:00 +0800</pubDate>
+        </item>
+
+        <item>
+                <title>Recent Reads #0</title>
+                <description>&lt;p&gt;I hope will be the first of a continuous, regular series of posts providing brief summaries concerning different areas of the scientific literature. By attempting to rephrase the encountered material I can probably better understand the underlying theory. It also allows me to keep a record of what I have done.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.cell.com/abstract/S0092-8674(13)00645-4&quot;&gt;The Hallmarks of Aging&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Quantum Mechanics for Scientist and Engineers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://biorxiv.org/content/early/2016/05/26/055624&quot;&gt;Could a neuroscientist understand a microprocessor?&lt;/a&gt;
+The preprint paper begs the question that can &lt;em&gt;fundamental insights&lt;/em&gt; be gained through more and better data?
+reverse-engineered a simple processor unit MOS6502 with manageable number of transistors.
+using more and more detailed analysis
+a simulational program was written to mimic the performance of the processor unit.
+However, we can not currently evaluate if better analysis techniques, even with far more data, can figure out meaningful models of the brain.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;what is classified as an understanding of the system
+suggest using the processor as a way to test what methodology might be about to lead to correct conclusions for the brain, despite gross differences between the two systems.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf&quot;&gt;A Neural Probabilistic Language Mode&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.ncbi.nlm.nih.gov/pubmed/16588492&quot;&gt;Genetic Control of Biochemical Reactions in Neurospora&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2135445&amp;amp;tool=pmcentrez&amp;amp;rendertype=abstract&quot;&gt;STUDIES ON THE CHEMICAL NATURE OF THE SUBSTANCE INDUCING TRANSFORMATION OF PNEUMOCOCCAL TYPES&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://pubs.acs.org/doi/abs/10.1021/acs.jmedchem.5b01946&quot;&gt;Hydrogen Bond Basicity Prediction for Medicinal Chemistry Design&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Introduction to Apache Spark.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This is a 3 week course offered on &lt;a href=&quot;edx.org&quot;&gt;edX&lt;/a&gt;, a relatively gentle lead into the area of data science using Apache Spark, which is a distributed framework to treat big data via parallelism. I participated in a similar offering about a year ago. Due to the dynamic and vibrant nature of the field, additional features have been amended and added since then. This time ,they have also chosen to have the assignment directly done on &lt;a href=&quot;databricks.com&quot;&gt;Databricks&lt;/a&gt;, who is the main contributor to Apache Spark, rather than having to configure a virtual machine to run this last time which meant it cumbersome to adapt the hardware architecture to perform customary jobs. Plus they are adding more content into the series. This is the first of a series of 3 (or potentially 5) course in data science using this architecture. So this is a somewhat revision.&lt;/p&gt;
+
+&lt;p&gt;To do this course requires some programming foundation in python. It is certainly very interesting to follow, though I suspect to fully appreciate the usefulness of the content requires at least a vague understanding of the time bottleneck of manipulating massive datasets.&lt;/p&gt;
+
+&lt;p&gt;The assignments&lt;/p&gt;
+</description>
+                <link>http://hjuinj.github.io/scholastic/2016/07/20/recentRead1</link>
+                <guid>http://hjuinj.github.io/scholastic/2016/07/20/recentRead1</guid>
+                <pubDate>Wed, 20 Jul 2016 00:00:00 +0800</pubDate>
+        </item>
+
+        <item>
+                <title>Basis Sets</title>
+                <description>&lt;p&gt;additions, insertions and deletions will be done as my understanding of the topic progresses. This serves as a test-ground for me to elucidate my understanding in computational chemistry as well as a sand-box for formatting maths-heavy documents in markdown. Hence &lt;strong&gt;I do NOT guarantee the validity of the following document nor is it my attempt of a rigorous piece of work&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Maths equations markdown reminder
+&lt;a href=&quot;http://www.statpower.net/Content/310/R%20Stuff/SampleMarkdown.html&quot;&gt;http://www.statpower.net/Content/310/R%20Stuff/SampleMarkdown.html&lt;/a&gt;
+markdown cheatshet
+&lt;a href=&quot;https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet&quot;&gt;https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;From this, one can begin to see why when compared to MM methods, QM calculations are deemed a lot more expensive. In order to simulation a system requires evaluation of the system evolution over time. For each time step, a MM approach only requires the evaluation of the analytical function composing of the different energy contributions (torsion, electrostatic, etc), but a QM calculation would need to iteratively solve for the new MOs for the changed nuclei coordinates before the energy evaluations.&lt;/p&gt;
+
+&lt;p&gt;For an atomic orbital calculation, these are typically the orbitals for a hydrogenic atom (an atom with only one electron, but the appropriate nuclear charge). For a molecular orbital or crystalline calculation, the initial approximate one-electron wave functions are typically a linear combination of atomic orbitals (LCAO).&lt;/p&gt;
+
+&lt;h2 id=&quot;basis-sets-ab-initio&quot;&gt;Basis Sets (&lt;em&gt;ab initio&lt;/em&gt;)&lt;/h2&gt;
+&lt;p&gt;The adaptation of Gaussian orbital over Slater type orbital (STO) is due to its efficiency in computation. Such orbital has a general form of:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;                                x^ay^bz^c exp(-\alpha  r^2) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The exponential format allows orbital joining (multiplication) very cheap to calculate.&lt;/p&gt;
+
+&lt;p&gt;Depending on the powers a,b,c which can take on values of 1 or 0. When all of them equal to zero, it is a zeroth-order Gaussian that resembles the formalism of s-type atomic orbitals. When one of the three is one it is a first-order Gaussian, resembling p-type orbitals.&lt;/p&gt;
+
+&lt;p&gt;Often a linear combinations of GTOs are used to approximate STOs. Fitting is done via minimising least square error for example. After optimisation, in the linear combination, the coefficient in front of each GTO and the $\alpha$ is often fixed when calculating the final MO form. In addition, the $\alpha$ term is fixed for s and p type orbitals This is again for computational cost.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Minimal basis set&lt;/em&gt; includes all the filled orbitals in each atom, each such orbital is represented by a set of Gaussian orbitals. The notation “STO-3G” therefore means each Slater type orbital is approximated by 4 Gaussian orbitals. For &lt;em&gt;ab initio&lt;/em&gt;, 3 is the bare minimum. Reminder of the hierarchy, MOs are approxmiate by LCAO, AOs are approximated by STO, and STOs are approximated by GTOs.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Split valence basis set&lt;/em&gt; accounts for anistropy problems for the minimal basis set by allowing more than one type of STOs to be used to model the valence atomic orbitals. The most used type is the double split zeta basis set (zeta is the coefficient in front of the exponent in the radial part of STO) which models valence orbitals with two different STOs and inner shell orbitals with one. For example, in the 3-21G basis set, each inner shell atomic orbital is approximated by one STO, which is in turn approximated by three GTOs. While the valence shell orbitals are modeled by two different types of STOs, one of the two is approximated by two GTOs, the other by one.&lt;/p&gt;
+
+&lt;p&gt;One can further account for the charge distortion effect on the orbitals by modeling polarisations - reducing the charge symmetry by including un-occupied p orbitals to the basis set to atoms only having filled s orbitals, similarly adding d to atoms only with s and p characters. 3-21G* means polarisations is done on all heavy atom (d type). Two asterisks means polarisation is done on hydrogen and helium (p type polarisation) too. To account for species with large electron density away from the nulei (where all Gaussians for a given orbital center on), one can add extra set of diffused orbitals. This is what the “+” notation means.&lt;/p&gt;
+
+&lt;p&gt;So, 3-21+ +G* means for a given atom, each of its inner shell orbital is modelled by one STO - approximated by three GTOs. Each of its valence orbital is modelled by two STOs, one approximated by two GTOs and the other by one. On top, each atom has a extra set of diffuse s and p type GTOs added (indicated by + +, + would be for each non-hydrogen atom). Additionally, extra unoccupied (d) orbitals (still approximated by GTOs) is added for each non-hydrogen atom. The asterisk can be replaced by more precise notation such as 3-21++G(3df, 3pd), which means 3 d-type GTOs 1 f-type GTOs are added for heavy atoms and 3 p-type GTOs and 1 d-type GTO is added to each hydrogen.&lt;/p&gt;
+
+&lt;p&gt;There are other basis sets too, e.g. see wikipedia.&lt;/p&gt;
+</description>
+                <link>http://hjuinj.github.io/scholastic/2016/07/19/BasisSet</link>
+                <guid>http://hjuinj.github.io/scholastic/2016/07/19/BasisSet</guid>
+                <pubDate>Tue, 19 Jul 2016 00:00:00 +0800</pubDate>
+        </item>
+
+        <item>
+                <title>Resources</title>
+                <description>&lt;center&gt;
+ &lt;b&gt; &lt;font size=&quot;5&quot;&gt;Table of Content &lt;/font&gt; &lt;/b&gt;
+&lt;/center&gt;
+
+&lt;!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 --&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#cheminformatics&quot;&gt;CHEMINFORMATICS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#molecular-dynamics&quot;&gt;MOLECULAR DYNAMICS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#molecular-modelling&quot;&gt;MOLECULAR MODELLING&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#nlp&quot;&gt;NLP&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#programming&quot;&gt;PROGRAMMING&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- /TOC --&gt;
+&lt;hr /&gt;
+&lt;hr /&gt;
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;cheminformatics&quot;&gt;CHEMINFORMATICS&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;CDK&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;RDKit
+Here is RDkit in Python:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.rdkit.org/docs/GettingStartedInPython.html&quot;&gt;http://www.rdkit.org/docs/GettingStartedInPython.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Knime&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;NCI&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Chembl&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Rpubchem&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;SMARTS Overlay Tool&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;http://cdkdepict-openchem.rhcloud.com/depict.html&quot;&gt;http://cdkdepict-openchem.rhcloud.com/depict.html&lt;/a&gt;
+—&lt;/p&gt;
+
+&lt;h1 id=&quot;molecular-dynamics&quot;&gt;MOLECULAR DYNAMICS&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;OpenMM&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Beginner’s tutorial:
+&lt;a href=&quot;https://westpa.github.io/westpa/tutorials/openmm.html#preparing-the-openmm-files&quot;&gt;https://westpa.github.io/westpa/tutorials/openmm.html#preparing-the-openmm-files&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Full documentation:
+&lt;a href=&quot;http://docs.openmm.org/6.1.0/userguide/introduction.html&quot;&gt;http://docs.openmm.org/6.1.0/userguide/introduction.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;molecular-modelling&quot;&gt;MOLECULAR MODELLING&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;PyMol&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;VMD&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;nlp&quot;&gt;NLP&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;NLTK
+Thorough introduction of NLP using NLTK:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.nltk.org/book&quot;&gt;http://www.nltk.org/book&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;programming&quot;&gt;PROGRAMMING&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;R
+Advanced R:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;http://adv-r.had.co.nz/&quot;&gt;http://adv-r.had.co.nz/&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+</description>
+                <link>http://hjuinj.github.io/resources/2016/07/06/resources</link>
+                <guid>http://hjuinj.github.io/resources/2016/07/06/resources</guid>
+                <pubDate>Wed, 06 Jul 2016 00:00:00 +0800</pubDate>
+        </item>
+
+        <item>
+                <title>Databases</title>
+                <description>&lt;center&gt;
+ &lt;b&gt; &lt;font size=&quot;5&quot;&gt;Table of Content &lt;/font&gt; &lt;/b&gt;
+&lt;/center&gt;
+&lt;!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 --&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#molecules&quot;&gt;MOLECULES&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#emolecules&quot;&gt;eMolecules&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#zinc&quot;&gt;ZINC&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#pubchem&quot;&gt;PubChem&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#chemspider&quot;&gt;ChemSpider&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#chembl&quot;&gt;ChemBL&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#nci&quot;&gt;NCI&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#surechembl-open-patent-database&quot;&gt;SureChEMBL Open Patent database&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#proteins&quot;&gt;PROTEINS&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#pdb&quot;&gt;PDB&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- /TOC --&gt;
+&lt;hr /&gt;
+&lt;hr /&gt;
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;molecules&quot;&gt;MOLECULES&lt;/h1&gt;
+
+&lt;h2 id=&quot;emolecules&quot;&gt;eMolecules&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.emolecules.com/info/products-data-downloads.html&quot;&gt;https://www.emolecules.com/info/products-data-downloads.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;zinc&quot;&gt;ZINC&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://zinc.docking.org/browse/subsets/&quot;&gt;http://zinc.docking.org/browse/subsets/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;pubchem&quot;&gt;PubChem&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.ncbi.nlm.nih.gov/guide/chemicals-bioassays/#downloads_&quot;&gt;http://www.ncbi.nlm.nih.gov/guide/chemicals-bioassays/#downloads_&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;It is from NCBI&lt;/p&gt;
+
+&lt;h2 id=&quot;chemspider&quot;&gt;ChemSpider&lt;/h2&gt;
+
+&lt;h2 id=&quot;chembl&quot;&gt;ChemBL&lt;/h2&gt;
+
+&lt;h2 id=&quot;nci&quot;&gt;NCI&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://cactus.nci.nih.gov/download/nci/&quot;&gt;https://cactus.nci.nih.gov/download/nci/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;surechembl-open-patent-database&quot;&gt;SureChEMBL Open Patent database&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.surechembl.org/search/&quot;&gt;https://www.surechembl.org/search/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Including Marvin JS molecular sketching tool&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;proteins&quot;&gt;PROTEINS&lt;/h1&gt;
+
+&lt;h2 id=&quot;pdb&quot;&gt;PDB&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.rcsb.org/pdb/home/home.do&quot;&gt;http://www.rcsb.org/pdb/home/home.do&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+</description>
+                <link>http://hjuinj.github.io/resources/2016/07/06/database</link>
+                <guid>http://hjuinj.github.io/resources/2016/07/06/database</guid>
+                <pubDate>Wed, 06 Jul 2016 00:00:00 +0800</pubDate>
+        </item>
+
+        <item>
+                <title>Projects TODO</title>
+                <description>&lt;h1 id=&quot;chrome-extensions&quot;&gt;CHROME EXTENSIONS&lt;/h1&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;1.&lt;/h2&gt;
+
+&lt;h2 id=&quot;vimlike&quot;&gt;2. Vimlike&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Extension Vimimum performs far better
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;news-from-youtube-on-popup-page&quot;&gt;3. News from youtube on Popup page&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Unable to have it shown on a popup page due to API issue.
+Problem might be addressed, see webpage
+***By default external js library are not allowed***
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;synonmyn-on-ominibar&quot;&gt;4. Synonmyn on ominibar&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Only one synonmyn shown, and not necessarily the best one, should show more (unsolved)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;memory-monitor&quot;&gt;5. Memory Monitor&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Uses sys.memory to check the percentage usage of memory and shows it on a browser action
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;a-timer&quot;&gt;6. A Timer&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//TODO Ties it with Zhihu, allowing myself 3000s of reading time only.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;synchronise-tabs-management-across-browsers-todo&quot;&gt;7. Synchronise tabs management across browsers (TODO)&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;A online storage of which tabs to close and open &amp;lt;http://www.ituring.com.cn/article/60274&amp;gt;
+Look for open tabs in history &amp;lt;http://www.ituring.com.cn/article/66064&amp;gt;
+Close and open tabs &amp;lt;http://www.ituring.com.cn/article/66275&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;search-for-meaning-of-highlighted-words-dictionary&quot;&gt;8. search for meaning of highlighted words (dictionary)&lt;/h2&gt;
+
+&lt;h2 id=&quot;extension-to-switch-on-all-the-other-extensions&quot;&gt;9. Extension to switch on all the other extensions&lt;/h2&gt;
+
+&lt;p&gt;=======================================
+FURTHER IDEAS:
+ - A extension for managing the extensions &lt;a href=&quot;http://www.ituring.com.cn/article/66195&quot;&gt;http://www.ituring.com.cn/article/66195&lt;/a&gt;
+ - Reload a webpage at regular intervals &lt;a href=&quot;http://www.ituring.com.cn/article/66275&quot;&gt;http://www.ituring.com.cn/article/66275&lt;/a&gt; update
+ - A news feed collector
+ - Screen capture of the webpage in the tab &lt;a href=&quot;http://www.ituring.com.cn/article/66275&quot;&gt;http://www.ituring.com.cn/article/66275&lt;/a&gt; captureVisibleTab
+ - Inject changes to the content of a webpage &lt;a href=&quot;http://www.ituring.com.cn/article/66275##footer&quot;&gt;http://www.ituring.com.cn/article/66275##footer&lt;/a&gt; executeScript
+ - Download files from page &lt;a href=&quot;http://www.ituring.com.cn/article/72765&quot;&gt;http://www.ituring.com.cn/article/72765&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;=======================================&lt;/p&gt;
+
+&lt;p&gt;KNOW MORE:
+ - Proxy &lt;a href=&quot;http://www.ituring.com.cn/article/72770&quot;&gt;http://www.ituring.com.cn/article/72770&lt;/a&gt;&lt;/p&gt;
+</description>
+                <link>http://hjuinj.github.io/plan/2016/04/11/project-todo</link>
+                <guid>http://hjuinj.github.io/plan/2016/04/11/project-todo</guid>
+                <pubDate>Mon, 11 Apr 2016 00:00:00 +0800</pubDate>
+        </item>
+
+        <item>
+                <title>Once in a Lifetime...</title>
+                <description>&lt;p&gt;The last time I wrote a blog post was too long ago. I was using this service called Qzone. 
+&lt;!--- and I was more focused on the writing than the formatting. --&gt;&lt;/p&gt;
+
+&lt;p&gt;I was a kid, mumbling about nothing, in Chinese.&lt;/p&gt;
+
+&lt;p&gt;To give you a glimpse &lt;a href=&quot;http://user.qzone.qq.com/348601585&quot;&gt;Qzone&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/qzone.png&quot; alt=&quot;qzone&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I never go back and read what I write: afraid I will be overwhelmed by the level stupidity. But to be fair, I think I write well, at least in Chinese.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-this&quot;&gt;Why this?&lt;/h2&gt;
+
+&lt;p&gt;So why do I come back to blogging? Have I got too much time to kill?&lt;/p&gt;
+
+&lt;p&gt;NOOOOO! On the contrary, my time is &lt;strong&gt;&lt;em&gt;VERY&lt;/em&gt;&lt;/strong&gt; valuable. I look to accomplish a lot in this year and time is not on my side.&lt;/p&gt;
+
+&lt;p&gt;I came back because I believe I have something valuble to say. Firstly, I would like to share my experience as a Chemistry undergrad, and my perspectives of scientific research. 
+I also would like to keep track of this wonderfull placement year I am having at UCB Pharma, keeping notes about the drug-discovery pipeline I have been exposed to. Of course, UCB, nothing confidential will be publisised, I promise.
+I would like to especially write about cheminformatics, which sadly isn’t at all emphasised in my undergraduate studies.&lt;/p&gt;
+
+&lt;p&gt;I aim to explain what were once esoteric concepts to me or present interesting literatures I have encountered at the level of a science undergrad. Also I would like to point to some resources I found to be useful.&lt;/p&gt;
+
+&lt;p&gt;So what’s in this for &lt;strong&gt;me&lt;/strong&gt;? Well, manifold really. For one, I think writting blogs can definitly improve my writing skill. Those papers ain’t gonna write themselves.&lt;/p&gt;
+
+&lt;h2 id=&quot;anything-else&quot;&gt;Anything else?&lt;/h2&gt;
+&lt;p&gt;YES!!!!!! As you can see this blog is hosted on github, using Jekyll, which is a new tool I am learning to use, along with other funky stuffs I am or planning to work on, (text scrappers, plugins, open sourced projects, etc).&lt;/p&gt;
+
+&lt;p&gt;I have taken far far far too many online courses. It is time to put those knowledege to test. I enjoy science, I enjoy technology. Atoms + Bits -&amp;gt; the way forward (R much?).&lt;/p&gt;
+
+&lt;h2 id=&quot;so&quot;&gt;So&lt;/h2&gt;
+&lt;p&gt;So, I hope I will keep up, well, who knows…&lt;/p&gt;
+
+&lt;p&gt;I would like to leave you with this, which I signatured at the end of every blog post I had on Qzone, when I was that little kid:&lt;/p&gt;
+
+&lt;div style=&quot;text-align:center&quot;&gt;
+&lt;!-- ![onepiece](/assets/img/generic/人的梦想.jpg) --&gt;
+&lt;img src=&quot;/assets/img/generic/人的梦想.jpg&quot; alt=&quot;onepiece&quot; /&gt;
+&lt;/div&gt;
+
+</description>
+                <link>http://hjuinj.github.io/generic/2015/10/17/first-post</link>
+                <guid>http://hjuinj.github.io/generic/2015/10/17/first-post</guid>
+                <pubDate>Sat, 17 Oct 2015 00:00:00 +0800</pubDate>
+        </item>
+
+
+</channel>
+</rss>

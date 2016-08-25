@@ -1,0 +1,78 @@
+<p>#Multi-dim Array
+int[ , ] arrayName = new int[10,10];
+#Jagged arrays
+<code class="highlighter-rouge"><span class="p">{</span><span class="err">C#</span><span class="p">}</span><span class="w">
+</span><span class="err">int</span><span class="p">[][]</span><span class="w"> </span><span class="err">jaggedArray</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">new</span><span class="w"> </span><span class="err">int</span><span class="p">[</span><span class="mi">10</span><span class="p">][]</span><span class="err">;</span><span class="w">
+</span><span class="err">jaggedArray</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">new</span><span class="w"> </span><span class="err">Type</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="err">;</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Can</span><span class="w"> </span><span class="err">specify</span><span class="w"> </span><span class="err">different</span><span class="w"> </span><span class="err">sizes.</span><span class="w">
+</span><span class="err">jaggedArray</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">new</span><span class="w"> </span><span class="err">Type</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="err">;</span><span class="w">
+</span><span class="err">//...</span><span class="w">
+</span><span class="err">jaggedArray</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">new</span><span class="w"> </span><span class="err">Type</span><span class="p">[</span><span class="mi">21</span><span class="p">]</span><span class="err">;</span><span class="w">
+</span></code></p>
+
+<h1 id="enum">Enum</h1>
+<pre><code class="language-{C#}">enum Day : short { Sunday = 1, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday };
+Day.Sunday
+</code></pre>
+
+<h1 id="structs">Structs</h1>
+<p>Watch out for the access modifiers:
+<code class="highlighter-rouge"><span class="p">{</span><span class="err">C#</span><span class="p">}</span><span class="w">
+</span><span class="err">public</span><span class="w"> </span><span class="err">struct</span><span class="w"> </span><span class="err">Coffee</span><span class="w">
+</span><span class="p">{</span><span class="w">
+   </span><span class="err">//</span><span class="w"> </span><span class="err">This</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">custom</span><span class="w"> </span><span class="err">constructor.</span><span class="w">
+   </span><span class="err">public</span><span class="w"> </span><span class="err">Coffee(int</span><span class="w"> </span><span class="err">strength,</span><span class="w"> </span><span class="err">string</span><span class="w"> </span><span class="err">bean,</span><span class="w"> </span><span class="err">string</span><span class="w"> </span><span class="err">countryOfOrigin)</span><span class="w">
+   </span><span class="err">{</span><span class="w">
+      </span><span class="err">this.Strength</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">strength;</span><span class="w">
+      </span><span class="err">this.Bean</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">bean;</span><span class="w">
+      </span><span class="err">this.CountryOfOrigin</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">countryOfOrigin;</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+  </span><span class="err">//</span><span class="w"> </span><span class="err">These</span><span class="w"> </span><span class="err">statements</span><span class="w"> </span><span class="err">declare</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">struct</span><span class="w"> </span><span class="err">fields</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">set</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">default</span><span class="w"> </span><span class="err">values.</span><span class="w">
+   </span><span class="err">public</span><span class="w"> </span><span class="err">int</span><span class="w"> </span><span class="err">Strength;</span><span class="w">
+   </span><span class="err">public</span><span class="w"> </span><span class="err">string</span><span class="w"> </span><span class="err">Bean;</span><span class="w">
+   </span><span class="err">public</span><span class="w"> </span><span class="err">string</span><span class="w"> </span><span class="err">CountryOfOrigin;</span><span class="w"> 
+   </span><span class="err">//</span><span class="w"> </span><span class="err">Other</span><span class="w"> </span><span class="err">methods,</span><span class="w"> </span><span class="err">fields,</span><span class="w"> </span><span class="err">properties,</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">events.</span><span class="w">
+</span><span class="err">}</span><span class="w">
+</span></code>
+Properties and Indexers are worthwhile investigating into.</p>
+
+<h1 id="class">Class</h1>
+<p>public partial class DrinksMachine
+{</p>
+
+<p>public void MakeCappuccino()
+   {
+      // Method logic goes here.
+   }
+}</p>
+
+<p>public partial class DrinksMachine
+{</p>
+
+<p>public void MakeEspresso()
+   {
+      // Method logic goes here.
+   }
+}</p>
+
+<h3 id="partial-class">Partial Class</h3>
+<p>When working with automatically generated source. Visual Studio uses this approach when your application uses Windows Forms, Web service wrapper code, etc. Microsoft recommends that you do not modify the auto-generated code for these components as it could be overwritten when the application is compiled or the project files changed.  Instead, you can create another portion of the class, as a partial class with the same name, and make your additions and edits there.</p>
+
+<p>// Instantiating a Class by Using Type Inference
+var dm = new DrinksMachine();</p>
+
+<h1 id="network">Network</h1>
+
+<p>#Abstract Class
+An abstract method cannot exist in non-abstract class
+An abstract method is not permitted to have any implementation, including curly braces
+An abstract method signature must end in a semi-colon
+An abstract method MUST be implemented in any sub class.  Failure to do so will generate a compiler warning in C#.</p>
+
+<p>To implement multiple interfaces, you add a comma-separated list of the interfaces that you want to implement to your class declaration. Your class must implement every member of every interface you add to your class declaration.  The following example shows how to create a class that implements multiple interfaces:</p>
+
+<p>// Declaring a Class that Implements Multiple Interfaces
+public class Coffee: IBeverage, IInventoryItem
+{
+}</p>
+
+<p>Unmanaged objects are those that are not .NET components such as a Microsoft Word object, a database connection, or a file resource.</p>

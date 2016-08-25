@@ -1,0 +1,720 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Flock Simulation I - Prepartory Work</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Sticky Footer -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bs-sticky-footer.css" rel="stylesheet">
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images
+      <link rel="shortcut icon" href="images/favicon.ico">
+      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div id="wrap">
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Main()</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div class="container">
+        
+
+<div class="page-header">
+  <h1>
+        Flock Simulation I - Prepartory Work 
+        
+      </h1>
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>23 July 2016</span>
+    </div>
+    <div class="content">
+      <p>I have long been fascinated by the flock behaviour, may it be in nature, like beautiful starlings flock shown in the youtube video below, or artificial swarms like such described in Crichton’s book ‘Prey’. In its essence, it is a corporative problem between agents. I had some shallow dips into swarm literatures, I did want to do it as my third year literature review but I did not manage to find enough papers. Better weather made me open the blinds at work, and from time to time, around sunset, bird flocks start to appear, like a gentle reminder. It is now that I decided to have another, more documented, more freestyle attempt.</p>
+<div align="center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eakKfY5aHmY?list=PLU_bihxN6wlOi0_Az-tpRupYhE0tdj-8u" frameborder="0" allowfullscreen=""></iframe>
+</div>
+<hr />
+
+<p>There probably are fundamental difference between swarm and flock behaviour. To me they are the same, but I will mainly use flock for now. Anyways, let’s play the creator. A natural question is <em>how</em> do the individuals move in conjunction with one another? What would be required to achieve something like the above? I plan to write a simulational system to investigate this.</p>
+
+<p>As I said, I am interested in the <em>how</em> rather than the <em>why</em>. The purpose of this project is not to decipher how flock behaviour arises in nature (the stimulus seems to be different for different species anyways). It is a mere mimic of the observed behaviour.</p>
+
+<hr />
+<p>I am using python for this project because its support for scientific computing and decent computation speed. This is meant to be a quick hit and run, so no compiled language. I did want to use R because I liked the look of ggplot2 more than matplotlib, but I had to install some additional programs in order to render animation, so no. I am using object-oriented paradigm for this project. The whole problem is split into a world object and a flock object. The former object contains the dimension (I will mainly focus on 3D but any dimension is allowed) in which the flock lives. More importantly it contains all the components to plot the animations for a given flock. Functions to construct plots that allow more quantitative studies are to come.</p>
+
+<p>The World class looks like this:</p>
+<pre>
+    <code class="python">
+import numpy as np
+import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d.axes3d as p3
+import matplotlib.animation as animation
+
+class World(object):
+    def __init__(self, resolution = 64,  dim = [[-1, 1], [-1, 1], [-1, 1]], trace_lim = 7):
+        self.dim, self.resolution = dim, resolution
+        # the trace for the trajectory shouldn't be too large to avoid storing too much data
+        self.trace_lim = trace_lim
+
+
+    def setDim(self, dim): self.dim = dim
+    def getDim(self): return self.dim
+
+    def drawDots3D(self, ax, coords):
+        return ax.scatter(coords[0], coords[1], coords[2])
+
+    def snapshot(self, func, *args):
+        ax = self.worldSetup()
+        func(ax, *args)
+        plt.show()
+    def worldSetup(self):
+        self.fig = plt.figure()
+        if len(self.dim)  == 2:
+            ax = plt.axes(self.fig)
+            ax.set_xlim(self.dim[0])
+            ax.set_xlabel('X')
+            ax.set_ylim(self.dim[1])
+            ax.set_ylabel('Y')
+            return ax
+
+        if len(self.dim) == 3 :
+            ax = p3.Axes3D(self.fig)
+            ax.set_xlim3d(self.dim[0])
+            ax.set_xlabel('X')
+            ax.set_ylim3d(self.dim[1])
+            ax.set_ylabel('Y')
+            ax.set_zlim3d(self.dim[2])
+            ax.set_zlabel('Z')
+            return ax
+
+    def animate3D_setup(self, flock):
+        self.members = flock.members
+        ax = self.worldSetup()
+        self.traj = [[[0 for i in range(self.trace_lim)] for j in range(len(self.dim))] for k in range(self.members)] # keep track of line trajectory
+        points  =  [ax.plot([], [], [],flock.shapes[i], c = flock.colors[i], ms = flock.sizes[i])[0] for i in range(self.members)]
+        lines = [ax.plot([], [], [],  ls = flock.traceStyle[i], lw = flock.traceSize[i], c = flock.colors[i])[0] for i in range(self.members)]
+        return points, lines
+
+    def animate3D(self, frame,  fields ):
+        if fields[1 : ] == () :
+            coord = fields[0]()
+        else:
+            coord = fields[0](fields[1 : ])
+        for i in range(self.members):
+            self.points[i].set_data(coord[i][0], coord[i][1])
+            self.points[i].set_3d_properties( coord[i][2])
+        return self.points
+
+    def animate3D_trace(self, frame, fields):
+        if fields[1 : ] == () :
+            coord = fields[0]()
+        else:
+            coord = fields[0](fields[1 : ])
+        for i in range(self.members):
+            self.points[i].set_data(coord[i][0], coord[i][1])
+            self.points[i].set_3d_properties( coord[i][2])
+            for j in range(len(self.dim)):
+                self.traj[i][j].pop(0)
+                self.traj[i][j].append(coord[i][j])
+            self.lines[i].set_data(self.traj[i][0][-self.trace_lim : ], self.traj[i][1][-self.trace_lim : ])
+            self.lines[i].set_3d_properties( self.traj[i][2][-self.trace_lim : ])
+
+        return self.points + self.lines
+
+    def playAnimation(self, flock, func, *args, **kwargs ):
+        self.points, self.lines = self.animate3D_setup(flock)
+        frames = 20
+        if "frames" in kwargs:
+            frames = kwargs["frames"]
+        anim = animation.FuncAnimation(self.fig, func, frames = frames, fargs = (args, ), blit = True)
+        plt.show()
+
+    def saveAnimation(self, flock, func, *args, **kwargs):
+        self.points, self.lines = self.animate3D_setup(flock)
+        frames = 20
+        if "frames" in kwargs:
+            frames = kwargs["frames"]
+        anim = animation.FuncAnimation(self.fig, func, frames = frames, fargs = (args, ), blit = True)
+        anim.save('./tmp.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
+    </code>
+</pre>
+
+<p>The flock object basically contains the physical positions of a each member in the flock as a list as well as storing other properties such as the size and color of each individual member in lists. Rather than prepackage the position, size, color, etc of a member into a individual object, and make up a flock object as a list of individual objects, I envisage most if not all operations are performed on the flock as a whole, it is more computationally efficient to do so this way. In this class, various different functions that describes how the individuals move are to come. This will be the main meat and bone of the project in order to mimic flock behaviour.</p>
+
+<p>The Flock class looks like this (at the point of writing):</p>
+<pre>
+    <code class="python">
+from individual import Individual
+import numpy as np
+from scipy import spatial
+
+class Flock(object):
+    def __init__(self, world , members = 7):
+        self.positions, self.colors, self.shapes, self.sizes, self.traceStyle, self.traceSize= np.zeros((members, len(world.dim))),  ["green"] * members, ["^"] * members, [2] * members, ["-"] * members, [0.5] * members
+        self.world, self.members = world, members
+
+    def addIndividual(self, ind):
+        self.positions = np.concatenate((self.positions, [ind.position]))
+        self.colors.append(ind.color)
+        self.shapes.append(ind.shape)
+
+    def deleteIndividual(self, index = 0):
+        self.positions = np.delete(self.postions, (index), axis = 0)
+        self.colors.pop(index)
+        self.shapes.pop(index)
+
+    def getPositions(self): return self.positions
+    def setPositions(self, positions): self.positions = positions
+    def updatePositions(self, vel):
+        self.positions = np.add(self.positions, vel)
+        return self.positions
+    # def getIndividual(self, index): return self.flock[index]
+
+    def uniformVel(self):
+        coords = []
+        for d in range(len(self.world.dim)):
+            tmp = np.abs(self.world.dim[d][1] - self.world.dim[d][0])/float(self.world.resolution)
+
+            coords.append(np.random.uniform(-tmp, tmp, self.members) )
+        return self.updatePositions(np.transpose(coords))
+
+    def genRandPositions(self):
+        coords = []
+        for d in range(len(self.world.dim)):
+            coords.append(np.random.rand(self.members) * (self.world.dim[d][1] - self.world.dim[d][0]) + self.world.dim[d][0])
+        return np.transpose(coords)
+    </code>
+</pre>
+
+<p>The following simulation shows the trajectory of 200 individuals starting at the same position and moving with random velocities (drawn from a uniform distribution). The line behind each individual indicates its past 7 locations. As expected, no flock behaviour when each individual moves irrespective or everything else.</p>
+<div align="center">
+<iframe width="420" height="315" src="https://www.youtube.com/embed/d1w7gAwvQsk" frameborder="0" allowfullscreen=""></iframe>
+</div>
+<hr />
+<p>To replicate that, you can copy the above two code snippets and put them in a folder (call them world.py and flock.py respectively) along with the code below. Then run the below script. You will obviously need python installed (I’m using python2 rather than python3) as well as additional libraries matplotlib and numpy. So it might be easier to install anaconda which by default includes scientific libraries if you haven’t got python.You can visit <a href="https://github.com/hjuinj/Flock-Simulation">my repo</a> on github for the full, evolving code.</p>
+
+<pre>
+    <code style="python">
+from world import World
+from flock import Flock
+
+w = World();
+f = Flock(world = w, members = 200)
+w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
+    </code>
+</pre>
+
+<p>The amount of code might seem to be an overkill at this point, but with the overarching framework more or less setup, it is relatively easy to write functions that are specifically dealing with the dynamics to better simulate the flock behaviour. One immediate modification to modeling the dynamics can be made, namely individuals within a flock have a orientation. There is a limit to the degree an individual can turn within one time step with respect to the initial direction it was flying, let’s leave that for the next post…</p>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#Project-ref">
+    		Project <span>3</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#flock-ref">flock <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#swarm-ref">swarm <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#simulation-ref">simulation <span>2</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/plan/2016/07/23/toRead" title="To Read">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/project/2016/08/09/Flock_2" title="Flock Simulation II - Three Added Functionalities">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+<!-- 
+
+
+<div class="page-header-post">
+    <h1>
+        Flock Simulation I - Prepartory Work
+        
+        </h1>
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>23 July 2016</span>
+    </div>
+    <div class="content">
+      <p>I have long been fascinated by the flock behaviour, may it be in nature, like beautiful starlings flock shown in the youtube video below, or artificial swarms like such described in Crichton’s book ‘Prey’. In its essence, it is a corporative problem between agents. I had some shallow dips into swarm literatures, I did want to do it as my third year literature review but I did not manage to find enough papers. Better weather made me open the blinds at work, and from time to time, around sunset, bird flocks start to appear, like a gentle reminder. It is now that I decided to have another, more documented, more freestyle attempt.</p>
+<div align="center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eakKfY5aHmY?list=PLU_bihxN6wlOi0_Az-tpRupYhE0tdj-8u" frameborder="0" allowfullscreen=""></iframe>
+</div>
+<hr />
+
+<p>There probably are fundamental difference between swarm and flock behaviour. To me they are the same, but I will mainly use flock for now. Anyways, let’s play the creator. A natural question is <em>how</em> do the individuals move in conjunction with one another? What would be required to achieve something like the above? I plan to write a simulational system to investigate this.</p>
+
+<p>As I said, I am interested in the <em>how</em> rather than the <em>why</em>. The purpose of this project is not to decipher how flock behaviour arises in nature (the stimulus seems to be different for different species anyways). It is a mere mimic of the observed behaviour.</p>
+
+<hr />
+<p>I am using python for this project because its support for scientific computing and decent computation speed. This is meant to be a quick hit and run, so no compiled language. I did want to use R because I liked the look of ggplot2 more than matplotlib, but I had to install some additional programs in order to render animation, so no. I am using object-oriented paradigm for this project. The whole problem is split into a world object and a flock object. The former object contains the dimension (I will mainly focus on 3D but any dimension is allowed) in which the flock lives. More importantly it contains all the components to plot the animations for a given flock. Functions to construct plots that allow more quantitative studies are to come.</p>
+
+<p>The World class looks like this:</p>
+<pre>
+    <code class="python">
+import numpy as np
+import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d.axes3d as p3
+import matplotlib.animation as animation
+
+class World(object):
+    def __init__(self, resolution = 64,  dim = [[-1, 1], [-1, 1], [-1, 1]], trace_lim = 7):
+        self.dim, self.resolution = dim, resolution
+        # the trace for the trajectory shouldn't be too large to avoid storing too much data
+        self.trace_lim = trace_lim
+
+
+    def setDim(self, dim): self.dim = dim
+    def getDim(self): return self.dim
+
+    def drawDots3D(self, ax, coords):
+        return ax.scatter(coords[0], coords[1], coords[2])
+
+    def snapshot(self, func, *args):
+        ax = self.worldSetup()
+        func(ax, *args)
+        plt.show()
+    def worldSetup(self):
+        self.fig = plt.figure()
+        if len(self.dim)  == 2:
+            ax = plt.axes(self.fig)
+            ax.set_xlim(self.dim[0])
+            ax.set_xlabel('X')
+            ax.set_ylim(self.dim[1])
+            ax.set_ylabel('Y')
+            return ax
+
+        if len(self.dim) == 3 :
+            ax = p3.Axes3D(self.fig)
+            ax.set_xlim3d(self.dim[0])
+            ax.set_xlabel('X')
+            ax.set_ylim3d(self.dim[1])
+            ax.set_ylabel('Y')
+            ax.set_zlim3d(self.dim[2])
+            ax.set_zlabel('Z')
+            return ax
+
+    def animate3D_setup(self, flock):
+        self.members = flock.members
+        ax = self.worldSetup()
+        self.traj = [[[0 for i in range(self.trace_lim)] for j in range(len(self.dim))] for k in range(self.members)] # keep track of line trajectory
+        points  =  [ax.plot([], [], [],flock.shapes[i], c = flock.colors[i], ms = flock.sizes[i])[0] for i in range(self.members)]
+        lines = [ax.plot([], [], [],  ls = flock.traceStyle[i], lw = flock.traceSize[i], c = flock.colors[i])[0] for i in range(self.members)]
+        return points, lines
+
+    def animate3D(self, frame,  fields ):
+        if fields[1 : ] == () :
+            coord = fields[0]()
+        else:
+            coord = fields[0](fields[1 : ])
+        for i in range(self.members):
+            self.points[i].set_data(coord[i][0], coord[i][1])
+            self.points[i].set_3d_properties( coord[i][2])
+        return self.points
+
+    def animate3D_trace(self, frame, fields):
+        if fields[1 : ] == () :
+            coord = fields[0]()
+        else:
+            coord = fields[0](fields[1 : ])
+        for i in range(self.members):
+            self.points[i].set_data(coord[i][0], coord[i][1])
+            self.points[i].set_3d_properties( coord[i][2])
+            for j in range(len(self.dim)):
+                self.traj[i][j].pop(0)
+                self.traj[i][j].append(coord[i][j])
+            self.lines[i].set_data(self.traj[i][0][-self.trace_lim : ], self.traj[i][1][-self.trace_lim : ])
+            self.lines[i].set_3d_properties( self.traj[i][2][-self.trace_lim : ])
+
+        return self.points + self.lines
+
+    def playAnimation(self, flock, func, *args, **kwargs ):
+        self.points, self.lines = self.animate3D_setup(flock)
+        frames = 20
+        if "frames" in kwargs:
+            frames = kwargs["frames"]
+        anim = animation.FuncAnimation(self.fig, func, frames = frames, fargs = (args, ), blit = True)
+        plt.show()
+
+    def saveAnimation(self, flock, func, *args, **kwargs):
+        self.points, self.lines = self.animate3D_setup(flock)
+        frames = 20
+        if "frames" in kwargs:
+            frames = kwargs["frames"]
+        anim = animation.FuncAnimation(self.fig, func, frames = frames, fargs = (args, ), blit = True)
+        anim.save('./tmp.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
+    </code>
+</pre>
+
+<p>The flock object basically contains the physical positions of a each member in the flock as a list as well as storing other properties such as the size and color of each individual member in lists. Rather than prepackage the position, size, color, etc of a member into a individual object, and make up a flock object as a list of individual objects, I envisage most if not all operations are performed on the flock as a whole, it is more computationally efficient to do so this way. In this class, various different functions that describes how the individuals move are to come. This will be the main meat and bone of the project in order to mimic flock behaviour.</p>
+
+<p>The Flock class looks like this (at the point of writing):</p>
+<pre>
+    <code class="python">
+from individual import Individual
+import numpy as np
+from scipy import spatial
+
+class Flock(object):
+    def __init__(self, world , members = 7):
+        self.positions, self.colors, self.shapes, self.sizes, self.traceStyle, self.traceSize= np.zeros((members, len(world.dim))),  ["green"] * members, ["^"] * members, [2] * members, ["-"] * members, [0.5] * members
+        self.world, self.members = world, members
+
+    def addIndividual(self, ind):
+        self.positions = np.concatenate((self.positions, [ind.position]))
+        self.colors.append(ind.color)
+        self.shapes.append(ind.shape)
+
+    def deleteIndividual(self, index = 0):
+        self.positions = np.delete(self.postions, (index), axis = 0)
+        self.colors.pop(index)
+        self.shapes.pop(index)
+
+    def getPositions(self): return self.positions
+    def setPositions(self, positions): self.positions = positions
+    def updatePositions(self, vel):
+        self.positions = np.add(self.positions, vel)
+        return self.positions
+    # def getIndividual(self, index): return self.flock[index]
+
+    def uniformVel(self):
+        coords = []
+        for d in range(len(self.world.dim)):
+            tmp = np.abs(self.world.dim[d][1] - self.world.dim[d][0])/float(self.world.resolution)
+
+            coords.append(np.random.uniform(-tmp, tmp, self.members) )
+        return self.updatePositions(np.transpose(coords))
+
+    def genRandPositions(self):
+        coords = []
+        for d in range(len(self.world.dim)):
+            coords.append(np.random.rand(self.members) * (self.world.dim[d][1] - self.world.dim[d][0]) + self.world.dim[d][0])
+        return np.transpose(coords)
+    </code>
+</pre>
+
+<p>The following simulation shows the trajectory of 200 individuals starting at the same position and moving with random velocities (drawn from a uniform distribution). The line behind each individual indicates its past 7 locations. As expected, no flock behaviour when each individual moves irrespective or everything else.</p>
+<div align="center">
+<iframe width="420" height="315" src="https://www.youtube.com/embed/d1w7gAwvQsk" frameborder="0" allowfullscreen=""></iframe>
+</div>
+<hr />
+<p>To replicate that, you can copy the above two code snippets and put them in a folder (call them world.py and flock.py respectively) along with the code below. Then run the below script. You will obviously need python installed (I’m using python2 rather than python3) as well as additional libraries matplotlib and numpy. So it might be easier to install anaconda which by default includes scientific libraries if you haven’t got python.You can visit <a href="https://github.com/hjuinj/Flock-Simulation">my repo</a> on github for the full, evolving code.</p>
+
+<pre>
+    <code style="python">
+from world import World
+from flock import Flock
+
+w = World();
+f = Flock(world = w, members = 200)
+w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
+    </code>
+</pre>
+
+<p>The amount of code might seem to be an overkill at this point, but with the overarching framework more or less setup, it is relatively easy to write functions that are specifically dealing with the dynamics to better simulate the flock behaviour. One immediate modification to modeling the dynamics can be made, namely individuals within a flock have a orientation. There is a limit to the degree an individual can turn within one time step with respect to the initial direction it was flying, let’s leave that for the next post…</p>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#Project-ref">
+    		Project <span>3</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#flock-ref">flock <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#swarm-ref">swarm <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#simulation-ref">simulation <span>2</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/plan/2016/07/23/toRead" title="To Read">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/project/2016/08/09/Flock_2" title="Flock Simulation II - Three Added Functionalities">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+-->
+
+      </div>
+
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p>&copy; 2016 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>
+        </p>
+      </div>
+    </div>
+
+    
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-123-12']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

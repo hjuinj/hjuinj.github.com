@@ -1,0 +1,60 @@
+<p>I recently gotten interested into APIs(application programming interfaces, not active pharmaceutical ingradients, which I am also interested in :D). This mainly stems from the idea of my second chrome plugin, which will involve interacting with youtube API. 
+As I am ploughing through my code for this plugin I felt my methodology is not very systematic and I often run into problems which takes a while to look up online.<br />
+So I decided to take a step back and spend some time on generic API usages.</p>
+
+<p>This will espcially come in handy as I explore further usage of various other types of API services, such as my wanting to explore the chemical world using the CHEMBL (database) API (Though this will probably be mainly done in R rather than in JS).</p>
+
+<p>So here is my study notes, which is based on <a href="https://www.codecademy.com/courses/javascript-beginner-en-EID4t/0/1?curriculum_id=50ecb8d45f787a6332000042">codeacademy’s interactive courses</a> on APIs</p>
+
+<p>####RESTful Design
+stands for Representational State Transfer
+can be thought as a set of rules that the service provider and the service receiver have established to ensure secure, accurate, efficient interactions
+I quote from codeacademy:</p>
+
+<blockquote>
+  <ol>
+    <li>Separate the client from the server</li>
+    <li>Not hold state between requests (meaning that all the information necessary to respond to a request is available in each individual request; no data, or state, is held by the server from request to request)</li>
+    <li>Use HTTP and HTTP methods (GET, POST)</li>
+  </ol>
+</blockquote>
+
+<p>A request requires a method, a header and a optional body</p>
+
+<p>A response takes form of a starting line with the status code, a header and a body which contains the data requested</p>
+
+<p>Two primary data form are XML and Json. I personally like the Json format, which resembles that of Python dictionary data structure. XML seems a bit too pragmatic to me. JavaScript with Json( Java Script Object Notation) goes hand in hand.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">"GET"</span><span class="p">,</span> <span class="s2">"https://www.codecademy.com/"</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">statusText</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>XML
+```javascript
+var xhr = new XMLHttpRequest();
+xhr.open(“GET”, “https://www.codecademy.com/files/samples/javascript_learn_apis.xml”, false);</p>
+
+<p>xhr.setRequestHeader(‘Content-Type’, ‘text/xml’);
+xhr.send();</p>
+
+<p>xmlDocument = xhr.responseXML;
+console.log(xmlDocument.childNodes[‘0’].textContent);
+```</p>
+
+<p>jason
+```javascript
+var demo = ‘{“pets”: { “name”: “Jeffrey”, “species”: “Giraffe”}}’;</p>
+
+<p>var json = JSON.parse(demo);
+console.log(json);
+```</p>
+
+<p>###Interacting with Youtube API
+for querying youtube videos, which is also what I plan to aquire in my plugin/extension, one only needs to submit for an API key from <a href="https://console.developers.google.com/project/boxwood-magnet-111023/apiui/credential">googld developer console</a>
+requires an registration of a API key and OAuth2 authentication</p>
+

@@ -1,0 +1,542 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Flock Simulation II - Three Added Functionalities</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Sticky Footer -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bs-sticky-footer.css" rel="stylesheet">
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images
+      <link rel="shortcut icon" href="images/favicon.ico">
+      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div id="wrap">
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Main()</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div class="container">
+        
+
+<div class="page-header">
+  <h1>
+        Flock Simulation II - Three Added Functionalities 
+        
+      </h1>
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>09 August 2016</span>
+    </div>
+    <div class="content">
+      <p>Since the <a href="/project/2016/07/23/flock_1">previous post</a>, I have added three more functionalities:</p>
+
+<p>First, as delineated last time, I suspect the jiggling motion of the flock simulation I showed last time was due to the individual memebers making too large turns between time steps. Animals all have a maximum degree they can turn with respect to their orientations (imagine a vector draw from its body to its head). It is more natural to define turning directoins in terms of polar coordinates (angles) rather than cartesians. What I have done is to keep a register of the direction each member is moving at (the angle theta and phi are defined with respect to the positive x-axis). One can quite easily transform the polar into cartesian.</p>
+
+<p>The code is as below, appended into the flock class. Here, each member are still moving randomly, but only within a restricted angle (45 degree by default).</p>
+
+<pre>
+    <code class="python">
+    def directionalVel(self):
+        self.updateCollisions()
+        #TODO world dimension
+        speed = np.random.normal((self.world.dim[0][1] - self.world.dim[0][0])/float(self.world.resolution), 0.001, self.members)
+        theta = np.add(np.random.normal(0, self.orientation/2, self.members) , [i[0] for i in self.directions] )
+        if len(self.world.dim) == 3:
+            phi = np.add(np.random.normal(0, self.orientation/2, self.members) , [i[1] for i in self.directions] )
+            x = np.multiply(speed, np.multiply(np.sin(phi), np.cos(theta)))
+            y = np.multiply(speed, np.multiply(np.sin(phi), np.sin(theta)))
+            z = np.multiply(speed, np.cos(phi))
+            coords = [ x, y, z ]
+            self.updateDirections(np.transpose([theta, phi]))
+            return self.updatePositions(np.transpose(coords))
+        x = np.multiply(speed, np.cos(theta))
+        y = np.multiply(speed, np.sin(theta))
+        coords = [x, y]
+        self.updateDirections([[i] for i in theta])
+        return self.updatePositions(np.transpose(coords))
+
+        </code>
+</pre>
+<p>The part that restricts the change in direction between time steps is going to be important when it comes to actually simulating swarms.</p>
+
+<p>Secondly, I have added the detection for any collisions between flock members. As you probably have seen, the depth perception from the simulation is not very good, there is no way to determine whether two members are overlapping from purely looking. To do this, the pair-wise distance between members need to be calculated.</p>
+
+<p>The pair-wise distance of the flock members is as below, using <em>spatial</em> class in the scipy package. The positions of every member in the flock is stored in the self.positions numpy array. Here, the euclidean distance between pairs makes the most sense for me. This is also in the flock class.</p>
+
+<pre>
+    <code class="python">
+    def updateCollisions(self, oriColor = 'green', colColor = 'red'):
+        # default color collision to red
+        collisions = self.isCollision()
+        #self.colors[collisions] = colColor
+        #self.colors[~collisions] = oriColor
+        self.colors = [colColor if i in collisions else oriColor for i in xrange(self.members) ]
+
+    def isCollision(self, lim = 0.01):
+        # Condesned matrix format
+        disMat = spatial.distance.squareform(self.pairDistance() &lt; lim)
+        return [int(i[0]) for i,v in np.ndenumerate(np.sum(disMat, axis = 0)) if v &gt; 1] # only overlap with itself
+
+    def pairDistance(self):
+        return spatial.distance.pdist(self.positions)
+        </code>
+</pre>
+
+<p>Combing the first two modifications yields the following simulation video:</p>
+<div align="center">
+<iframe width="420" height="315" src="https://www.youtube.com/embed/c6_FnZSKMWM" frameborder="0" allowfullscreen=""></iframe>
+</div>
+
+<p>At the start few second of the video, you can see some of the points are red, indicating members are overlapping. I hope you observe that the jittering motion seen in the last post has disappeared here.</p>
+
+<p>Lastly, to make the analysis somewhat more quantitative, I have written a plotting function to show how the distance between the members in a flock evolve with time. This is a simple function defined in the world class. Where time step is plotted on the x-axis and the sum of all pair-wise distance at a time step is plotted on the y.</p>
+<pre>
+    <code class="python">
+    def plotAvgDist(self, flock, func, iter = 1000):
+        x = []
+        y = []
+        for i in xrange(iter):
+            x.append(i)
+            y.append(np.sum(flock.pairDistance()))
+            flock.positions = func()
+        plt.plot(x,y)
+        plt.show()
+    </code>
+</pre>
+
+<p>This is how the total pair-wise distance evolve with time for the animation above (in 1000 time step):</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Flock/II plot directional random.png" alt="plot" />
+</div>
+
+<p>For something exhibiting flock behaviour, I would expect the plot not be a incrementing function. Instead, there ought to be oscillation around a transient number.</p>
+
+<p>For the full code, visit my github page for this project : <a href="https://github.com/hjuinj/Flock-Simulation">https://github.com/hjuinj/Flock-Simulation</a></p>
+
+<p>With these, I think I have the necessary framework at hand which allows me to write simple functions to mimic different motions, with the aim to achieve flock behaviour. One immediate idea to mind is having each member of the flock flying towards its closest neigbour, given the posed change in direction constraint. But that’s for the next time…</p>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#Project-ref">
+    		Project <span>2</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#flock-ref">flock <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#swarm-ref">swarm <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#simulation-ref">simulation <span>2</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/project/2016/07/23/flock_1" title="Flock Simulation I (Prepartory Work)">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next disabled"><a>Next &rarr;</a>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+<!-- 
+
+
+<div class="page-header-post">
+    <h1>
+        Flock Simulation II - Three Added Functionalities
+        
+        </h1>
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>09 August 2016</span>
+    </div>
+    <div class="content">
+      <p>Since the <a href="/project/2016/07/23/flock_1">previous post</a>, I have added three more functionalities:</p>
+
+<p>First, as delineated last time, I suspect the jiggling motion of the flock simulation I showed last time was due to the individual memebers making too large turns between time steps. Animals all have a maximum degree they can turn with respect to their orientations (imagine a vector draw from its body to its head). It is more natural to define turning directoins in terms of polar coordinates (angles) rather than cartesians. What I have done is to keep a register of the direction each member is moving at (the angle theta and phi are defined with respect to the positive x-axis). One can quite easily transform the polar into cartesian.</p>
+
+<p>The code is as below, appended into the flock class. Here, each member are still moving randomly, but only within a restricted angle (45 degree by default).</p>
+
+<pre>
+    <code class="python">
+    def directionalVel(self):
+        self.updateCollisions()
+        #TODO world dimension
+        speed = np.random.normal((self.world.dim[0][1] - self.world.dim[0][0])/float(self.world.resolution), 0.001, self.members)
+        theta = np.add(np.random.normal(0, self.orientation/2, self.members) , [i[0] for i in self.directions] )
+        if len(self.world.dim) == 3:
+            phi = np.add(np.random.normal(0, self.orientation/2, self.members) , [i[1] for i in self.directions] )
+            x = np.multiply(speed, np.multiply(np.sin(phi), np.cos(theta)))
+            y = np.multiply(speed, np.multiply(np.sin(phi), np.sin(theta)))
+            z = np.multiply(speed, np.cos(phi))
+            coords = [ x, y, z ]
+            self.updateDirections(np.transpose([theta, phi]))
+            return self.updatePositions(np.transpose(coords))
+        x = np.multiply(speed, np.cos(theta))
+        y = np.multiply(speed, np.sin(theta))
+        coords = [x, y]
+        self.updateDirections([[i] for i in theta])
+        return self.updatePositions(np.transpose(coords))
+
+        </code>
+</pre>
+<p>The part that restricts the change in direction between time steps is going to be important when it comes to actually simulating swarms.</p>
+
+<p>Secondly, I have added the detection for any collisions between flock members. As you probably have seen, the depth perception from the simulation is not very good, there is no way to determine whether two members are overlapping from purely looking. To do this, the pair-wise distance between members need to be calculated.</p>
+
+<p>The pair-wise distance of the flock members is as below, using <em>spatial</em> class in the scipy package. The positions of every member in the flock is stored in the self.positions numpy array. Here, the euclidean distance between pairs makes the most sense for me. This is also in the flock class.</p>
+
+<pre>
+    <code class="python">
+    def updateCollisions(self, oriColor = 'green', colColor = 'red'):
+        # default color collision to red
+        collisions = self.isCollision()
+        #self.colors[collisions] = colColor
+        #self.colors[~collisions] = oriColor
+        self.colors = [colColor if i in collisions else oriColor for i in xrange(self.members) ]
+
+    def isCollision(self, lim = 0.01):
+        # Condesned matrix format
+        disMat = spatial.distance.squareform(self.pairDistance() &lt; lim)
+        return [int(i[0]) for i,v in np.ndenumerate(np.sum(disMat, axis = 0)) if v &gt; 1] # only overlap with itself
+
+    def pairDistance(self):
+        return spatial.distance.pdist(self.positions)
+        </code>
+</pre>
+
+<p>Combing the first two modifications yields the following simulation video:</p>
+<div align="center">
+<iframe width="420" height="315" src="https://www.youtube.com/embed/c6_FnZSKMWM" frameborder="0" allowfullscreen=""></iframe>
+</div>
+
+<p>At the start few second of the video, you can see some of the points are red, indicating members are overlapping. I hope you observe that the jittering motion seen in the last post has disappeared here.</p>
+
+<p>Lastly, to make the analysis somewhat more quantitative, I have written a plotting function to show how the distance between the members in a flock evolve with time. This is a simple function defined in the world class. Where time step is plotted on the x-axis and the sum of all pair-wise distance at a time step is plotted on the y.</p>
+<pre>
+    <code class="python">
+    def plotAvgDist(self, flock, func, iter = 1000):
+        x = []
+        y = []
+        for i in xrange(iter):
+            x.append(i)
+            y.append(np.sum(flock.pairDistance()))
+            flock.positions = func()
+        plt.plot(x,y)
+        plt.show()
+    </code>
+</pre>
+
+<p>This is how the total pair-wise distance evolve with time for the animation above (in 1000 time step):</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Flock/II plot directional random.png" alt="plot" />
+</div>
+
+<p>For something exhibiting flock behaviour, I would expect the plot not be a incrementing function. Instead, there ought to be oscillation around a transient number.</p>
+
+<p>For the full code, visit my github page for this project : <a href="https://github.com/hjuinj/Flock-Simulation">https://github.com/hjuinj/Flock-Simulation</a></p>
+
+<p>With these, I think I have the necessary framework at hand which allows me to write simple functions to mimic different motions, with the aim to achieve flock behaviour. One immediate idea to mind is having each member of the flock flying towards its closest neigbour, given the posed change in direction constraint. But that’s for the next time…</p>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#Project-ref">
+    		Project <span>2</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#flock-ref">flock <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#swarm-ref">swarm <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#simulation-ref">simulation <span>2</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/project/2016/07/23/flock_1" title="Flock Simulation I (Prepartory Work)">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next disabled"><a>Next &rarr;</a>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+-->
+
+      </div>
+
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p>&copy; 2016 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>
+        </p>
+      </div>
+    </div>
+
+    
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-123-12']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

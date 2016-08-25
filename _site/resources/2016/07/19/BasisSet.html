@@ -1,0 +1,426 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Basis Sets</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Sticky Footer -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bs-sticky-footer.css" rel="stylesheet">
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images
+      <link rel="shortcut icon" href="images/favicon.ico">
+      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div id="wrap">
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Main()</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div class="container">
+        
+
+<div class="page-header">
+  <h1>
+        Basis Sets 
+        
+      </h1>
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>19 July 2016</span>
+    </div>
+    <div class="content">
+      <p>additions, insertions and deletions will be done as my understanding of the topic progresses. This serves as a test-ground for me to elucidate my understanding in computational chemistry as well as a sand-box for formatting maths-heavy documents in markdown. Hence <strong>I do NOT guarantee the validity of the following document nor is it my attempt of a rigorous piece of work</strong></p>
+
+<p>Maths equations markdown reminder
+<a href="http://www.statpower.net/Content/310/R%20Stuff/SampleMarkdown.html">http://www.statpower.net/Content/310/R%20Stuff/SampleMarkdown.html</a>
+markdown cheatshet
+<a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet</a></p>
+
+<p>From this, one can begin to see why when compared to MM methods, QM calculations are deemed a lot more expensive. In order to simulation a system requires evaluation of the system evolution over time. For each time step, a MM approach only requires the evaluation of the analytical function composing of the different energy contributions (torsion, electrostatic, etc), but a QM calculation would need to iteratively solve for the new MOs for the changed nuclei coordinates before the energy evaluations.</p>
+
+<p>For an atomic orbital calculation, these are typically the orbitals for a hydrogenic atom (an atom with only one electron, but the appropriate nuclear charge). For a molecular orbital or crystalline calculation, the initial approximate one-electron wave functions are typically a linear combination of atomic orbitals (LCAO).</p>
+
+<h2 id="basis-sets-ab-initio">Basis Sets (<em>ab initio</em>)</h2>
+<p>The adaptation of Gaussian orbital over Slater type orbital (STO) is due to its efficiency in computation. Such orbital has a general form of:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>                                x^ay^bz^c exp(-\alpha  r^2) 
+</code></pre>
+</div>
+
+<p>The exponential format allows orbital joining (multiplication) very cheap to calculate.</p>
+
+<p>Depending on the powers a,b,c which can take on values of 1 or 0. When all of them equal to zero, it is a zeroth-order Gaussian that resembles the formalism of s-type atomic orbitals. When one of the three is one it is a first-order Gaussian, resembling p-type orbitals.</p>
+
+<p>Often a linear combinations of GTOs are used to approximate STOs. Fitting is done via minimising least square error for example. After optimisation, in the linear combination, the coefficient in front of each GTO and the $\alpha$ is often fixed when calculating the final MO form. In addition, the $\alpha$ term is fixed for s and p type orbitals This is again for computational cost.</p>
+
+<p><em>Minimal basis set</em> includes all the filled orbitals in each atom, each such orbital is represented by a set of Gaussian orbitals. The notation “STO-3G” therefore means each Slater type orbital is approximated by 4 Gaussian orbitals. For <em>ab initio</em>, 3 is the bare minimum. Reminder of the hierarchy, MOs are approxmiate by LCAO, AOs are approximated by STO, and STOs are approximated by GTOs.</p>
+
+<p><em>Split valence basis set</em> accounts for anistropy problems for the minimal basis set by allowing more than one type of STOs to be used to model the valence atomic orbitals. The most used type is the double split zeta basis set (zeta is the coefficient in front of the exponent in the radial part of STO) which models valence orbitals with two different STOs and inner shell orbitals with one. For example, in the 3-21G basis set, each inner shell atomic orbital is approximated by one STO, which is in turn approximated by three GTOs. While the valence shell orbitals are modeled by two different types of STOs, one of the two is approximated by two GTOs, the other by one.</p>
+
+<p>One can further account for the charge distortion effect on the orbitals by modeling polarisations - reducing the charge symmetry by including un-occupied p orbitals to the basis set to atoms only having filled s orbitals, similarly adding d to atoms only with s and p characters. 3-21G* means polarisations is done on all heavy atom (d type). Two asterisks means polarisation is done on hydrogen and helium (p type polarisation) too. To account for species with large electron density away from the nulei (where all Gaussians for a given orbital center on), one can add extra set of diffused orbitals. This is what the “+” notation means.</p>
+
+<p>So, 3-21+ +G* means for a given atom, each of its inner shell orbital is modelled by one STO - approximated by three GTOs. Each of its valence orbital is modelled by two STOs, one approximated by two GTOs and the other by one. On top, each atom has a extra set of diffuse s and p type GTOs added (indicated by + +, + would be for each non-hydrogen atom). Additionally, extra unoccupied (d) orbitals (still approximated by GTOs) is added for each non-hydrogen atom. The asterisk can be replaced by more precise notation such as 3-21++G(3df, 3pd), which means 3 d-type GTOs 1 f-type GTOs are added for heavy atoms and 3 p-type GTOs and 1 d-type GTO is added to each hydrogen.</p>
+
+<p>There are other basis sets too, e.g. see wikipedia.</p>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#Resources-ref">
+    		Resources <span>5</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#readings-ref">readings <span>3</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/resources/2016/07/06/resources" title="Resources">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/scholastic/2016/07/20/recentRead1" title="Recent Reads #0">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+<!-- 
+
+
+<div class="page-header-post">
+    <h1>
+        Basis Sets
+        
+        </h1>
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>19 July 2016</span>
+    </div>
+    <div class="content">
+      <p>additions, insertions and deletions will be done as my understanding of the topic progresses. This serves as a test-ground for me to elucidate my understanding in computational chemistry as well as a sand-box for formatting maths-heavy documents in markdown. Hence <strong>I do NOT guarantee the validity of the following document nor is it my attempt of a rigorous piece of work</strong></p>
+
+<p>Maths equations markdown reminder
+<a href="http://www.statpower.net/Content/310/R%20Stuff/SampleMarkdown.html">http://www.statpower.net/Content/310/R%20Stuff/SampleMarkdown.html</a>
+markdown cheatshet
+<a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet</a></p>
+
+<p>From this, one can begin to see why when compared to MM methods, QM calculations are deemed a lot more expensive. In order to simulation a system requires evaluation of the system evolution over time. For each time step, a MM approach only requires the evaluation of the analytical function composing of the different energy contributions (torsion, electrostatic, etc), but a QM calculation would need to iteratively solve for the new MOs for the changed nuclei coordinates before the energy evaluations.</p>
+
+<p>For an atomic orbital calculation, these are typically the orbitals for a hydrogenic atom (an atom with only one electron, but the appropriate nuclear charge). For a molecular orbital or crystalline calculation, the initial approximate one-electron wave functions are typically a linear combination of atomic orbitals (LCAO).</p>
+
+<h2 id="basis-sets-ab-initio">Basis Sets (<em>ab initio</em>)</h2>
+<p>The adaptation of Gaussian orbital over Slater type orbital (STO) is due to its efficiency in computation. Such orbital has a general form of:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>                                x^ay^bz^c exp(-\alpha  r^2) 
+</code></pre>
+</div>
+
+<p>The exponential format allows orbital joining (multiplication) very cheap to calculate.</p>
+
+<p>Depending on the powers a,b,c which can take on values of 1 or 0. When all of them equal to zero, it is a zeroth-order Gaussian that resembles the formalism of s-type atomic orbitals. When one of the three is one it is a first-order Gaussian, resembling p-type orbitals.</p>
+
+<p>Often a linear combinations of GTOs are used to approximate STOs. Fitting is done via minimising least square error for example. After optimisation, in the linear combination, the coefficient in front of each GTO and the $\alpha$ is often fixed when calculating the final MO form. In addition, the $\alpha$ term is fixed for s and p type orbitals This is again for computational cost.</p>
+
+<p><em>Minimal basis set</em> includes all the filled orbitals in each atom, each such orbital is represented by a set of Gaussian orbitals. The notation “STO-3G” therefore means each Slater type orbital is approximated by 4 Gaussian orbitals. For <em>ab initio</em>, 3 is the bare minimum. Reminder of the hierarchy, MOs are approxmiate by LCAO, AOs are approximated by STO, and STOs are approximated by GTOs.</p>
+
+<p><em>Split valence basis set</em> accounts for anistropy problems for the minimal basis set by allowing more than one type of STOs to be used to model the valence atomic orbitals. The most used type is the double split zeta basis set (zeta is the coefficient in front of the exponent in the radial part of STO) which models valence orbitals with two different STOs and inner shell orbitals with one. For example, in the 3-21G basis set, each inner shell atomic orbital is approximated by one STO, which is in turn approximated by three GTOs. While the valence shell orbitals are modeled by two different types of STOs, one of the two is approximated by two GTOs, the other by one.</p>
+
+<p>One can further account for the charge distortion effect on the orbitals by modeling polarisations - reducing the charge symmetry by including un-occupied p orbitals to the basis set to atoms only having filled s orbitals, similarly adding d to atoms only with s and p characters. 3-21G* means polarisations is done on all heavy atom (d type). Two asterisks means polarisation is done on hydrogen and helium (p type polarisation) too. To account for species with large electron density away from the nulei (where all Gaussians for a given orbital center on), one can add extra set of diffused orbitals. This is what the “+” notation means.</p>
+
+<p>So, 3-21+ +G* means for a given atom, each of its inner shell orbital is modelled by one STO - approximated by three GTOs. Each of its valence orbital is modelled by two STOs, one approximated by two GTOs and the other by one. On top, each atom has a extra set of diffuse s and p type GTOs added (indicated by + +, + would be for each non-hydrogen atom). Additionally, extra unoccupied (d) orbitals (still approximated by GTOs) is added for each non-hydrogen atom. The asterisk can be replaced by more precise notation such as 3-21++G(3df, 3pd), which means 3 d-type GTOs 1 f-type GTOs are added for heavy atoms and 3 p-type GTOs and 1 d-type GTO is added to each hydrogen.</p>
+
+<p>There are other basis sets too, e.g. see wikipedia.</p>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#Resources-ref">
+    		Resources <span>5</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#readings-ref">readings <span>3</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/resources/2016/07/06/resources" title="Resources">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/scholastic/2016/07/20/recentRead1" title="Recent Reads #0">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+-->
+
+      </div>
+
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p>&copy; 2016 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>
+        </p>
+      </div>
+    </div>
+
+    
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-123-12']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

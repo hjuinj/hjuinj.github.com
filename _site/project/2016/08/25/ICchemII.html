@@ -1,0 +1,1968 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Summary of IC Chemistry Publications</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Sticky Footer -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bs-sticky-footer.css" rel="stylesheet">
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images
+      <link rel="shortcut icon" href="images/favicon.ico">
+      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div id="wrap">
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Main()</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div class="container">
+        
+
+<div class="page-header">
+  <h1>
+        Summary of IC Chemistry Publications 
+        
+      </h1>
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>25 August 2016</span>
+    </div>
+    <div class="content">
+      <p>Load packages and establish connection to Mongodb (here my db is located on the default port on my localhost).</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">rmongodb</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">stringr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">knitr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">gridExtra</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">reshape</span><span class="p">)</span><span class="w">
+
+</span><span class="n">mongo</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mongo.create</span><span class="p">()</span><span class="w">
+</span><span class="k">if</span><span class="p">(</span><span class="n">mongo.is.connected</span><span class="p">(</span><span class="n">mongo</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">db</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mongo.get.databases</span><span class="p">(</span><span class="n">mongo</span><span class="p">)</span><span class="w">
+    </span><span class="n">coll</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mongo.get.database.collections</span><span class="p">(</span><span class="n">mongo</span><span class="p">,</span><span class="w"> </span><span class="n">db</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>#Staffs
+The records are obtained from 120 staffs. We can look at the relative proportion of Doctors and Professors in the department.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mongo.distinct</span><span class="p">(</span><span class="n">mongo</span><span class="p">,</span><span class="w"> </span><span class="n">coll</span><span class="p">,</span><span class="w"> </span><span class="s1">'from'</span><span class="p">))</span><span class="w">
+</span><span class="n">df</span><span class="o">$</span><span class="n">isProf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_detect</span><span class="p">(</span><span class="n">toupper</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">names</span><span class="p">),</span><span class="w"> </span><span class="s2">"PROFESSOR"</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">isProf</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_bar</span><span class="p">()</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="n">coord_polar</span><span class="p">(</span><span class="n">theta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"y"</span><span class="p">)</span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.title.x</span><span class="o">=</span><span class="n">element_blank</span><span class="p">(),</span><span class="w">        
+        </span><span class="n">axis.text.x</span><span class="o">=</span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="n">axis.title.y</span><span class="o">=</span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="n">axis.text.y</span><span class="o">=</span><span class="n">element_blank</span><span class="p">())</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-2-1.svg" alt="plot of chunk unnamed-chunk-2" /></p>
+
+<p>#Publication
+There are in total 9417 entries. The entries are of the following types:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] "JOURNAL ARTICLE"  "CONFERENCE PAPER" "BOOK CHAPTER"    
+## [4] "PATENT"           "REPORT"           "SOFTWARE"        
+## [7] "OTHER"            "BOOK"             "POSTER"</code></pre></figure>
+
+<p>We can take a look at how many entries of each publication type are there, note the y-axis is on a <strong>log</strong> scale:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mongo.find.all</span><span class="p">(</span><span class="n">mongo</span><span class="p">,</span><span class="w"> </span><span class="n">coll</span><span class="p">,</span><span class="w"> </span><span class="n">fields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s1">'publication-type'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'_id'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="n">data.frame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">publication.type</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_bar</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">  </span><span class="n">geom_text</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">..count..</span><span class="p">),</span><span class="w"> </span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"count"</span><span class="p">,</span><span class="w"> </span><span class="n">vjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-1</span><span class="p">)</span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90</span><span class="p">,</span><span class="w"> </span><span class="n">hjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_y_log10</span><span class="p">(</span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="m">1000</span><span class="p">,</span><span class="m">10000</span><span class="p">))</span><span class="w"> </span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-4-1.svg" alt="plot of chunk unnamed-chunk-4" /></p>
+
+<p>It is most interesting to look at only journal &amp; conference publications, which are the vast majority of entries anyways. There are 8953 such entries. Bear in mind there are duplicate entries, where IC chemistry staffs collaborated to produce a piece of work.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">main</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mongo.find.all</span><span class="p">(</span><span class="n">mongo</span><span class="p">,</span><span class="w"> </span><span class="n">coll</span><span class="p">,</span><span class="w"> </span><span class="n">query</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="s2">"$or"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="s2">"publication-type"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"JOURNAL ARTICLE"</span><span class="p">),</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s2">"publication-type"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"CONFERENCE PAPER"</span><span class="p">))),</span><span class="w"> </span><span class="n">fields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s1">'publication-type'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'title'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'num_citations'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'journal'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'year'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'from'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'_id'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">))</span><span class="w">
+
+
+</span><span class="c1"># Only keeps data entries that have all the header fields defined. 
+</span><span class="n">list2df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">list</span><span class="p">,</span><span class="w"> </span><span class="n">headers</span><span class="p">){</span><span class="w">
+    </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">()</span><span class="w">
+    </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">list</span><span class="p">)){</span><span class="w">
+        </span><span class="n">record</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="w">
+        </span><span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">headers</span><span class="p">){</span><span class="w">
+            </span><span class="k">if</span><span class="p">(</span><span class="nf">is.null</span><span class="p">(</span><span class="n">list</span><span class="p">[[</span><span class="n">i</span><span class="p">]][[</span><span class="n">j</span><span class="p">]])){</span><span class="w">
+                </span><span class="n">record</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="w">
+                </span><span class="k">break</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="k">if</span><span class="p">(</span><span class="n">record</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">T</span><span class="p">){</span><span class="w">
+            </span><span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">headers</span><span class="p">)</span><span class="w">
+                </span><span class="n">output</span><span class="p">[[</span><span class="n">j</span><span class="p">]]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">  </span><span class="nf">c</span><span class="p">(</span><span class="n">output</span><span class="p">[[</span><span class="n">j</span><span class="p">]],</span><span class="w"> </span><span class="n">list</span><span class="p">[[</span><span class="n">i</span><span class="p">]][[</span><span class="n">j</span><span class="p">]])</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="nf">return</span><span class="p">(</span><span class="n">as.data.frame</span><span class="p">(</span><span class="n">output</span><span class="p">))</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># df &lt;- data.frame(journals = unlist(lapply(main, function(i) i$journal)), stringsAsFactors = F)
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list2df</span><span class="p">(</span><span class="n">main</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s1">'journal'</span><span class="p">,</span><span class="w"> </span><span class="s1">'title'</span><span class="p">))</span></code></pre></figure>
+
+<p>The 8116 journal submissions are delivered to  1102 different journals. A coarse look at the number of submissions to each of the journals. Have a guess what is the most popular journal(the tallest bar). Bear in mind multiple academics could be have drafted the same paper, this needs to be accounted for.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="o">!</span><span class="n">duplicated</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="p">),</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">journal</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_bar</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.text.x</span><span class="o">=</span><span class="n">element_blank</span><span class="p">(),</span><span class="n">axis.ticks</span><span class="o">=</span><span class="n">element_blank</span><span class="p">())</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-7-1.svg" alt="plot of chunk unnamed-chunk-7" /></p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">q</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">aggregate</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">journal</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">journal</span><span class="p">),</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">q</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Journal.Names"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Submission"</span><span class="p">)</span><span class="w">
+</span><span class="n">q</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="n">order</span><span class="p">(</span><span class="n">q</span><span class="o">$</span><span class="n">Submission</span><span class="p">,</span><span class="w"> </span><span class="n">decreasing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">),]</span><span class="w">
+</span><span class="n">kable</span><span class="p">(</span><span class="n">tail</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">),</span><span class="w"> </span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span></code></pre></figure>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Journal.Names</th>
+      <th style="text-align: right">Submission</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">VIBRATIONAL SPECTROSCOPY</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">WATER ENVIRONMENT RESEARCH</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">WATER SCIENCE AND TECHNOLOGY</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">WEAR</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">WILEY INTERDISCIPLINARY REVIEWS-COMPUTATIONAL MOLECULAR SCIENCE</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">WILEY INTERDISCIPLINARY REVIEWS-ENERGY AND ENVIRONMENT</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ZEITSCHRIFT FUR ANORGANISCHE UND ALLGEMEINE CHEMIE</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ZEITSCHRIFT FUR PHYSIK B-CONDENSED MATTER</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Zeitschrift für Physikalische Chemie</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ZHURNAL EKSPERIMENTALNOI I TEORETICHESKOI FIZIKI</td>
+      <td style="text-align: right">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">kable</span><span class="p">(</span><span class="n">head</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">),</span><span class="w"> </span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span></code></pre></figure>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Journal.Names</th>
+      <th style="text-align: right">Submission</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">CHEMICAL COMMUNICATIONS</td>
+      <td style="text-align: right">249</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">JOURNAL OF THE AMERICAN CHEMICAL SOCIETY</td>
+      <td style="text-align: right">231</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">JOURNAL OF THE CHEMICAL SOCIETY-CHEMICAL COMMUNICATIONS</td>
+      <td style="text-align: right">167</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">JOURNAL OF ORGANIC CHEMISTRY</td>
+      <td style="text-align: right">165</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ABSTRACTS OF PAPERS OF THE AMERICAN CHEMICAL SOCIETY</td>
+      <td style="text-align: right">135</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">TETRAHEDRON LETTERS</td>
+      <td style="text-align: right">135</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">JOURNAL OF CHEMICAL PHYSICS</td>
+      <td style="text-align: right">123</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">PHYSICAL CHEMISTRY CHEMICAL PHYSICS</td>
+      <td style="text-align: right">117</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">JOURNAL OF THE CHEMICAL SOCIETY-PERKIN TRANSACTIONS 1</td>
+      <td style="text-align: right">112</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">JOURNAL OF THE CHEMICAL SOCIETY-DALTON TRANSACTIONS</td>
+      <td style="text-align: right">106</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Let’s look at the top 20 most popular journals:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">q</span><span class="o">$</span><span class="n">Journal.Names</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">q</span><span class="o">$</span><span class="n">Journal.Names</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="o">$</span><span class="n">Journal.Names</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Journal.Names</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Submission</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"identity"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90</span><span class="p">,</span><span class="w"> </span><span class="n">hjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">))</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-8-1.svg" alt="plot of chunk unnamed-chunk-8" /> 
+There does not seem to be a significant bias towards any of the three areas of chemistry.</p>
+
+<p>#Citations</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list2df</span><span class="p">(</span><span class="n">main</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s1">'title'</span><span class="p">,</span><span class="w"> </span><span class="s1">'num_citations'</span><span class="p">))</span><span class="w">
+</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_trim</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="p">)</span><span class="w">
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="o">!</span><span class="n">duplicated</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="p">),</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="n">order</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">num_citations</span><span class="p">,</span><span class="w"> </span><span class="n">decreasing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">),</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num_citations</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_bar</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">xlim</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">250</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylim</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">300</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-9-1.svg" alt="plot of chunk unnamed-chunk-9" /> 
+There are some ‘citation beasts’ - outliers not included in the above bar chart:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">title</th>
+      <th style="text-align: right">num_citations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">A 2ND GENERATION FORCE-FIELD FOR THE SIMULATION OF PROTEINS,NUCLEIC-ACIDS,AND ORGANIC-MOLECULES</td>
+      <td style="text-align: right">7810</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">The path forward for biofuels and biomaterials</td>
+      <td style="text-align: right">2373</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">A strong regioregularity effect in self-organizing conjugated polymer films and high-efficiency polythiophene: fullerene solar cells</td>
+      <td style="text-align: right">1647</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">The search for new-generation olefin polymerization catalysts: Life beyond metallocenes</td>
+      <td style="text-align: right">1608</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">N-Heterocyclic Carbenes in Late Transition Metal Catalysis</td>
+      <td style="text-align: right">1438</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Liquid-crystalline semiconducting polymers with high charge-carrier mobility</td>
+      <td style="text-align: right">1271</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">TETRAPROPYLAMMONIUM PERRUTHENATE,PR4N+RUO4-,TPAP - A CATALYTIC OXIDANT FOR ORGANIC-SYNTHESIS</td>
+      <td style="text-align: right">1243</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">FERROCENE-MEDIATED ENZYME ELECTRODE FOR AMPEROMETRIC DETERMINATION OF GLUCOSE</td>
+      <td style="text-align: right">1224</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ORGANOMETALLIC COMPOUNDS FOR NONLINEAR OPTICS - THE SEARCH FOR EN-LIGHT-ENMENT</td>
+      <td style="text-align: right">1221</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Synthesis and function of 3-phosphorylated inositol lipids</td>
+      <td style="text-align: right">1101</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">N-heterocyclic carbenes as organocatalysts</td>
+      <td style="text-align: right">966</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Development of a dispersion process for carbon nanotubes in an epoxy matrix and the resulting electrical properties</td>
+      <td style="text-align: right">944</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Ultra-low electrical percolation threshold in carbon-nanotube-epoxy composites</td>
+      <td style="text-align: right">904</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Charge Photogeneration in Organic Solar Cells</td>
+      <td style="text-align: right">879</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">An improved experimental determination of external photoluminescence quantum efficiency</td>
+      <td style="text-align: right">856</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Fabrication and characterization of carbon nanotube/poly(vinyl alcohol) composites</td>
+      <td style="text-align: right">856</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">STRUCTURE OF THE INVERTED HEXAGONAL (HII) PHASE,AND NON-LAMELLAR PHASE-TRANSITIONS OF LIPIDS</td>
+      <td style="text-align: right">837</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">PHASE-EQUILIBRIA BY SIMULATION IN THE GIBBS ENSEMBLE - ALTERNATIVE DERIVATION,GENERALIZATION AND APPLICATION TO MIXTURE AND MEMBRANE EQUILIBRIA</td>
+      <td style="text-align: right">825</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Materials and Applications for Large Area Electronics: Solution-Based Approaches</td>
+      <td style="text-align: right">814</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Novel olefin polymerization catalysts based on iron and cobalt</td>
+      <td style="text-align: right">809</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>#Prof vs Doc
+I would expect there is some correlation between the year of publication and the number of citations (the highest cited force-field paper removed):</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list2df</span><span class="p">(</span><span class="n">main</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s1">'title'</span><span class="p">,</span><span class="w"> </span><span class="s1">'year'</span><span class="p">,</span><span class="w"> </span><span class="s1">'num_citations'</span><span class="p">,</span><span class="w"> </span><span class="s1">'from'</span><span class="p">))</span><span class="w">
+</span><span class="c1"># df$title &lt;- str_trim(df$title)
+# df &lt;- df[!duplicated(df$title), ]
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">num_citations</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_point</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90</span><span class="p">,</span><span class="w"> </span><span class="n">hjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylim</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">2500</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-11-1.svg" alt="plot of chunk unnamed-chunk-11" /> 
+Nope, doesn’t seem like it. But maybe professors have in a general a higher citation rate than docs?</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="o">$</span><span class="n">isProf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_detect</span><span class="p">(</span><span class="n">toupper</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">from</span><span class="p">),</span><span class="w"> </span><span class="s2">"PROFESSOR"</span><span class="p">)</span><span class="w">
+</span><span class="c1"># ggplot(df, aes(year, num_citations)) + geom_point(aes(color = isProf)) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + ylim(0, 2500)
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num_citations</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">facet_grid</span><span class="p">(</span><span class="n">isProf</span><span class="o">~</span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'free'</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subset</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">isProf</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">F</span><span class="p">),</span><span class="w"> </span><span class="n">binwidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subset</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">isProf</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">T</span><span class="p">),</span><span class="w"> </span><span class="n">binwidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">xlim</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">250</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylim</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">300</span><span class="p">)</span><span class="w"> </span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-12-1.svg" alt="plot of chunk unnamed-chunk-12" /> 
+A clear indication of difference would be a shift of the bottom (professor num_citations) distribution to the right w.r.t the top distribution, which is not seen. However, there is a more visible tail for the bottom distribution than the top. This indicates professors tend to have more higher cited papers.
+In addition, the bottom distribution is taller than the top one, mind you this is despite the fact that only about one third of the department are professors. This means an indicator of professors is that they tend to have published more than doctors. A clearer way to demonstrate this is to compare the disbutions of the number of publications for professors and doctors.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">q</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">aggregate</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">from</span><span class="p">),</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">q</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span><span class="w"> </span><span class="s1">'num_publications'</span><span class="p">)</span><span class="w">
+</span><span class="n">q</span><span class="o">$</span><span class="n">isProf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_detect</span><span class="p">(</span><span class="n">toupper</span><span class="p">(</span><span class="n">q</span><span class="o">$</span><span class="n">name</span><span class="p">),</span><span class="w"> </span><span class="s2">"PROFESSOR"</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num_publications</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">facet_grid</span><span class="p">(</span><span class="n">isProf</span><span class="o">~</span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'free'</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subset</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="n">isProf</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">F</span><span class="p">),</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subset</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="n">isProf</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">T</span><span class="p">),</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Number of Profs / Docs"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-13-1.svg" alt="plot of chunk unnamed-chunk-13" /></p>
+
+<p>#Internal Collaborations
+Is there a lot of internal collaborations between staffs? Who collaborates with whom within IC chem? One way to look at that is to tally which staffs have the same publications.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list2df</span><span class="p">(</span><span class="n">main</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s1">'from'</span><span class="p">,</span><span class="w"> </span><span class="s1">'title'</span><span class="p">))</span><span class="w">
+</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">iconv</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="p">,</span><span class="s2">"WINDOWS-1252"</span><span class="p">,</span><span class="s2">"UTF-8"</span><span class="p">)</span><span class="w">
+</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">toupper</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="p">)</span><span class="w">
+</span><span class="c1">#df &lt;- df[duplicated(df$title), ]
+#q &lt;- aggregate(df$title, list(df$title), length)
+#q &lt;- q$Group.1[q$x &gt; 1]
+</span><span class="n">q</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">unique</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="p">)</span><span class="w">
+</span><span class="c1"># avoid same title by the same author
+</span><span class="n">q</span><span class="w"> </span><span class="o">&lt;-</span><span class="n">sapply</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">i</span><span class="p">){</span><span class="w">
+    </span><span class="nf">length</span><span class="p">(</span><span class="n">unique</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">from</span><span class="p">[</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="p">]))</span><span class="w"> 
+</span><span class="p">})</span><span class="w">
+</span><span class="n">p</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">names</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">q</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">1</span><span class="p">])</span><span class="w">
+</span><span class="n">s</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">unique</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">from</span><span class="p">[</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">p</span><span class="p">])</span></code></pre></figure>
+
+<p>Actually, 1162 pieces of work were collarborative efforts. That is quite a large proportion. 100 staffs were involved in internal collaborations, almost the whole department.</p>
+
+<p>A heatmap can show which staffs work together. Each row and column with a index represents a staff, where the staffs are sorted alphabetically by name. The table below the heatmap shows the index and name mapping. In the heatmap, the lighter the colour, the more collaboration between a pair of staffs, also the higher the number in the cell.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">heatmap</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="w"> </span><span class="n">xlabel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">ylabel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">text_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">7</span><span class="p">){</span><span class="w">
+    </span><span class="n">matrix</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">as.data.frame</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="w">
+    </span><span class="n">colors</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"steelblue"</span><span class="p">,</span><span class="w"> </span><span class="s2">"seagreen"</span><span class="p">,</span><span class="w"> </span><span class="s2">"darkorchid"</span><span class="p">,</span><span class="w"> </span><span class="s2">"maroon"</span><span class="p">)</span><span class="w">
+    </span><span class="n">melt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">melt</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="w">
+    </span><span class="k">if</span><span class="p">(</span><span class="n">ncol</span><span class="p">(</span><span class="n">melt</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">2</span><span class="p">){</span><span class="w">
+        </span><span class="n">melt</span><span class="o">$</span><span class="n">variable1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">melt</span><span class="o">$</span><span class="n">variable</span><span class="w">
+        </span><span class="n">melt</span><span class="o">$</span><span class="n">variable2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="n">rownames</span><span class="p">(</span><span class="n">matrix</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="p">(</span><span class="n">matrix</span><span class="p">))</span><span class="w">
+        </span><span class="n">melt</span><span class="o">$</span><span class="n">variable1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">melt</span><span class="o">$</span><span class="n">variable1</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">unique</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">rownames</span><span class="p">(</span><span class="n">matrix</span><span class="p">)))))</span><span class="w">
+        </span><span class="n">melt</span><span class="o">$</span><span class="n">variable2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">melt</span><span class="o">$</span><span class="n">variable2</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rev</span><span class="p">(</span><span class="n">unique</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">rownames</span><span class="p">(</span><span class="n">matrix</span><span class="p">)))))</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="n">p</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">melt</span><span class="p">,</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">variable1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">variable2</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_tile</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">),</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_fill_gradient</span><span class="p">(</span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="w">
+    </span><span class="n">p</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_text</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="m">2</span><span class="p">)),</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">text_size</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xlabel</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ylabel</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fill</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"none"</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">staffs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="n">sort</span><span class="p">(</span><span class="n">s</span><span class="p">))</span><span class="w">
+</span><span class="n">matrix</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">staffs</span><span class="p">),</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">staffs</span><span class="p">))</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rownames</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">staffs</span><span class="w">
+</span><span class="n">collaborations</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lapply</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="k">function</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">from</span><span class="p">[(</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="p">)]</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">collaborations</span><span class="p">){</span><span class="w">
+    </span><span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">)){</span><span class="w">
+        </span><span class="k">for</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">i</span><span class="p">)){</span><span class="w">
+</span><span class="c1">#             print(str_c(i[k],i[j]))
+#             print(i[k] %in% colnames(matrix))
+#             print(i[k] %in% rownames(matrix))
+#             print(i[j] %in% rownames(matrix))
+#             print(i[j] %in% colnames(matrix))
+</span><span class="w">            </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">which</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">staffs</span><span class="p">)</span><span class="w">
+            </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">which</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">staffs</span><span class="p">)</span><span class="w">
+            </span><span class="n">matrix</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">[</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">matrix</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">    
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rownames</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">staffs</span><span class="p">)</span><span class="w">
+</span><span class="n">p</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">heatmap</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="w"> </span><span class="n">text_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">
+</span><span class="n">p</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-15-1.svg" alt="plot of chunk unnamed-chunk-15" /></p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">kable</span><span class="p">(</span><span class="n">data.frame</span><span class="p">(</span><span class="n">Index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">staffs</span><span class="p">)),</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">staffs</span><span class="p">),</span><span class="w"> </span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span></code></pre></figure>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">Index</th>
+      <th style="text-align: left">Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">1</td>
+      <td style="text-align: left">Dr Abby Casey</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">2</td>
+      <td style="text-align: left">Dr Adam R J Clancy</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">3</td>
+      <td style="text-align: left">Dr Agostino Cilibrizzi</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">4</td>
+      <td style="text-align: left">Dr Aleksandar Ivanov</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">5</td>
+      <td style="text-align: left">Dr Alexander J W Thom</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">6</td>
+      <td style="text-align: left">Dr Alexandra Simperler FHEA</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">7</td>
+      <td style="text-align: left">Dr Andrew E Ashley</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">8</td>
+      <td style="text-align: left">Dr Artem Bakulin</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">9</td>
+      <td style="text-align: left">Dr Balaji Purushothaman</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">10</td>
+      <td style="text-align: left">Dr Barbara Montanari</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">11</td>
+      <td style="text-align: left">Dr Beinn Muir</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">12</td>
+      <td style="text-align: left">Dr Charles R E Romain</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">13</td>
+      <td style="text-align: left">Dr Colin R Crick</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">14</td>
+      <td style="text-align: left">Dr David A Widdowson</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">15</td>
+      <td style="text-align: left">Dr Duncan R Casey</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">16</td>
+      <td style="text-align: left">Dr Elena M Barreiro</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">17</td>
+      <td style="text-align: left">Dr Garry Rumbles</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">18</td>
+      <td style="text-align: left">Dr George J P Britovsek</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">19</td>
+      <td style="text-align: left">Dr Giuseppe Mallia</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">20</td>
+      <td style="text-align: left">Dr Guido Bolognesi</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">21</td>
+      <td style="text-align: left">Dr Hannah S Leese</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">22</td>
+      <td style="text-align: left">Dr Ian R Gould</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">23</td>
+      <td style="text-align: left">Dr James A Bull</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">24</td>
+      <td style="text-align: left">Dr James D Wilton-Ely</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">25</td>
+      <td style="text-align: left">Dr James H Bannock</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">26</td>
+      <td style="text-align: left">Dr Jennifer A Garden</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">27</td>
+      <td style="text-align: left">Dr Joao Pedro B C Malhado</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">28</td>
+      <td style="text-align: left">Dr Jordi Bures Amat</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">29</td>
+      <td style="text-align: left">Dr Joshua B Edel</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">30</td>
+      <td style="text-align: left">Dr Laura M C Barter</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">31</td>
+      <td style="text-align: left">Dr Leonora Velleman</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">32</td>
+      <td style="text-align: left">Dr Luke X Reynolds</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">33</td>
+      <td style="text-align: left">Dr Marina K Kuimova</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">34</td>
+      <td style="text-align: left">Dr Mark R Crimmin</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">35</td>
+      <td style="text-align: left">Dr Markus Ritzefeld</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">36</td>
+      <td style="text-align: left">Dr Matthew J Fuchter</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">37</td>
+      <td style="text-align: left">Dr Mimi Hii</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">38</td>
+      <td style="text-align: left">Dr Mustafa K Bayazit</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">39</td>
+      <td style="text-align: left">Dr Nicholas J Brooks</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">40</td>
+      <td style="text-align: left">Dr Olga Kuzmina</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">41</td>
+      <td style="text-align: left">Dr Oscar Ces</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">42</td>
+      <td style="text-align: left">Dr Patricia A Hunt</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">43</td>
+      <td style="text-align: left">Dr Paul Wilde</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">44</td>
+      <td style="text-align: left">Dr Philip Miller</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">45</td>
+      <td style="text-align: left">Dr Pierre Boufflet</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">46</td>
+      <td style="text-align: left">Dr Remigiusz A Serwa</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">47</td>
+      <td style="text-align: left">Dr Rob Davies</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">48</td>
+      <td style="text-align: left">Dr Robert Menzel</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">49</td>
+      <td style="text-align: left">Dr Robert V Law</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">50</td>
+      <td style="text-align: left">Dr Rudiger Woscholski</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">51</td>
+      <td style="text-align: left">Dr Saif A Haque</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">52</td>
+      <td style="text-align: left">Dr Sanjiv Sharma</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">53</td>
+      <td style="text-align: left">Dr Silvia Diez-Gonzalez</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">54</td>
+      <td style="text-align: left">Dr Stoichko Dimitrov</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">55</td>
+      <td style="text-align: left">Dr Thomas Lanyon-Hogg</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">56</td>
+      <td style="text-align: left">Dr Thomas Rath</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">57</td>
+      <td style="text-align: left">Dr Tim Albrecht</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">58</td>
+      <td style="text-align: left">Dr Xiaoe Li</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">59</td>
+      <td style="text-align: left">Dr Yuval Elani</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">60</td>
+      <td style="text-align: left">Dr Zhuping Fei</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">61</td>
+      <td style="text-align: left">Emeritus Professor Andrew B Holmes AM FRS FAA FTSE</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">62</td>
+      <td style="text-align: left">Emeritus Professor David Phillips</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">63</td>
+      <td style="text-align: left">Emeritus Professor Henry S Rzepa</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">64</td>
+      <td style="text-align: left">Emeritus Professor Michael Spiro</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">65</td>
+      <td style="text-align: left">Emeritus Professor William P Griffith</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">66</td>
+      <td style="text-align: left">Mr Yoni Weiner</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">67</td>
+      <td style="text-align: left">Ms Elisa Collado Fregoso</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">68</td>
+      <td style="text-align: left">Professor Alan Armstrong</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">69</td>
+      <td style="text-align: left">Professor Alan Spivey</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">70</td>
+      <td style="text-align: left">Professor Alexei A Kornyshev</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">71</td>
+      <td style="text-align: left">Professor Anthony G M Barrett FRS, FMedSci</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">72</td>
+      <td style="text-align: left">Professor Anthony R J Kucernak</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">73</td>
+      <td style="text-align: left">Professor Charlotte K Williams</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">74</td>
+      <td style="text-align: left">Professor Chris Braddock</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">75</td>
+      <td style="text-align: left">Professor David M L Goodgame</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">76</td>
+      <td style="text-align: left">Professor David R Klug</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">77</td>
+      <td style="text-align: left">Professor David Scheschkewitz</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">78</td>
+      <td style="text-align: left">Professor Ed Tate BSc PhD FRSC FRSB</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">79</td>
+      <td style="text-align: left">Professor Fernando Bresme</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">80</td>
+      <td style="text-align: left">Professor Iain McCulloch</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">81</td>
+      <td style="text-align: left">Professor James R Durrant</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">82</td>
+      <td style="text-align: left">Professor John C de Mello</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">83</td>
+      <td style="text-align: left">Professor John M Seddon</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">84</td>
+      <td style="text-align: left">Professor Keith Willison</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">85</td>
+      <td style="text-align: left">Professor Martin J Heeney</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">86</td>
+      <td style="text-align: left">Professor Michael J Bearpark</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">87</td>
+      <td style="text-align: left">Professor Mike Robb FRS</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">88</td>
+      <td style="text-align: left">Professor Milo S P Shaffer</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">89</td>
+      <td style="text-align: left">Professor Nicholas J Long</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">90</td>
+      <td style="text-align: left">Professor Nicholas M Harrison</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">91</td>
+      <td style="text-align: left">Professor Nick Quirke</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">92</td>
+      <td style="text-align: left">Professor Paul D Lickiss</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">93</td>
+      <td style="text-align: left">Professor Philip J Parsons</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">94</td>
+      <td style="text-align: left">Professor Ramon Vilar Compte</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">95</td>
+      <td style="text-align: left">Professor Richard Templer</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">96</td>
+      <td style="text-align: left">Professor Robin J Leatherbarrow</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">97</td>
+      <td style="text-align: left">Professor Sophia Yaliraki</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">98</td>
+      <td style="text-align: left">Professor Sue Gibson</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">99</td>
+      <td style="text-align: left">Professor Tony Cass</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">100</td>
+      <td style="text-align: left">Professor Tony Gee</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>One can see Prof Heaney and Prof McCulloch has collaborated the most. Most of the collaborations were duos. In the most extreme case, 6 staffs collaborated on 5 different piece of work:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data.frame</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="n">collaborations</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">i</span><span class="p">))),</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_bar</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">  </span><span class="n">geom_text</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">..count..</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">..count..</span><span class="p">),</span><span class="w"> </span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"count"</span><span class="p">,</span><span class="w"> </span><span class="n">vjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_y_log10</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_x_discrete</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Number of staffs contributed to the paper"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-16-1.svg" alt="plot of chunk unnamed-chunk-16" /></p>
+
+<p>There is a lot a lot a lot more that can be done with the data, employing more sophisticated analysis, which I might venture into if one day I feel like it. 
+The natural language processing done here is very crude and hence the numbers here are by no means absoluatly accurate. But I believe the general inferences are sound.</p>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#Project-ref">
+    		Project <span>3</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#-ic-ref">-ic <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#-science-ref">-science <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#-chemistry-ref">-chemistry <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/project/2016/08/09/Flock_2" title="Flock Simulation II - Three Added Functionalities">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next disabled"><a>Next &rarr;</a>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+<!-- 
+
+
+<div class="page-header-post">
+    <h1>
+        Summary of IC Chemistry Publications
+        
+        </h1>
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>25 August 2016</span>
+    </div>
+    <div class="content">
+      <p>Load packages and establish connection to Mongodb (here my db is located on the default port on my localhost).</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">rmongodb</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">stringr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">knitr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">gridExtra</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">reshape</span><span class="p">)</span><span class="w">
+
+</span><span class="n">mongo</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mongo.create</span><span class="p">()</span><span class="w">
+</span><span class="k">if</span><span class="p">(</span><span class="n">mongo.is.connected</span><span class="p">(</span><span class="n">mongo</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">db</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mongo.get.databases</span><span class="p">(</span><span class="n">mongo</span><span class="p">)</span><span class="w">
+    </span><span class="n">coll</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mongo.get.database.collections</span><span class="p">(</span><span class="n">mongo</span><span class="p">,</span><span class="w"> </span><span class="n">db</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>#Staffs
+The records are obtained from 120 staffs. We can look at the relative proportion of Doctors and Professors in the department.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mongo.distinct</span><span class="p">(</span><span class="n">mongo</span><span class="p">,</span><span class="w"> </span><span class="n">coll</span><span class="p">,</span><span class="w"> </span><span class="s1">'from'</span><span class="p">))</span><span class="w">
+</span><span class="n">df</span><span class="o">$</span><span class="n">isProf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_detect</span><span class="p">(</span><span class="n">toupper</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">names</span><span class="p">),</span><span class="w"> </span><span class="s2">"PROFESSOR"</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">isProf</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_bar</span><span class="p">()</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="n">coord_polar</span><span class="p">(</span><span class="n">theta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"y"</span><span class="p">)</span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.title.x</span><span class="o">=</span><span class="n">element_blank</span><span class="p">(),</span><span class="w">        
+        </span><span class="n">axis.text.x</span><span class="o">=</span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="n">axis.title.y</span><span class="o">=</span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="n">axis.text.y</span><span class="o">=</span><span class="n">element_blank</span><span class="p">())</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-2-1.svg" alt="plot of chunk unnamed-chunk-2" /></p>
+
+<p>#Publication
+There are in total 9417 entries. The entries are of the following types:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] "JOURNAL ARTICLE"  "CONFERENCE PAPER" "BOOK CHAPTER"    
+## [4] "PATENT"           "REPORT"           "SOFTWARE"        
+## [7] "OTHER"            "BOOK"             "POSTER"</code></pre></figure>
+
+<p>We can take a look at how many entries of each publication type are there, note the y-axis is on a <strong>log</strong> scale:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mongo.find.all</span><span class="p">(</span><span class="n">mongo</span><span class="p">,</span><span class="w"> </span><span class="n">coll</span><span class="p">,</span><span class="w"> </span><span class="n">fields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s1">'publication-type'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'_id'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="n">data.frame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">publication.type</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_bar</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">  </span><span class="n">geom_text</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">..count..</span><span class="p">),</span><span class="w"> </span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"count"</span><span class="p">,</span><span class="w"> </span><span class="n">vjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-1</span><span class="p">)</span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90</span><span class="p">,</span><span class="w"> </span><span class="n">hjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_y_log10</span><span class="p">(</span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="m">1000</span><span class="p">,</span><span class="m">10000</span><span class="p">))</span><span class="w"> </span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-4-1.svg" alt="plot of chunk unnamed-chunk-4" /></p>
+
+<p>It is most interesting to look at only journal &amp; conference publications, which are the vast majority of entries anyways. There are 8953 such entries. Bear in mind there are duplicate entries, where IC chemistry staffs collaborated to produce a piece of work.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">main</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mongo.find.all</span><span class="p">(</span><span class="n">mongo</span><span class="p">,</span><span class="w"> </span><span class="n">coll</span><span class="p">,</span><span class="w"> </span><span class="n">query</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="s2">"$or"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="s2">"publication-type"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"JOURNAL ARTICLE"</span><span class="p">),</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s2">"publication-type"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"CONFERENCE PAPER"</span><span class="p">))),</span><span class="w"> </span><span class="n">fields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s1">'publication-type'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'title'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'num_citations'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'journal'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'year'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'from'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'_id'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">))</span><span class="w">
+
+
+</span><span class="c1"># Only keeps data entries that have all the header fields defined. 
+</span><span class="n">list2df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">list</span><span class="p">,</span><span class="w"> </span><span class="n">headers</span><span class="p">){</span><span class="w">
+    </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">()</span><span class="w">
+    </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">list</span><span class="p">)){</span><span class="w">
+        </span><span class="n">record</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="w">
+        </span><span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">headers</span><span class="p">){</span><span class="w">
+            </span><span class="k">if</span><span class="p">(</span><span class="nf">is.null</span><span class="p">(</span><span class="n">list</span><span class="p">[[</span><span class="n">i</span><span class="p">]][[</span><span class="n">j</span><span class="p">]])){</span><span class="w">
+                </span><span class="n">record</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="w">
+                </span><span class="k">break</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="k">if</span><span class="p">(</span><span class="n">record</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">T</span><span class="p">){</span><span class="w">
+            </span><span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">headers</span><span class="p">)</span><span class="w">
+                </span><span class="n">output</span><span class="p">[[</span><span class="n">j</span><span class="p">]]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">  </span><span class="nf">c</span><span class="p">(</span><span class="n">output</span><span class="p">[[</span><span class="n">j</span><span class="p">]],</span><span class="w"> </span><span class="n">list</span><span class="p">[[</span><span class="n">i</span><span class="p">]][[</span><span class="n">j</span><span class="p">]])</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="nf">return</span><span class="p">(</span><span class="n">as.data.frame</span><span class="p">(</span><span class="n">output</span><span class="p">))</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># df &lt;- data.frame(journals = unlist(lapply(main, function(i) i$journal)), stringsAsFactors = F)
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list2df</span><span class="p">(</span><span class="n">main</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s1">'journal'</span><span class="p">,</span><span class="w"> </span><span class="s1">'title'</span><span class="p">))</span></code></pre></figure>
+
+<p>The 8116 journal submissions are delivered to  1102 different journals. A coarse look at the number of submissions to each of the journals. Have a guess what is the most popular journal(the tallest bar). Bear in mind multiple academics could be have drafted the same paper, this needs to be accounted for.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="o">!</span><span class="n">duplicated</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="p">),</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">journal</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_bar</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.text.x</span><span class="o">=</span><span class="n">element_blank</span><span class="p">(),</span><span class="n">axis.ticks</span><span class="o">=</span><span class="n">element_blank</span><span class="p">())</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-7-1.svg" alt="plot of chunk unnamed-chunk-7" /></p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">q</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">aggregate</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">journal</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">journal</span><span class="p">),</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">q</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Journal.Names"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Submission"</span><span class="p">)</span><span class="w">
+</span><span class="n">q</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="n">order</span><span class="p">(</span><span class="n">q</span><span class="o">$</span><span class="n">Submission</span><span class="p">,</span><span class="w"> </span><span class="n">decreasing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">),]</span><span class="w">
+</span><span class="n">kable</span><span class="p">(</span><span class="n">tail</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">),</span><span class="w"> </span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span></code></pre></figure>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Journal.Names</th>
+      <th style="text-align: right">Submission</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">VIBRATIONAL SPECTROSCOPY</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">WATER ENVIRONMENT RESEARCH</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">WATER SCIENCE AND TECHNOLOGY</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">WEAR</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">WILEY INTERDISCIPLINARY REVIEWS-COMPUTATIONAL MOLECULAR SCIENCE</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">WILEY INTERDISCIPLINARY REVIEWS-ENERGY AND ENVIRONMENT</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ZEITSCHRIFT FUR ANORGANISCHE UND ALLGEMEINE CHEMIE</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ZEITSCHRIFT FUR PHYSIK B-CONDENSED MATTER</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Zeitschrift für Physikalische Chemie</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ZHURNAL EKSPERIMENTALNOI I TEORETICHESKOI FIZIKI</td>
+      <td style="text-align: right">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">kable</span><span class="p">(</span><span class="n">head</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">),</span><span class="w"> </span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span></code></pre></figure>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Journal.Names</th>
+      <th style="text-align: right">Submission</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">CHEMICAL COMMUNICATIONS</td>
+      <td style="text-align: right">249</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">JOURNAL OF THE AMERICAN CHEMICAL SOCIETY</td>
+      <td style="text-align: right">231</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">JOURNAL OF THE CHEMICAL SOCIETY-CHEMICAL COMMUNICATIONS</td>
+      <td style="text-align: right">167</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">JOURNAL OF ORGANIC CHEMISTRY</td>
+      <td style="text-align: right">165</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ABSTRACTS OF PAPERS OF THE AMERICAN CHEMICAL SOCIETY</td>
+      <td style="text-align: right">135</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">TETRAHEDRON LETTERS</td>
+      <td style="text-align: right">135</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">JOURNAL OF CHEMICAL PHYSICS</td>
+      <td style="text-align: right">123</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">PHYSICAL CHEMISTRY CHEMICAL PHYSICS</td>
+      <td style="text-align: right">117</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">JOURNAL OF THE CHEMICAL SOCIETY-PERKIN TRANSACTIONS 1</td>
+      <td style="text-align: right">112</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">JOURNAL OF THE CHEMICAL SOCIETY-DALTON TRANSACTIONS</td>
+      <td style="text-align: right">106</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Let’s look at the top 20 most popular journals:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">q</span><span class="o">$</span><span class="n">Journal.Names</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">q</span><span class="o">$</span><span class="n">Journal.Names</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="o">$</span><span class="n">Journal.Names</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Journal.Names</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Submission</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"identity"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90</span><span class="p">,</span><span class="w"> </span><span class="n">hjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">))</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-8-1.svg" alt="plot of chunk unnamed-chunk-8" /> 
+There does not seem to be a significant bias towards any of the three areas of chemistry.</p>
+
+<p>#Citations</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list2df</span><span class="p">(</span><span class="n">main</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s1">'title'</span><span class="p">,</span><span class="w"> </span><span class="s1">'num_citations'</span><span class="p">))</span><span class="w">
+</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_trim</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="p">)</span><span class="w">
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="o">!</span><span class="n">duplicated</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="p">),</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="n">order</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">num_citations</span><span class="p">,</span><span class="w"> </span><span class="n">decreasing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">),</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num_citations</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_bar</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">xlim</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">250</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylim</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">300</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-9-1.svg" alt="plot of chunk unnamed-chunk-9" /> 
+There are some ‘citation beasts’ - outliers not included in the above bar chart:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">title</th>
+      <th style="text-align: right">num_citations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">A 2ND GENERATION FORCE-FIELD FOR THE SIMULATION OF PROTEINS,NUCLEIC-ACIDS,AND ORGANIC-MOLECULES</td>
+      <td style="text-align: right">7810</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">The path forward for biofuels and biomaterials</td>
+      <td style="text-align: right">2373</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">A strong regioregularity effect in self-organizing conjugated polymer films and high-efficiency polythiophene: fullerene solar cells</td>
+      <td style="text-align: right">1647</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">The search for new-generation olefin polymerization catalysts: Life beyond metallocenes</td>
+      <td style="text-align: right">1608</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">N-Heterocyclic Carbenes in Late Transition Metal Catalysis</td>
+      <td style="text-align: right">1438</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Liquid-crystalline semiconducting polymers with high charge-carrier mobility</td>
+      <td style="text-align: right">1271</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">TETRAPROPYLAMMONIUM PERRUTHENATE,PR4N+RUO4-,TPAP - A CATALYTIC OXIDANT FOR ORGANIC-SYNTHESIS</td>
+      <td style="text-align: right">1243</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">FERROCENE-MEDIATED ENZYME ELECTRODE FOR AMPEROMETRIC DETERMINATION OF GLUCOSE</td>
+      <td style="text-align: right">1224</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ORGANOMETALLIC COMPOUNDS FOR NONLINEAR OPTICS - THE SEARCH FOR EN-LIGHT-ENMENT</td>
+      <td style="text-align: right">1221</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Synthesis and function of 3-phosphorylated inositol lipids</td>
+      <td style="text-align: right">1101</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">N-heterocyclic carbenes as organocatalysts</td>
+      <td style="text-align: right">966</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Development of a dispersion process for carbon nanotubes in an epoxy matrix and the resulting electrical properties</td>
+      <td style="text-align: right">944</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Ultra-low electrical percolation threshold in carbon-nanotube-epoxy composites</td>
+      <td style="text-align: right">904</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Charge Photogeneration in Organic Solar Cells</td>
+      <td style="text-align: right">879</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">An improved experimental determination of external photoluminescence quantum efficiency</td>
+      <td style="text-align: right">856</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Fabrication and characterization of carbon nanotube/poly(vinyl alcohol) composites</td>
+      <td style="text-align: right">856</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">STRUCTURE OF THE INVERTED HEXAGONAL (HII) PHASE,AND NON-LAMELLAR PHASE-TRANSITIONS OF LIPIDS</td>
+      <td style="text-align: right">837</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">PHASE-EQUILIBRIA BY SIMULATION IN THE GIBBS ENSEMBLE - ALTERNATIVE DERIVATION,GENERALIZATION AND APPLICATION TO MIXTURE AND MEMBRANE EQUILIBRIA</td>
+      <td style="text-align: right">825</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Materials and Applications for Large Area Electronics: Solution-Based Approaches</td>
+      <td style="text-align: right">814</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Novel olefin polymerization catalysts based on iron and cobalt</td>
+      <td style="text-align: right">809</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>#Prof vs Doc
+I would expect there is some correlation between the year of publication and the number of citations (the highest cited force-field paper removed):</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list2df</span><span class="p">(</span><span class="n">main</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s1">'title'</span><span class="p">,</span><span class="w"> </span><span class="s1">'year'</span><span class="p">,</span><span class="w"> </span><span class="s1">'num_citations'</span><span class="p">,</span><span class="w"> </span><span class="s1">'from'</span><span class="p">))</span><span class="w">
+</span><span class="c1"># df$title &lt;- str_trim(df$title)
+# df &lt;- df[!duplicated(df$title), ]
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">num_citations</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_point</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90</span><span class="p">,</span><span class="w"> </span><span class="n">hjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylim</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">2500</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-11-1.svg" alt="plot of chunk unnamed-chunk-11" /> 
+Nope, doesn’t seem like it. But maybe professors have in a general a higher citation rate than docs?</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="o">$</span><span class="n">isProf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_detect</span><span class="p">(</span><span class="n">toupper</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">from</span><span class="p">),</span><span class="w"> </span><span class="s2">"PROFESSOR"</span><span class="p">)</span><span class="w">
+</span><span class="c1"># ggplot(df, aes(year, num_citations)) + geom_point(aes(color = isProf)) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + ylim(0, 2500)
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num_citations</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">facet_grid</span><span class="p">(</span><span class="n">isProf</span><span class="o">~</span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'free'</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subset</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">isProf</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">F</span><span class="p">),</span><span class="w"> </span><span class="n">binwidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subset</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">isProf</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">T</span><span class="p">),</span><span class="w"> </span><span class="n">binwidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">xlim</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">250</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylim</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">300</span><span class="p">)</span><span class="w"> </span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-12-1.svg" alt="plot of chunk unnamed-chunk-12" /> 
+A clear indication of difference would be a shift of the bottom (professor num_citations) distribution to the right w.r.t the top distribution, which is not seen. However, there is a more visible tail for the bottom distribution than the top. This indicates professors tend to have more higher cited papers.
+In addition, the bottom distribution is taller than the top one, mind you this is despite the fact that only about one third of the department are professors. This means an indicator of professors is that they tend to have published more than doctors. A clearer way to demonstrate this is to compare the disbutions of the number of publications for professors and doctors.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">q</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">aggregate</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">from</span><span class="p">),</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">q</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span><span class="w"> </span><span class="s1">'num_publications'</span><span class="p">)</span><span class="w">
+</span><span class="n">q</span><span class="o">$</span><span class="n">isProf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_detect</span><span class="p">(</span><span class="n">toupper</span><span class="p">(</span><span class="n">q</span><span class="o">$</span><span class="n">name</span><span class="p">),</span><span class="w"> </span><span class="s2">"PROFESSOR"</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num_publications</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">facet_grid</span><span class="p">(</span><span class="n">isProf</span><span class="o">~</span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'free'</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subset</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="n">isProf</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">F</span><span class="p">),</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subset</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="n">isProf</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">T</span><span class="p">),</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Number of Profs / Docs"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-13-1.svg" alt="plot of chunk unnamed-chunk-13" /></p>
+
+<p>#Internal Collaborations
+Is there a lot of internal collaborations between staffs? Who collaborates with whom within IC chem? One way to look at that is to tally which staffs have the same publications.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list2df</span><span class="p">(</span><span class="n">main</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s1">'from'</span><span class="p">,</span><span class="w"> </span><span class="s1">'title'</span><span class="p">))</span><span class="w">
+</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">iconv</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="p">,</span><span class="s2">"WINDOWS-1252"</span><span class="p">,</span><span class="s2">"UTF-8"</span><span class="p">)</span><span class="w">
+</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">toupper</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="p">)</span><span class="w">
+</span><span class="c1">#df &lt;- df[duplicated(df$title), ]
+#q &lt;- aggregate(df$title, list(df$title), length)
+#q &lt;- q$Group.1[q$x &gt; 1]
+</span><span class="n">q</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">unique</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="p">)</span><span class="w">
+</span><span class="c1"># avoid same title by the same author
+</span><span class="n">q</span><span class="w"> </span><span class="o">&lt;-</span><span class="n">sapply</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">i</span><span class="p">){</span><span class="w">
+    </span><span class="nf">length</span><span class="p">(</span><span class="n">unique</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">from</span><span class="p">[</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="p">]))</span><span class="w"> 
+</span><span class="p">})</span><span class="w">
+</span><span class="n">p</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">names</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">q</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">1</span><span class="p">])</span><span class="w">
+</span><span class="n">s</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">unique</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">from</span><span class="p">[</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">p</span><span class="p">])</span></code></pre></figure>
+
+<p>Actually, 1162 pieces of work were collarborative efforts. That is quite a large proportion. 100 staffs were involved in internal collaborations, almost the whole department.</p>
+
+<p>A heatmap can show which staffs work together. Each row and column with a index represents a staff, where the staffs are sorted alphabetically by name. The table below the heatmap shows the index and name mapping. In the heatmap, the lighter the colour, the more collaboration between a pair of staffs, also the higher the number in the cell.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">heatmap</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="w"> </span><span class="n">xlabel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">ylabel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">text_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">7</span><span class="p">){</span><span class="w">
+    </span><span class="n">matrix</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">as.data.frame</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="w">
+    </span><span class="n">colors</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"steelblue"</span><span class="p">,</span><span class="w"> </span><span class="s2">"seagreen"</span><span class="p">,</span><span class="w"> </span><span class="s2">"darkorchid"</span><span class="p">,</span><span class="w"> </span><span class="s2">"maroon"</span><span class="p">)</span><span class="w">
+    </span><span class="n">melt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">melt</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="w">
+    </span><span class="k">if</span><span class="p">(</span><span class="n">ncol</span><span class="p">(</span><span class="n">melt</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">2</span><span class="p">){</span><span class="w">
+        </span><span class="n">melt</span><span class="o">$</span><span class="n">variable1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">melt</span><span class="o">$</span><span class="n">variable</span><span class="w">
+        </span><span class="n">melt</span><span class="o">$</span><span class="n">variable2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="n">rownames</span><span class="p">(</span><span class="n">matrix</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="p">(</span><span class="n">matrix</span><span class="p">))</span><span class="w">
+        </span><span class="n">melt</span><span class="o">$</span><span class="n">variable1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">melt</span><span class="o">$</span><span class="n">variable1</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">unique</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">rownames</span><span class="p">(</span><span class="n">matrix</span><span class="p">)))))</span><span class="w">
+        </span><span class="n">melt</span><span class="o">$</span><span class="n">variable2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">melt</span><span class="o">$</span><span class="n">variable2</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rev</span><span class="p">(</span><span class="n">unique</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">rownames</span><span class="p">(</span><span class="n">matrix</span><span class="p">)))))</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="n">p</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">melt</span><span class="p">,</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">variable1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">variable2</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_tile</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">),</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_fill_gradient</span><span class="p">(</span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="w">
+    </span><span class="n">p</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_text</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="m">2</span><span class="p">)),</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">text_size</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xlabel</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ylabel</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fill</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"none"</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">staffs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="n">sort</span><span class="p">(</span><span class="n">s</span><span class="p">))</span><span class="w">
+</span><span class="n">matrix</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">staffs</span><span class="p">),</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">staffs</span><span class="p">))</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rownames</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">staffs</span><span class="w">
+</span><span class="n">collaborations</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lapply</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="k">function</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">from</span><span class="p">[(</span><span class="n">df</span><span class="o">$</span><span class="n">title</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="p">)]</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">collaborations</span><span class="p">){</span><span class="w">
+    </span><span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">)){</span><span class="w">
+        </span><span class="k">for</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">i</span><span class="p">)){</span><span class="w">
+</span><span class="c1">#             print(str_c(i[k],i[j]))
+#             print(i[k] %in% colnames(matrix))
+#             print(i[k] %in% rownames(matrix))
+#             print(i[j] %in% rownames(matrix))
+#             print(i[j] %in% colnames(matrix))
+</span><span class="w">            </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">which</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">staffs</span><span class="p">)</span><span class="w">
+            </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">which</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">staffs</span><span class="p">)</span><span class="w">
+            </span><span class="n">matrix</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">[</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">matrix</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">    
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rownames</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">staffs</span><span class="p">)</span><span class="w">
+</span><span class="n">p</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">heatmap</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="w"> </span><span class="n">text_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">
+</span><span class="n">p</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-15-1.svg" alt="plot of chunk unnamed-chunk-15" /></p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">kable</span><span class="p">(</span><span class="n">data.frame</span><span class="p">(</span><span class="n">Index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">staffs</span><span class="p">)),</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">staffs</span><span class="p">),</span><span class="w"> </span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span></code></pre></figure>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">Index</th>
+      <th style="text-align: left">Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">1</td>
+      <td style="text-align: left">Dr Abby Casey</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">2</td>
+      <td style="text-align: left">Dr Adam R J Clancy</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">3</td>
+      <td style="text-align: left">Dr Agostino Cilibrizzi</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">4</td>
+      <td style="text-align: left">Dr Aleksandar Ivanov</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">5</td>
+      <td style="text-align: left">Dr Alexander J W Thom</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">6</td>
+      <td style="text-align: left">Dr Alexandra Simperler FHEA</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">7</td>
+      <td style="text-align: left">Dr Andrew E Ashley</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">8</td>
+      <td style="text-align: left">Dr Artem Bakulin</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">9</td>
+      <td style="text-align: left">Dr Balaji Purushothaman</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">10</td>
+      <td style="text-align: left">Dr Barbara Montanari</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">11</td>
+      <td style="text-align: left">Dr Beinn Muir</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">12</td>
+      <td style="text-align: left">Dr Charles R E Romain</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">13</td>
+      <td style="text-align: left">Dr Colin R Crick</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">14</td>
+      <td style="text-align: left">Dr David A Widdowson</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">15</td>
+      <td style="text-align: left">Dr Duncan R Casey</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">16</td>
+      <td style="text-align: left">Dr Elena M Barreiro</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">17</td>
+      <td style="text-align: left">Dr Garry Rumbles</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">18</td>
+      <td style="text-align: left">Dr George J P Britovsek</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">19</td>
+      <td style="text-align: left">Dr Giuseppe Mallia</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">20</td>
+      <td style="text-align: left">Dr Guido Bolognesi</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">21</td>
+      <td style="text-align: left">Dr Hannah S Leese</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">22</td>
+      <td style="text-align: left">Dr Ian R Gould</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">23</td>
+      <td style="text-align: left">Dr James A Bull</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">24</td>
+      <td style="text-align: left">Dr James D Wilton-Ely</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">25</td>
+      <td style="text-align: left">Dr James H Bannock</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">26</td>
+      <td style="text-align: left">Dr Jennifer A Garden</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">27</td>
+      <td style="text-align: left">Dr Joao Pedro B C Malhado</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">28</td>
+      <td style="text-align: left">Dr Jordi Bures Amat</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">29</td>
+      <td style="text-align: left">Dr Joshua B Edel</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">30</td>
+      <td style="text-align: left">Dr Laura M C Barter</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">31</td>
+      <td style="text-align: left">Dr Leonora Velleman</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">32</td>
+      <td style="text-align: left">Dr Luke X Reynolds</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">33</td>
+      <td style="text-align: left">Dr Marina K Kuimova</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">34</td>
+      <td style="text-align: left">Dr Mark R Crimmin</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">35</td>
+      <td style="text-align: left">Dr Markus Ritzefeld</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">36</td>
+      <td style="text-align: left">Dr Matthew J Fuchter</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">37</td>
+      <td style="text-align: left">Dr Mimi Hii</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">38</td>
+      <td style="text-align: left">Dr Mustafa K Bayazit</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">39</td>
+      <td style="text-align: left">Dr Nicholas J Brooks</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">40</td>
+      <td style="text-align: left">Dr Olga Kuzmina</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">41</td>
+      <td style="text-align: left">Dr Oscar Ces</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">42</td>
+      <td style="text-align: left">Dr Patricia A Hunt</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">43</td>
+      <td style="text-align: left">Dr Paul Wilde</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">44</td>
+      <td style="text-align: left">Dr Philip Miller</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">45</td>
+      <td style="text-align: left">Dr Pierre Boufflet</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">46</td>
+      <td style="text-align: left">Dr Remigiusz A Serwa</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">47</td>
+      <td style="text-align: left">Dr Rob Davies</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">48</td>
+      <td style="text-align: left">Dr Robert Menzel</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">49</td>
+      <td style="text-align: left">Dr Robert V Law</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">50</td>
+      <td style="text-align: left">Dr Rudiger Woscholski</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">51</td>
+      <td style="text-align: left">Dr Saif A Haque</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">52</td>
+      <td style="text-align: left">Dr Sanjiv Sharma</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">53</td>
+      <td style="text-align: left">Dr Silvia Diez-Gonzalez</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">54</td>
+      <td style="text-align: left">Dr Stoichko Dimitrov</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">55</td>
+      <td style="text-align: left">Dr Thomas Lanyon-Hogg</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">56</td>
+      <td style="text-align: left">Dr Thomas Rath</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">57</td>
+      <td style="text-align: left">Dr Tim Albrecht</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">58</td>
+      <td style="text-align: left">Dr Xiaoe Li</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">59</td>
+      <td style="text-align: left">Dr Yuval Elani</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">60</td>
+      <td style="text-align: left">Dr Zhuping Fei</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">61</td>
+      <td style="text-align: left">Emeritus Professor Andrew B Holmes AM FRS FAA FTSE</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">62</td>
+      <td style="text-align: left">Emeritus Professor David Phillips</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">63</td>
+      <td style="text-align: left">Emeritus Professor Henry S Rzepa</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">64</td>
+      <td style="text-align: left">Emeritus Professor Michael Spiro</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">65</td>
+      <td style="text-align: left">Emeritus Professor William P Griffith</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">66</td>
+      <td style="text-align: left">Mr Yoni Weiner</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">67</td>
+      <td style="text-align: left">Ms Elisa Collado Fregoso</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">68</td>
+      <td style="text-align: left">Professor Alan Armstrong</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">69</td>
+      <td style="text-align: left">Professor Alan Spivey</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">70</td>
+      <td style="text-align: left">Professor Alexei A Kornyshev</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">71</td>
+      <td style="text-align: left">Professor Anthony G M Barrett FRS, FMedSci</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">72</td>
+      <td style="text-align: left">Professor Anthony R J Kucernak</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">73</td>
+      <td style="text-align: left">Professor Charlotte K Williams</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">74</td>
+      <td style="text-align: left">Professor Chris Braddock</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">75</td>
+      <td style="text-align: left">Professor David M L Goodgame</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">76</td>
+      <td style="text-align: left">Professor David R Klug</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">77</td>
+      <td style="text-align: left">Professor David Scheschkewitz</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">78</td>
+      <td style="text-align: left">Professor Ed Tate BSc PhD FRSC FRSB</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">79</td>
+      <td style="text-align: left">Professor Fernando Bresme</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">80</td>
+      <td style="text-align: left">Professor Iain McCulloch</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">81</td>
+      <td style="text-align: left">Professor James R Durrant</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">82</td>
+      <td style="text-align: left">Professor John C de Mello</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">83</td>
+      <td style="text-align: left">Professor John M Seddon</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">84</td>
+      <td style="text-align: left">Professor Keith Willison</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">85</td>
+      <td style="text-align: left">Professor Martin J Heeney</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">86</td>
+      <td style="text-align: left">Professor Michael J Bearpark</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">87</td>
+      <td style="text-align: left">Professor Mike Robb FRS</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">88</td>
+      <td style="text-align: left">Professor Milo S P Shaffer</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">89</td>
+      <td style="text-align: left">Professor Nicholas J Long</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">90</td>
+      <td style="text-align: left">Professor Nicholas M Harrison</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">91</td>
+      <td style="text-align: left">Professor Nick Quirke</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">92</td>
+      <td style="text-align: left">Professor Paul D Lickiss</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">93</td>
+      <td style="text-align: left">Professor Philip J Parsons</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">94</td>
+      <td style="text-align: left">Professor Ramon Vilar Compte</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">95</td>
+      <td style="text-align: left">Professor Richard Templer</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">96</td>
+      <td style="text-align: left">Professor Robin J Leatherbarrow</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">97</td>
+      <td style="text-align: left">Professor Sophia Yaliraki</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">98</td>
+      <td style="text-align: left">Professor Sue Gibson</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">99</td>
+      <td style="text-align: left">Professor Tony Cass</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">100</td>
+      <td style="text-align: left">Professor Tony Gee</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>One can see Prof Heaney and Prof McCulloch has collaborated the most. Most of the collaborations were duos. In the most extreme case, 6 staffs collaborated on 5 different piece of work:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data.frame</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="n">collaborations</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">i</span><span class="p">))),</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_bar</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">  </span><span class="n">geom_text</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">..count..</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">..count..</span><span class="p">),</span><span class="w"> </span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"count"</span><span class="p">,</span><span class="w"> </span><span class="n">vjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_y_log10</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_x_discrete</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Number of staffs contributed to the paper"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="/Figs/unnamed-chunk-16-1.svg" alt="plot of chunk unnamed-chunk-16" /></p>
+
+<p>There is a lot a lot a lot more that can be done with the data, employing more sophisticated analysis, which I might venture into if one day I feel like it. 
+The natural language processing done here is very crude and hence the numbers here are by no means absoluatly accurate. But I believe the general inferences are sound.</p>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#Project-ref">
+    		Project <span>3</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#-ic-ref">-ic <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#-science-ref">-science <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#-chemistry-ref">-chemistry <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/project/2016/08/09/Flock_2" title="Flock Simulation II - Three Added Functionalities">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next disabled"><a>Next &rarr;</a>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+-->
+
+      </div>
+
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p>&copy; 2016 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>
+        </p>
+      </div>
+    </div>
+
+    
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-123-12']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

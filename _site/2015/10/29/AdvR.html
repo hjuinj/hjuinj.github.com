@@ -1,0 +1,202 @@
+<p>#Data Structures
+Additional attributes can be defined such as follows. But all these add-on attributes are lost after manipulating the object. 
+The only unchanged attr are name, type and dimension.
+```{r}</p>
+
+<p>structure(1:10, attributes = “this is a vector”)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+
+Arrays are high dimensional 'matrices'
+```{r}
+a &lt;- array(data = 1:12, dim = c(2,3,2))
+
+aperm(a) #generalised transpose of array
+
+# supress automatic turning of strings into factors
+df &lt;- data.frame(
+  x = 1:3,
+  y = c("a", "b", "c"),
+  stringsAsFactors = FALSE)
+str(df)
+
+dfl &lt;- data.frame(x = 1:3, y = I(list(1:2, 1:3, 1:4)))
+str(dfl)
+
+</code></pre>
+</div>
+
+<p>#Subsetting
+There are preserving and simplifying way of subsetting. The former returns an object of the same type as the input.
+The latter returns different output depending on input.</p>
+
+<p>Factor: drops any unused levels.
+<code class="highlighter-rouge"><span class="p">{</span><span class="err">r]</span><span class="p">}</span><span class="w">
+</span><span class="err">z</span><span class="w"> </span><span class="err">&lt;-</span><span class="w"> </span><span class="err">factor(c(</span><span class="s2">"a"</span><span class="err">,</span><span class="w"> </span><span class="s2">"b"</span><span class="err">))</span><span class="w">
+</span><span class="err">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w">
+</span><span class="err">#&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="err">a</span><span class="w">
+</span><span class="err">#&gt;</span><span class="w"> </span><span class="err">Levels:</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">b</span><span class="w">
+</span><span class="err">z</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="err">drop</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">TRUE</span><span class="p">]</span><span class="w">
+</span><span class="err">#&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="err">a</span><span class="w">
+</span><span class="err">#&gt;</span><span class="w"> </span><span class="err">Levels:</span><span class="w"> </span><span class="err">a</span><span class="w">
+</span></code></p>
+
+<p>Matrix or array: if any of the dimensions has length 1, drops that dimension.
+<code class="highlighter-rouge"><span class="p">{</span><span class="err">r]</span><span class="p">}</span><span class="w">
+</span><span class="err">a</span><span class="w"> </span><span class="err">&lt;-</span><span class="w"> </span><span class="err">matrix(</span><span class="mi">1</span><span class="err">:</span><span class="mi">4</span><span class="err">,</span><span class="w"> </span><span class="err">nrow</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="mi">2</span><span class="err">)</span><span class="w">
+</span><span class="err">a</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="err">drop</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">FALSE</span><span class="p">]</span><span class="w">
+</span><span class="err">#&gt;</span><span class="w">      </span><span class="p">[,</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="p">[,</span><span class="mi">2</span><span class="p">]</span><span class="w">
+</span><span class="err">#&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,]</span><span class="w">    </span><span class="mi">1</span><span class="w">    </span><span class="mi">3</span><span class="w">
+</span><span class="err">a</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="err">#&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">3</span><span class="w">
+</span></code></p>
+
+<p>Data frame: if output is a single column, returns a vector instead of a data frame.
+<code class="highlighter-rouge"><span class="p">{</span><span class="err">r</span><span class="p">}</span><span class="w">
+</span><span class="err">df</span><span class="w"> </span><span class="err">&lt;-</span><span class="w"> </span><span class="err">data.frame(a</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="mi">1</span><span class="err">:</span><span class="mi">2</span><span class="err">,</span><span class="w"> </span><span class="err">b</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="mi">1</span><span class="err">:</span><span class="mi">2</span><span class="err">)</span><span class="w">
+</span><span class="err">str(df</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="err">)</span><span class="w">
+</span><span class="err">#&gt;</span><span class="w"> </span><span class="err">'data.frame':</span><span class="w">    </span><span class="mi">2</span><span class="w"> </span><span class="err">obs.</span><span class="w"> </span><span class="err">of</span><span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="err">variable:</span><span class="w">
+</span><span class="err">#&gt;</span><span class="w">  </span><span class="err">$</span><span class="w"> </span><span class="err">a:</span><span class="w"> </span><span class="err">int</span><span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w">
+</span><span class="err">str(df</span><span class="p">[[</span><span class="mi">1</span><span class="p">]]</span><span class="err">)</span><span class="w">
+</span><span class="err">#&gt;</span><span class="w">  </span><span class="err">int</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="err">:</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w">
+</span><span class="err">str(df</span><span class="p">[,</span><span class="w"> </span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="err">drop</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">FALSE</span><span class="p">]</span><span class="err">)</span><span class="w">
+</span><span class="err">#&gt;</span><span class="w"> </span><span class="err">'data.frame':</span><span class="w">    </span><span class="mi">2</span><span class="w"> </span><span class="err">obs.</span><span class="w"> </span><span class="err">of</span><span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="err">variable:</span><span class="w">
+</span><span class="err">#&gt;</span><span class="w">  </span><span class="err">$</span><span class="w"> </span><span class="err">a:</span><span class="w"> </span><span class="err">int</span><span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w">
+</span><span class="err">str(df</span><span class="p">[,</span><span class="w"> </span><span class="s2">"a"</span><span class="p">]</span><span class="err">)</span><span class="w">
+</span><span class="err">#&gt;</span><span class="w">  </span><span class="err">int</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="err">:</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w">
+</span></code></p>
+
+<p>A lot more subsetting with dataframe at the <strong>Applications</strong> section which might come in handy</p>
+
+<h1 id="functions">Functions</h1>
+<p>the <code class="highlighter-rouge">body(FUN)</code> functions prints the body of the function, <code class="highlighter-rouge">formal()</code> and <code class="highlighter-rouge">enviroment()</code> work similarly
+&gt; Lexical scoping looks up symbol values based on how functions were nested when they were created, not how they are nested when they are called.</p>
+
+<p>Each function call is completely independent to its past calls, <code class="highlighter-rouge">codetools::findGlobals(FUN)</code> finds all the variables and functions the particular function FUN relies on in the global environment</p>
+
+<p>All operators are masked/overloaded functions, for example:
+```{r}
+x &lt;- 10; y &lt;- 5
+x + y
+#&gt; [1] 15
+<code class="highlighter-rouge">+</code>(x, y)
+#&gt; [1] 15</p>
+
+<p>for (i in 1:2) print(i)
+#&gt; [1] 1
+#&gt; [1] 2
+<code class="highlighter-rouge">for</code>(i, 1:2, print(i))
+#&gt; [1] 1
+#&gt; [1] 2</p>
+
+<p>if (i == 1) print(“yes!”) else print(“no.”)
+#&gt; [1] “no.”
+<code class="highlighter-rouge">if</code>(i == 1, print(“yes!”), print(“no.”))
+#&gt; [1] “no.”</p>
+
+<p>x[3]
+#&gt; [1] NA
+<code class="highlighter-rouge">[</code>(x, 3)
+#&gt; [1] NA</p>
+
+<p>{ print(1); print(2); print(3) }
+#&gt; [1] 1
+#&gt; [1] 2
+#&gt; [1] 3
+<code class="highlighter-rouge"><span class="p">{</span></code>(print(1), print(2), print(3))
+#&gt; [1] 1
+#&gt; [1] 2
+#&gt; [1] 3
+```</p>
+
+<p>All user defined infix functions must be wrapped by ‘%’</p>
+
+<blockquote>
+  <p>Replacement functions act like they modify their arguments in place, and have the special name xxx&lt;-. They typically have two arguments (x and value), although they can have more, and they must return the modified object. For example, the following function allows you to modify the second element of a vector:</p>
+</blockquote>
+
+<pre><code class="language-{r]}">`second&lt;-` &lt;- function(x, value) {
+  x[2] &lt;- value
+  x
+}
+x &lt;- 1:10
+second(x) &lt;- 5L
+x
+#&gt;  [1]  1  5  3  4  5  6  7  8  9 10
+</code></pre>
+<p>This creats a new copy that replaces the old object.
+<code class="highlighter-rouge">library(pryr)</code>’s <code class="highlighter-rouge">address</code> function shows memory address</p>
+
+<h1 id="oop">OOP</h1>
+
+<p>#FP</p>
+
+<pre><code class="language-{r}">summary &lt;- function(x) {
+  funs &lt;- c(mean, median, sd, mad, IQR)
+  lapply(funs, function(f) f(x, na.rm = TRUE))
+}
+</code></pre>
+<p>### closures
+functions made by other functions. Closures are described in the next section.
+&gt; “An object is data with functions. A closure is a function with data.”</p>
+
+<p>Closures get their name because they enclose the environment of the parent function and can access all its variables. This is useful because it allows us to have two levels of
+parameters: a parent level that controls operation and a child level that does the work.</p>
+
+<pre><code class="language-{r}">power &lt;- function(exponent) {
+  function(x) {
+    x ^ exponent
+  }
+}
+
+square &lt;- power(2)
+square(2)
+#&gt; [1] 4
+square(4)
+#&gt; [1] 16
+
+cube &lt;- power(3)
+cube(2)
+#&gt; [1] 8
+cube(4)
+#&gt; [1] 64
+
+
+simple_tag &lt;- function(tag) {
+  force(tag)
+  function(...) {
+    paste0("&lt;", tag, "&gt;", paste0(...), "&lt;/", tag, "&gt;")
+  }
+}
+tags &lt;- c("p", "b", "i")
+html &lt;- lapply(setNames(tags, tags), simple_tag)
+</code></pre>
+<p>I’ve put the functions in a list because I don’t want them to be available all the time. The risk of a conflict between an existing R function and an HTML tag is high. But keeping them in a list makes code more verbose:
+<code class="highlighter-rouge"><span class="p">{</span><span class="err">r</span><span class="p">}</span><span class="w">
+</span><span class="err">html$p(</span><span class="s2">"This is "</span><span class="err">,</span><span class="w"> </span><span class="err">html$b(</span><span class="s2">"bold"</span><span class="err">),</span><span class="w"> </span><span class="s2">" text."</span><span class="err">)</span><span class="w">
+</span><span class="err">#&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="s2">"&lt;p&gt;This is &lt;b&gt;bold&lt;/b&gt; text.&lt;/p&gt;"</span><span class="w">
+</span></code>
+Depending on how long we want the effect to last, you have three options to eliminate the use of html$:</p>
+
+<p>For a very temporary effect, you can use with():</p>
+
+<pre><code class="language-{r}">with(html, p("This is ", b("bold"), " text."))
+#&gt; [1] "&lt;p&gt;This is &lt;b&gt;bold&lt;/b&gt; text.&lt;/p&gt;"
+</code></pre>
+<p>For a longer effect, you can attach() the functions to the search path, then detach() when you’re done:</p>
+
+<pre><code class="language-{r}">attach(html)
+p("This is ", b("bold"), " text.")
+#&gt; [1] "&lt;p&gt;This is &lt;b&gt;bold&lt;/b&gt; text.&lt;/p&gt;"
+detach(html)
+</code></pre>
+<p>Finally, you could copy the functions to the global environment with list2env(). You can undo this by deleting the functions after you’re done.</p>
+
+<pre><code class="language-{r}">list2env(html, environment())
+#&gt; &lt;environment: R_GlobalEnv&gt;
+p("This is ", b("bold"), " text.")
+#&gt; [1] "&lt;p&gt;This is &lt;b&gt;bold&lt;/b&gt; text.&lt;/p&gt;"
+rm(list = names(html), envir = environment())
+</code></pre>
+
+<p>sapply() is a thin wrapper around lapply() that transforms a list into a vector in the final step. vapply() is an implementation of lapply() that assigns results to a vector (or matrix) of appropriate type instead of as a list.</p>
