@@ -1,15 +1,25 @@
 ---
 title: "Summary of IC Chemistry Publications"
-author: "hjuinj"
-date: "2016-08-11"
-output: html_document
+layout: post
+category : Project
+tags :
+    -IC
+    -science
+    -chemistry
+    -R
+    -mongodb
+    -
 ---
+
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(fig.width=12, fig.height=8, 
                       warning=FALSE, message=FALSE)
 ```
 
-Load packages and establish connection to Mongodb (here my db is located on the default port on my localhost).
+Having crawled the data in the [previous post](http://hjuinj.github.io/project/2016/08/25/ICchemI), I can extract different portions of it from my database and cleanse it to generate some plots and summary statistics.
+
+First, load packages and establish connection to Mongodb (here my db is located on the default port on my localhost).
+
 ```{r }
 library(rmongodb)
 library(stringr)
@@ -25,7 +35,8 @@ if(mongo.is.connected(mongo) == TRUE) {
 }
 ```
 
-#Staffs
+# Staffs
+
 The records are obtained from `r length(mongo.distinct(mongo, coll, "from"))` staffs. We can look at the relative proportion of Doctors and Professors in the department.
 
 ```{r }
@@ -38,13 +49,16 @@ ggplot(df, aes(x = factor(1), fill = isProf) ) + geom_bar()  + coord_polar(theta
 
 ```
 
-#Publication
+# Publication
+
 There are in total `r mongo.count(mongo, coll)` entries. The entries are of the following types:
+
 ```{r echo = FALSE}
 mongo.distinct(mongo, coll, 'publication-type')
 ```
 
 We can take a look at how many entries of each publication type are there, note the y-axis is on a **log** scale:
+
 ```{r }
 df <- mongo.find.all(mongo, coll, fields = list('publication-type' = 1, '_id' = 0), data.frame = T)
 ggplot(df, aes(x = publication.type) ) + geom_bar() +  geom_text(aes(label = ..count..), stat = "count", vjust = -1)+ theme(axis.text.x = element_text(angle = 90, hjust = 1)) + scale_y_log10(breaks = c(1,10,100,1000,10000)) 
@@ -57,7 +71,7 @@ It is most interesting to look at only journal & conference publications, which 
 main <- mongo.find.all(mongo, coll, query=list("$or" = list(list("publication-type" = "JOURNAL ARTICLE"), list("publication-type" = "CONFERENCE PAPER"))), fields = list('publication-type' = 1, 'title' = 1, 'num_citations' = 1, 'journal' = 1, 'year' = 1, 'from' = 1, '_id' = 0))
 
 
-# Only keeps data entries that have all the header fields defined. 
+#  Only keeps data entries that have all the header fields defined. 
 list2df <- function(list, headers){
     output = list()
     for(i in 1:length(list)){
@@ -80,10 +94,11 @@ list2df <- function(list, headers){
 
 
 ```{r}
-# df <- data.frame(journals = unlist(lapply(main, function(i) i$journal)), stringsAsFactors = F)
 df <- list2df(main, c('journal', 'title'))
 ```
-The `r length(df$journal)` journal submissions are delivered to  `r length(unique(df$journal))` different journals. A coarse look at the number of submissions to each of the journals. Have a guess what is the most popular journal(the tallest bar). Bear in mind multiple academics could be have drafted the same paper, this needs to be accounted for.
+
+The `r length(df$journal)` journal submissions are delivered to  `r length(unique(df$journal))` different journals. A coarse look at the number of submissions to each of the journals. Have a guess what is the most popular journal(the tallest bar). Bear in mind multiple academics could be have drafted the same paper, this needs to be accounted for. I have listed the top 10 most and (some of the) least popular journals.
+
 ```{r}
 df <- df[!duplicated(df$title), ]
 ggplot(df, aes(x = journal) ) + geom_bar() + theme(axis.text.x=element_blank(),axis.ticks=element_blank())
@@ -94,15 +109,18 @@ kable(tail(q, 10), row.names = F)
 kable(head(q, 10), row.names = F)
 ```
 
-Let's look at the top 20 most popular journals:
+Let's look at the number of submissions to the top 20 most popular journals:
+
 ```{r}
 q$Journal.Names <- factor(q$Journal.Names, levels = q$Journal.Names)
 ggplot(q[1:20, ], aes(x = Journal.Names, y = Submission)) + geom_bar(stat = "identity") + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 ```
+
 There does not seem to be a significant bias towards any of the three areas of chemistry. 
 
-#Citations
+# Citations
+
 ```{r}
 df <- list2df(main, c('title', 'num_citations'))
 df$title <- str_trim(df$title)
@@ -110,26 +128,31 @@ df <- df[!duplicated(df$title), ]
 df <- df[order(df$num_citations, decreasing = T), ]
 ggplot(df, aes(x = num_citations)) + geom_bar() + xlim(0, 250) + ylim(0,300)
 ```
+
 There are some 'citation beasts' - outliers not included in the above bar chart:
+
 ````{r echo = F}
 kable(head(df, 20), row.names = F)
 ````
 
-#Prof vs Doc
+# Prof vs Doc
+
 I would expect there is some correlation between the year of publication and the number of citations (the highest cited force-field paper removed):
+
 ```{r}
 df <- list2df(main, c('title', 'year', 'num_citations', 'from'))
-# df$title <- str_trim(df$title)
-# df <- df[!duplicated(df$title), ]
 ggplot(df, aes(year, num_citations)) + geom_point() + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + ylim(0, 2500)
 ```
+
 Nope, doesn't seem like it. But maybe professors have in a general a higher citation rate than docs?
+
 ```{r}
 df$isProf <- str_detect(toupper(df$from), "PROFESSOR")
-# ggplot(df, aes(year, num_citations)) + geom_point(aes(color = isProf)) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + ylim(0, 2500)
 ggplot(data = df, mapping = aes(x = num_citations)) + facet_grid(isProf~., scale = 'free') + geom_histogram(data = subset(df, isProf == F), binwidth = 1, fill = "red", alpha = 0.5) + geom_histogram(data = subset(df, isProf == T), binwidth = 1 , fill = "blue", alpha = 0.5) + xlim(0, 250) + ylim(0, 300) 
 ```
+
 A clear indication of difference would be a shift of the bottom (professor num_citations) distribution to the right w.r.t the top distribution, which is not seen. However, there is a more visible tail for the bottom distribution than the top. This indicates professors tend to have more higher cited papers.
+
 In addition, the bottom distribution is taller than the top one, mind you this is despite the fact that only about one third of the department are professors. This means an indicator of professors is that they tend to have published more than doctors. A clearer way to demonstrate this is to compare the disbutions of the number of publications for professors and doctors. 
 
 ```{r}
@@ -139,26 +162,26 @@ q$isProf <- str_detect(toupper(q$name), "PROFESSOR")
 ggplot(data = q, mapping = aes(x = num_publications)) + facet_grid(isProf~., scale = 'free') + geom_histogram(data = subset(q, isProf == F), fill = "red", alpha = 0.5) + geom_histogram(data = subset(q, isProf == T), fill = "blue", alpha = 0.5) + ylab("Number of Profs / Docs")
 ```
 
-#Internal Collaborations
+# Internal Collaborations
+
 Is there a lot of internal collaborations between staffs? Who collaborates with whom within IC chem? One way to look at that is to tally which staffs have the same publications.
+
 ```{r}
 df <- list2df(main, c('from', 'title'))
 df$title <- iconv(df$title,"WINDOWS-1252","UTF-8")
 df$title <- toupper(df$title)
-#df <- df[duplicated(df$title), ]
-#q <- aggregate(df$title, list(df$title), length)
-#q <- q$Group.1[q$x > 1]
 q <- unique(df$title)
-# avoid same title by the same author
 q <-sapply(q, function(i){
     length(unique(df$from[df$title == i])) 
 })
 p <- names(q[q > 1])
 s <- unique(df$from[df$title %in% p])
 ```
+
 Actually, `r length(p)` pieces of work were collarborative efforts. That is quite a large proportion. `r length(s)` staffs were involved in internal collaborations, almost the whole department.
 
-A heatmap can show which staffs work together. Each row and column with a index represents a staff, where the staffs are sorted alphabetically by name. The table below the heatmap shows the index and name mapping. In the heatmap, the lighter the colour, the more collaboration between a pair of staffs, also the higher the number in the cell.
+A heatmap can show which researchers work together. Each row and column with a index represents a staff, where the staffs are sorted alphabetically by name. The table below the heatmap shows the index and name mapping. The heatmap is symmetrical w.r.t the diagnol. In the heatmap, the lighter the colour, the more collaboration between a pair of staffs, also the higher the number in the cell.
+
 ```{r, fig.width=15, fig.height=15}
 heatmap <- function(matrix, xlabel = NULL, ylabel = NULL, fill = NULL, color= NULL, text_size = 7){
     matrix <- as.data.frame(matrix)
@@ -181,24 +204,23 @@ collaborations <- lapply(p,function(i) df$from[(df$title == i)] )
 for(i in collaborations){
     for(j in 1:(length(i) - 1)){
         for(k in (j + 1):length(i)){
-#             print(str_c(i[k],i[j]))
-#             print(i[k] %in% colnames(matrix))
-#             print(i[k] %in% rownames(matrix))
-#             print(i[j] %in% rownames(matrix))
-#             print(i[j] %in% colnames(matrix))
             r <- which(i[j] == staffs)
             c <- which(i[k] == staffs)
-            matrix[r, c] <- matrix[c, r] <- 1 + matrix[r, c]
+            if(r != c)
+                matrix[r, c] <- matrix[c, r] <- 1 + matrix[r, c]
         }
     }
 }    
+#diag(matrix) <- 0
+diagnol <- data.frame(x1 = 100, y1 = 1, x2 = 1, y2 = 100)
 colnames(matrix) <- rownames(matrix) <- 1:length(staffs)
 p <- heatmap(matrix, text_size = 3)
-p
+p + geom_segment(data = diagnol, aes(x = x1, y = y1, xend = x2, yend = y2, colour = "white"))
 kable(data.frame(Name = staffs, Index = (1:length(staffs))), row.names = F)
 ```
 
 One can see Prof Heaney and Prof McCulloch has collaborated the most. Most of the collaborations were duos. In the most extreme case, 6 staffs collaborated on 5 different piece of work:
+
 ```{r}
 ggplot(data.frame(x = sapply(collaborations, function(i) length(i))), aes(x) ) + geom_bar() +  geom_text(aes(y = ..count.. , label = ..count..), stat = "count", vjust = -1) + scale_y_log10() + scale_x_discrete() + xlab("Number of staffs contributed to the paper")
 ```
@@ -206,3 +228,9 @@ ggplot(data.frame(x = sapply(collaborations, function(i) length(i))), aes(x) ) +
 
 There is a lot a lot a lot more that can be done with the data, employing more sophisticated analysis, which I might venture into if one day I feel like it. 
 The natural language processing done here is very crude and hence the numbers here are by no means absoluatly accurate. But I believe the general inferences are sound.
+
+To see the complete Rmarkdown code for this analysis visit [here](https://github.com/hjuinj/Web-Scrappers/blob/master/3.IC%20Chem/stats.Rmd).
+
+To have this published on my blog the Rmarkdown needs to be translated into markdown. For this I used and modified [Andrew Brooks'](http://brooksandrew.github.io/simpleblog/articles/blogging-with-r-markdown-and-jekyll-using-knitr/) R function. 
+
+Until next time...
