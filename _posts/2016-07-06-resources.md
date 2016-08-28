@@ -2,7 +2,7 @@
 title: "Resources"
 layout: post
 category : Resources
-tags : 
+tags :
     - resources
     - chemistry
     - biology
@@ -67,7 +67,14 @@ Full documentation:
 * VMD
 
 
+* CCTBX (Computational Crystallography Toolbox)
+http://cctbx.sourceforge.net/
 
+* rDock
+http://rdock.sourceforge.net/installation/
+
+* AutoDock
+http://autodock.scripps.edu/
 ---
 
 # NLP
@@ -83,3 +90,9 @@ Advanced R:
 <http://adv-r.had.co.nz/>
 
 ---
+
+#Data Science
+
+* Distributed Computing
+
+Databricks, Apache Spark
