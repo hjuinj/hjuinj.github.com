@@ -27,6 +27,7 @@ library(ggplot2)
 library(knitr)
 library(gridExtra)
 library(reshape)
+library(igraph)
 
 mongo <- mongo.create()
 if(mongo.is.connected(mongo) == TRUE) {
@@ -223,6 +224,14 @@ One can see Prof Heaney and Prof McCulloch has collaborated the most. Most of th
 
 ```{r}
 ggplot(data.frame(x = sapply(collaborations, function(i) length(i))), aes(x) ) + geom_bar() +  geom_text(aes(y = ..count.. , label = ..count..), stat = "count", vjust = -1) + scale_y_log10() + scale_x_discrete() + xlab("Number of staffs contributed to the paper")
+```
+
+Another way to view the data is through a graph network, where nodes represents the staffs and edges indicates whether there is at least one collaboration between the two nodes. The netwwork is obviously too dense to see the details, but a general rule is that peripheral nodes have less collaborators (e.g. node 64 and 65, whom, as the records suggest have only collaborated with each other and no other staffs). While central nodes represent staffs who collaborate with many different people.
+
+```{r}
+adjMat <- matrix > 0
+net <- graph_from_adjacency_matrix(adjMat)
+plot(net, edge.arrow.size = 0,  vertex.size = 5, vertex.label.cex = 0.5)
 ```
 
 
