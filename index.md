@@ -15,13 +15,13 @@ title: 厚積
     <li>
        <span>
        {% if post.icon %}
-          <img src = "/assets/img/Icon/{{post.icon}}" height = "26"  width = "26">
+          <img src = "/assets/img/Icon/{{post.icon}}.png" height = "26"  width = "26">
        {% else %}
           <img src = "/assets/img/Icon/default.png" height = "26" width = "26">
        {% endif %}
           {{ post.date | date_to_string }}
 
-       </span> 
+       </span>
      &raquo;
      <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}    </a>
           {{ post.last_modified_at }}
