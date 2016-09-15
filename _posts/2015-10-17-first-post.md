@@ -14,7 +14,7 @@ I was a kid, mumbling about nothing, in Chinese.
 To give you a glimpse [Qzone](http://user.qzone.qq.com/348601585):
 
 
-![qzone](/assets/img/Posts/firstpost1.png)
+![qzone](/assets/img/Posts/firstPost1.png)
 
 
 I never go back and read what I write: afraid I will be overwhelmed by the level stupidity. But to be fair, I think I write well, at least in Chinese.
