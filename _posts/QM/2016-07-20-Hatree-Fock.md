@@ -3,6 +3,7 @@ title: "Hatree-Fock"
 layout: post
 category : Scholastic
 time : 23/07/2016
+icon : psi
 tags :
   - readings
   - notes
