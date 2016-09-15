@@ -2,11 +2,11 @@
 title : "Once in a Lifetime..."
 layout : post
 category : Generic
-tags : 
+tags :
     - mumble
 ---
 
-The last time I wrote a blog post was too long ago. I was using this service called Qzone. 
+The last time I wrote a blog post was too long ago. I was using this service called Qzone.
 <!--- and I was more focused on the writing than the formatting. -->
 
 I was a kid, mumbling about nothing, in Chinese.
@@ -14,7 +14,7 @@ I was a kid, mumbling about nothing, in Chinese.
 To give you a glimpse [Qzone](http://user.qzone.qq.com/348601585):
 
 
-![qzone](/assets/img/qzone.png) 
+![qzone](/assets/img/Posts/firstpost1.png)
 
 
 I never go back and read what I write: afraid I will be overwhelmed by the level stupidity. But to be fair, I think I write well, at least in Chinese.
@@ -23,9 +23,9 @@ I never go back and read what I write: afraid I will be overwhelmed by the level
 
 So why do I come back to blogging? Have I got too much time to kill?
 
-NOOOOO! On the contrary, my time is **_VERY_** valuable. I look to accomplish a lot in this year and time is not on my side. 
+NOOOOO! On the contrary, my time is **_VERY_** valuable. I look to accomplish a lot in this year and time is not on my side.
 
-I came back because I believe I have something valuble to say. Firstly, I would like to share my experience as a Chemistry undergrad, and my perspectives of scientific research. 
+I came back because I believe I have something valuble to say. Firstly, I would like to share my experience as a Chemistry undergrad, and my perspectives of scientific research.
 I also would like to keep track of this wonderfull placement year I am having at UCB Pharma, keeping notes about the drug-discovery pipeline I have been exposed to. Of course, UCB, nothing confidential will be publisised, I promise.
 I would like to especially write about cheminformatics, which sadly isn't at all emphasised in my undergraduate studies.
 
@@ -47,5 +47,3 @@ I would like to leave you with this, which I signatured at the end of every blog
 <!-- ![onepiece](/assets/img/generic/人的梦想.jpg) -->
 <img src = "/assets/img/generic/人的梦想.jpg" alt = "onepiece" />
 </div>
-
-

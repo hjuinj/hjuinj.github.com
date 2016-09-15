@@ -41,6 +41,9 @@ Here is RDkit in Python:
 
 * Rpubchem
 
+* ChemFP
+http://chemfp.com/features/#command-line-programs
+
 * SMARTS Overlay Tool
 <http://cdkdepict-openchem.rhcloud.com/depict.html>
 ---
