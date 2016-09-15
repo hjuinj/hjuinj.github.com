@@ -27,6 +27,8 @@ class IconGen:
         self.im[x ,y , :] =  0
 
     def save(self):
-        sm.imsave(self.name, self.im)
+        index = self.name.rfind(".")
+        output = ".".join([self.name[0 : index], "png"])
+        sm.imsave(output, self.im)
 
 IconGen()
