@@ -58,6 +58,11 @@ Commericial
 
 * [Chemaxon suites](https://docs.chemaxon.com/display/docs/JChem+Chemical+Database+Concepts)
 Commericial
+
+
+* MoKa
+
+* ACDlabs
 ---
 
 # MOLECULAR DYNAMICS
