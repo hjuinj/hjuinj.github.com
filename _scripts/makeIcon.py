@@ -13,7 +13,11 @@ class IconGen:
         self.save()
 
     def fix(self ):
-        im = sm.imread(self.name , mode = "RGBA")
+        try:
+            im = sm.imread(self.name , mode = "RGBA")
+        except TypeError:
+            im = sm.imread(self.name)
+
         dim = im.shape[ : 2]
         im = im[(dim[0] - min(dim))/2 : (dim[0] + min(dim))/2, (dim[1] - min(dim))/2 : (dim[1] + min(dim))/2 ,:]
 

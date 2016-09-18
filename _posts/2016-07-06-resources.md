@@ -35,9 +35,7 @@ Here is RDkit in Python:
 
 * Knime
 
-* NCI
-
-* Chembl
+* [Indigo](https://github.com/epam/Indigo)
 
 * Rpubchem
 
@@ -46,6 +44,20 @@ http://chemfp.com/features/#command-line-programs
 
 * SMARTS Overlay Tool
 <http://cdkdepict-openchem.rhcloud.com/depict.html>
+
+
+* [MedChemica](http://www.medchemica.com/publications.html)
+
+Matched molecular pair analysis
+
+Commericial
+
+
+* [Dotmatics suites](http://www.dotmatics.com/products/solutions/your-industry/chemistry/)
+Commericial
+
+* [Chemaxon suites](https://docs.chemaxon.com/display/docs/JChem+Chemical+Database+Concepts)
+Commericial
 ---
 
 # MOLECULAR DYNAMICS
@@ -59,13 +71,16 @@ Beginner's tutorial:
 Full documentation:
 <http://docs.openmm.org/6.1.0/userguide/introduction.html>
 
+* [Yank](http://getyank.org/latest/)
+
+* [PLUMED](http://plumed.github.io/doc-v2.2/user-doc/html/_group.html)
 
 
 ---
 
 # MOLECULAR MODELLING
 * PyMol
-
+[running script](https://pymolwiki.org/index.php/Running_Scripts)
 
 * VMD
 
@@ -78,6 +93,16 @@ http://rdock.sourceforge.net/installation/
 
 * AutoDock
 http://autodock.scripps.edu/
+
+
+* [CCP4](http://www.ccp4.ac.uk/download/index.php#os=windows)
+Macromolecular X-Ray Crystallography,
+
+[PanDDA](http://pandda.bitbucket.org/index.html#install) overlap multiple crystal structures with different ligands with the same protein to detect pocket
+
+
+* [Polyphony](http://wrpitt.bitbucket.org/polyphony/index.html)
+Sequence aligment
 ---
 
 # NLP
@@ -92,6 +117,8 @@ Thorough introduction of NLP using NLTK:
 Advanced R:
 <http://adv-r.had.co.nz/>
 
+* Python
+[Vuesz](http://home.gna.org/veusz/): plotting package
 ---
 
 #Data Science
