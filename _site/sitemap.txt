@@ -8,15 +8,6 @@ http://hjuinj.github.io/rss.xml
 http://hjuinj.github.io/sitemap.txt
 http://hjuinj.github.io/tags
 
-http://hjuinj.github.io/2016/09/18/transcription3
-http://hjuinj.github.io/2016/09/18/transcription2
-http://hjuinj.github.io/2016/09/18/sparknotes
-http://hjuinj.github.io/learn/2016/09/18/bioinformatics
-http://hjuinj.github.io/generic/2016/09/18/RunProgram
-http://hjuinj.github.io/2016/09/18/Rpackage
-http://hjuinj.github.io/profession/2016/09/18/QM
-http://hjuinj.github.io/2016/09/18/Information
-http://hjuinj.github.io/2016/09/18/API
 http://hjuinj.github.io/generic/2016/09/15/icon
 http://hjuinj.github.io/plan/2016/08/25/toWrite
 http://hjuinj.github.io/project/2016/08/25/ICchemII
@@ -30,16 +21,4 @@ http://hjuinj.github.io/scholastic/2016/07/19/BasisSet
 http://hjuinj.github.io/resources/2016/07/06/resources
 http://hjuinj.github.io/resources/2016/07/06/database
 http://hjuinj.github.io/plan/2016/04/11/toDo
-http://hjuinj.github.io/2015/11/29/WindowsNotes
-http://hjuinj.github.io/2015/11/29/NLP1
-http://hjuinj.github.io/2015/11/14/transcription4
-http://hjuinj.github.io/2015/11/04/Terminologies
-http://hjuinj.github.io/2015/11/03/transcription3
-http://hjuinj.github.io/2015/10/29/Rpackage
-http://hjuinj.github.io/2015/10/29/AdvR
-http://hjuinj.github.io/2015/10/27/transcription2
-http://hjuinj.github.io/2015/10/27/transcription
-http://hjuinj.github.io/2015/10/27/Information
-http://hjuinj.github.io/2015/10/26/API
-http://hjuinj.github.io/2015/10/23/deNovo
 http://hjuinj.github.io/generic/2015/10/17/first-post

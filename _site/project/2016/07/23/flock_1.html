@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Flock Simulation I - Prepartory Work</title>
+    <title>Flock Simulation I -  Preparatory Work</title>
     
     <meta name="author" content="">
 
@@ -134,7 +134,7 @@
 
 <div class="page-header">
   <h1>
-        Flock Simulation I - Prepartory Work 
+        Flock Simulation I -  Preparatory Work 
         
       </h1>
 </div>
@@ -255,7 +255,7 @@ class World(object):
     </code>
 </pre>
 
-<p>The flock object basically contains the physical positions of a each member in the flock as a list as well as storing other properties such as the size and color of each individual member in lists. Rather than prepackage the position, size, color, etc of a member into a individual object, and make up a flock object as a list of individual objects, I envisage most if not all operations are performed on the flock as a whole, it is more computationally efficient to do so this way. In this class, various different functions that describes how the individuals move are to come. This will be the main meat and bone of the project in order to mimic flock behaviour.</p>
+<p>The flock object basically contains the physical positions of a each member in the flock as a list as well as storing other properties such as the size and color of each individual member in lists. Rather than pre-package the position, size, color, etc of a member into a individual object, and make up a flock object as a list of individual objects, I envisage most if not all operations are performed on the flock as a whole, it is more computationally efficient to do so this way. In this class, various different functions that describes how the individuals move are to come. This will be the main meat and bone of the project in order to mimic flock behaviour.</p>
 
 <p>The Flock class looks like this (at the point of writing):</p>
 <pre>
@@ -307,7 +307,7 @@ class Flock(object):
 <iframe width="420" height="315" src="https://www.youtube.com/embed/d1w7gAwvQsk" frameborder="0" allowfullscreen=""></iframe>
 </div>
 <hr />
-<p>To replicate that, you can copy the above two code snippets and put them in a folder (call them world.py and flock.py respectively) along with the code below. Then run the below script. You will obviously need python installed (I’m using python2 rather than python3) as well as additional libraries matplotlib and numpy. So it might be easier to install anaconda which by default includes scientific libraries if you haven’t got python.You can visit <a href="https://github.com/hjuinj/Flock-Simulation">my repo</a> on github for the full, evolving code.</p>
+<p>To replicate that, you can copy the above two code snippets and put them in a folder (call them world.py and flock.py respectively) along with the code below. Then run the below script. You will obviously need python installed (I’m using python2 rather than python3) as well as additional libraries matplotlib and numpy. So it might be easier to install anaconda which by default includes scientific libraries if you haven’t got python. You can visit <a href="https://github.com/hjuinj/Flock-Simulation">my repo</a> on GitHub for the full, evolving code.</p>
 
 <pre>
     <code style="python">
@@ -320,7 +320,7 @@ w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
     </code>
 </pre>
 
-<p>The amount of code might seem to be an overkill at this point, but with the overarching framework more or less setup, it is relatively easy to write functions that are specifically dealing with the dynamics to better simulate the flock behaviour. One immediate modification to modeling the dynamics can be made, namely individuals within a flock have a orientation. There is a limit to the degree an individual can turn within one time step with respect to the initial direction it was flying, let’s leave that for the next post…</p>
+<p>The amount of code might seem to be an overkill at this point, but with the overarching framework more or less setup, it is relatively easy to write functions that are specifically dealing with the dynamics to better simulate the flock behaviour. One immediate modification to modelling the dynamics can be made, namely individuals within a flock have a orientation. There is a limit to the degree an individual can turn within one time step with respect to the initial direction it was flying, let’s leave that for the next post…</p>
 
     </div>
 
@@ -368,7 +368,7 @@ w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
     <hr>
     <ul class="pagination">
     
-      <li class="prev"><a href="/plan/2016/07/23/toRead" title="To Read">&laquo; Previous</a></li>
+      <li class="prev"><a href="/plan/2016/07/23/toRead" title="Materials To Read">&laquo; Previous</a></li>
     
       <li><a href="/archive.html">Archive</a></li>
     
@@ -406,7 +406,7 @@ w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
 
 <div class="page-header-post">
     <h1>
-        Flock Simulation I - Prepartory Work
+        Flock Simulation I -  Preparatory Work
         
         </h1>
 </div>
@@ -527,7 +527,7 @@ class World(object):
     </code>
 </pre>
 
-<p>The flock object basically contains the physical positions of a each member in the flock as a list as well as storing other properties such as the size and color of each individual member in lists. Rather than prepackage the position, size, color, etc of a member into a individual object, and make up a flock object as a list of individual objects, I envisage most if not all operations are performed on the flock as a whole, it is more computationally efficient to do so this way. In this class, various different functions that describes how the individuals move are to come. This will be the main meat and bone of the project in order to mimic flock behaviour.</p>
+<p>The flock object basically contains the physical positions of a each member in the flock as a list as well as storing other properties such as the size and color of each individual member in lists. Rather than pre-package the position, size, color, etc of a member into a individual object, and make up a flock object as a list of individual objects, I envisage most if not all operations are performed on the flock as a whole, it is more computationally efficient to do so this way. In this class, various different functions that describes how the individuals move are to come. This will be the main meat and bone of the project in order to mimic flock behaviour.</p>
 
 <p>The Flock class looks like this (at the point of writing):</p>
 <pre>
@@ -579,7 +579,7 @@ class Flock(object):
 <iframe width="420" height="315" src="https://www.youtube.com/embed/d1w7gAwvQsk" frameborder="0" allowfullscreen=""></iframe>
 </div>
 <hr />
-<p>To replicate that, you can copy the above two code snippets and put them in a folder (call them world.py and flock.py respectively) along with the code below. Then run the below script. You will obviously need python installed (I’m using python2 rather than python3) as well as additional libraries matplotlib and numpy. So it might be easier to install anaconda which by default includes scientific libraries if you haven’t got python.You can visit <a href="https://github.com/hjuinj/Flock-Simulation">my repo</a> on github for the full, evolving code.</p>
+<p>To replicate that, you can copy the above two code snippets and put them in a folder (call them world.py and flock.py respectively) along with the code below. Then run the below script. You will obviously need python installed (I’m using python2 rather than python3) as well as additional libraries matplotlib and numpy. So it might be easier to install anaconda which by default includes scientific libraries if you haven’t got python. You can visit <a href="https://github.com/hjuinj/Flock-Simulation">my repo</a> on GitHub for the full, evolving code.</p>
 
 <pre>
     <code style="python">
@@ -592,7 +592,7 @@ w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
     </code>
 </pre>
 
-<p>The amount of code might seem to be an overkill at this point, but with the overarching framework more or less setup, it is relatively easy to write functions that are specifically dealing with the dynamics to better simulate the flock behaviour. One immediate modification to modeling the dynamics can be made, namely individuals within a flock have a orientation. There is a limit to the degree an individual can turn within one time step with respect to the initial direction it was flying, let’s leave that for the next post…</p>
+<p>The amount of code might seem to be an overkill at this point, but with the overarching framework more or less setup, it is relatively easy to write functions that are specifically dealing with the dynamics to better simulate the flock behaviour. One immediate modification to modelling the dynamics can be made, namely individuals within a flock have a orientation. There is a limit to the degree an individual can turn within one time step with respect to the initial direction it was flying, let’s leave that for the next post…</p>
 
     </div>
 
@@ -640,7 +640,7 @@ w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
     <hr>
     <ul class="pagination">
     
-      <li class="prev"><a href="/plan/2016/07/23/toRead" title="To Read">&laquo; Previous</a></li>
+      <li class="prev"><a href="/plan/2016/07/23/toRead" title="Materials To Read">&laquo; Previous</a></li>
     
       <li><a href="/archive.html">Archive</a></li>
     

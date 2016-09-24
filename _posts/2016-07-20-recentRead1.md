@@ -2,7 +2,7 @@
 title: "Recent Reads #0"
 layout: post
 category : Scholastic
-tags : 
+tags :
     - casual reading
     - science
     - notes
@@ -23,7 +23,7 @@ a simulational program was written to mimic the performance of the processor uni
 However, we can not currently evaluate if better analysis techniques, even with far more data, can figure out meaningful models of the brain.
 
 what is classified as an understanding of the system
-suggest using the processor as a way to test what methodology might be about to lead to correct conclusions for the brain, despite gross differences between the two systems. 
+suggest using the processor as a way to test what methodology might be about to lead to correct conclusions for the brain, despite gross differences between the two systems.
 
 
 - [A Neural Probabilistic Language Mode](http://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf).

@@ -1,5 +1,5 @@
 ---
-title: "Hatree-Fock"
+title: "Hatree-Fock Notes"
 layout: post
 category : Scholastic
 time : 23/07/2016
@@ -10,24 +10,24 @@ tags :
   - physics
   - chemistry
 ---
-The wavefunction of the entire system is a function with all the electronic coordinates as variables for a stationary system of nuclear coordinates.
+In computaional chemistry, the wavefunction of the entire system is a function with all the electronic coordinates as variables for a stationary system of nuclear coordinates.
 
 For a given nuclear coordinates arrangement, the wavefunction is a function of the electron coordinates.
 
-Firstly, the joint wavefunction for the molecule is approxmiated by the product of individual molecular orbital wavefunction only depended upon each nuclear coordinate.
+Firstly, the joint wavefunction for the molecule is approximated by the product of individual molecular orbital wavefunction only depended upon each nuclear coordinate.
 <https://en.wikipedia.org/wiki/Slater_determinant>
-A molecular orbital wavefunction is a better description of the environment a electron expreiences within a molecule. The overall system of the molecule is often described (approximated) by the product of the molecular orbital wavefunctions for each individual electron:
+A molecular orbital wavefunction is a better description of the environment a electron experiences within a molecule. The overall system of the molecule is often described (approximated) by the product of the molecular orbital wavefunctions for each individual electron:
 
 ***Φ*** = ∏ Φ_n
 
-In the Slater determinant, each element is a molecular orbital wavefunction. It is made up of all the molecular orbitals that are occupied by electrons. Hence for a N-electron system the determinant is NxN in dimention. The ith row is all the N possible wavefunctions the ith electron could reside in (can be the same MO, since each orbital accomodates two electrons).
+In the Slater determinant, each element is a molecular orbital wavefunction. It is made up of all the molecular orbitals that are occupied by electrons. Hence for a N-electron system the determinant is NxN in dimention. The ith row is all the N possible wavefunctions the ith electron could reside in (can be the same MO, since each orbital accommodates two electrons).
 
 The energy Hamiltonian of a polyelectronic system is attributed to three separable parts:
 1. Each occupied molecular orbital has the kinetic and potential energy from all the nuclei. This is the **H_ii** part where "ii" means it is due to the same electron. (think of the Hamiltonian operator, where the potential energy part is made up of the summation of all the electrostatic potential from each nucleus)
 2. Each *pair* of electrons experience electrostatic repulsion due to each other, denoted as **J_ij** where "ij" means it is interaction between different electrons.
 3. Energy arising from spin correlation, or exchange interaction. Electron cannot reside in the same orbital if they have parallel spins. When two electrons have parallel spins, they cannot be in the same MO hence electron motions are not independent (that is even without considering part(2)). This is denoted **K_ij**, which is only non-zero when i and j are in the same spin.
 
-For a system of N electrons, there is N * **H_ii**. There are N*(N-1) * **J_ij**, similarly for **K_ij**, but some of these terms would be zero. The total energy of the system would have a additional Columbic interaction between all Nuclei, for the given nuclear arrangement it is a fixed constant added onto the three terms which all dynamically depends on the trjectory of the electrons.
+For a system of N electrons, there is N * **H_ii**. There are N*(N-1) * **J_ij**, similarly for **K_ij**, but some of these terms would be zero. The total energy of the system would have a additional Columbic interaction between all Nuclei, for the given nuclear arrangement it is a fixed constant added onto the three terms which all dynamically depends on the trajectory of the electrons.
 
 ---
 
