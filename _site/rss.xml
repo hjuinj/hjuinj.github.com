@@ -5,8 +5,8 @@
         <description>Main() - </description>
         <link>http://hjuinj.github.io</link>
         <atom:link href="http://hjuinj.github.io/rss.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Sun, 25 Sep 2016 03:03:18 +0800</lastBuildDate>
-        <pubDate>Sun, 25 Sep 2016 03:03:18 +0800</pubDate>
+        <lastBuildDate>Sun, 25 Sep 2016 18:41:33 +0800</lastBuildDate>
+        <pubDate>Sun, 25 Sep 2016 18:41:33 +0800</pubDate>
         <ttl>60</ttl>
 
 
@@ -115,6 +115,7 @@ IconGen()
 
 &lt;h1 id=&quot;in-writing&quot;&gt;In Writing&lt;/h1&gt;
 &lt;ul&gt;
+  &lt;li&gt;MD reading notes&lt;/li&gt;
   &lt;li&gt;Systems communciation course notes&lt;/li&gt;
   &lt;li&gt;Genetic transcription notes&lt;/li&gt;
   &lt;li&gt;Advanced R reading notes&lt;/li&gt;
@@ -1640,49 +1641,43 @@ w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
         </item>
 
         <item>
-                <title>Hatree-Fock Notes</title>
-                <description>&lt;p&gt;In computaional chemistry, the wavefunction of the entire system is a function with all the electronic coordinates as variables for a stationary system of nuclear coordinates.&lt;/p&gt;
+                <title>Basis Sets Notes</title>
+                <description>&lt;p&gt;Additions, insertions and deletions will be done as my understanding of the topic progresses. This serves as a test-ground for me to elucidate my understanding in computational chemistry as well as a sand-box for formatting documents containing maths equations in markdown. Hence &lt;strong&gt;This is by no means a rigorous piece of work&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;For a given nuclear coordinates arrangement, the wavefunction is a function of the electron coordinates.&lt;/p&gt;
+&lt;p&gt;Maths equations markdown reminder
+&lt;a href=&quot;http://www.statpower.net/Content/310/R%20Stuff/SampleMarkdown.html&quot;&gt;http://www.statpower.net/Content/310/R%20Stuff/SampleMarkdown.html&lt;/a&gt;
+markdown cheatshet
+&lt;a href=&quot;https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet&quot;&gt;https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Firstly, the joint wavefunction for the molecule is approximated by the product of individual molecular orbital wavefunction only depended upon each nuclear coordinate.
-&lt;a href=&quot;https://en.wikipedia.org/wiki/Slater_determinant&quot;&gt;https://en.wikipedia.org/wiki/Slater_determinant&lt;/a&gt;
-A molecular orbital wavefunction is a better description of the environment a electron experiences within a molecule. The overall system of the molecule is often described (approximated) by the product of the molecular orbital wavefunctions for each individual electron:&lt;/p&gt;
+&lt;p&gt;From this, one can begin to see why when compared to MM methods, QM calculations are deemed a lot more expensive. In order to simulation a system requires evaluation of the system evolution over time. For each time step, a MM approach only requires the evaluation of the analytical function composing of the different energy contributions (torsion, electrostatic, etc), but a QM calculation would need to iteratively solve for the new MOs for the changed nuclei coordinates before the energy evaluations.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;Φ&lt;/em&gt;&lt;/strong&gt; = ∏ Φ_n&lt;/p&gt;
+&lt;p&gt;For an atomic orbital calculation, these are typically the orbitals for a hydrogenic atom (an atom with only one electron, but the appropriate nuclear charge). For a molecular orbital or crystalline calculation, the initial approximate one-electron wave functions are typically a linear combination of atomic orbitals (LCAO).&lt;/p&gt;
 
-&lt;p&gt;In the Slater determinant, each element is a molecular orbital wavefunction. It is made up of all the molecular orbitals that are occupied by electrons. Hence for a N-electron system the determinant is NxN in dimention. The ith row is all the N possible wavefunctions the ith electron could reside in (can be the same MO, since each orbital accommodates two electrons).&lt;/p&gt;
+&lt;h2 id=&quot;basis-sets-ab-initio&quot;&gt;Basis Sets (&lt;em&gt;ab initio&lt;/em&gt;)&lt;/h2&gt;
+&lt;p&gt;The adaptation of Gaussian orbital over Slater type orbital (STO) is due to its efficiency in computation. Such orbital has a general form of:&lt;/p&gt;
 
-&lt;p&gt;The energy Hamiltonian of a polyelectronic system is attributed to three separable parts:
-1. Each occupied molecular orbital has the kinetic and potential energy from all the nuclei. This is the &lt;strong&gt;H_ii&lt;/strong&gt; part where “ii” means it is due to the same electron. (think of the Hamiltonian operator, where the potential energy part is made up of the summation of all the electrostatic potential from each nucleus)
-2. Each &lt;em&gt;pair&lt;/em&gt; of electrons experience electrostatic repulsion due to each other, denoted as &lt;strong&gt;J_ij&lt;/strong&gt; where “ij” means it is interaction between different electrons.
-3. Energy arising from spin correlation, or exchange interaction. Electron cannot reside in the same orbital if they have parallel spins. When two electrons have parallel spins, they cannot be in the same MO hence electron motions are not independent (that is even without considering part(2)). This is denoted &lt;strong&gt;K_ij&lt;/strong&gt;, which is only non-zero when i and j are in the same spin.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;                                x^ay^bz^c exp(-\alpha  r^2)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-&lt;p&gt;For a system of N electrons, there is N * &lt;strong&gt;H_ii&lt;/strong&gt;. There are N*(N-1) * &lt;strong&gt;J_ij&lt;/strong&gt;, similarly for &lt;strong&gt;K_ij&lt;/strong&gt;, but some of these terms would be zero. The total energy of the system would have a additional Columbic interaction between all Nuclei, for the given nuclear arrangement it is a fixed constant added onto the three terms which all dynamically depends on the trajectory of the electrons.&lt;/p&gt;
+&lt;p&gt;The exponential format allows orbital joining (multiplication) very cheap to calculate.&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;Depending on the powers a,b,c which can take on values of 1 or 0. When all of them equal to zero, it is a zeroth-order Gaussian that resembles the formalism of s-type atomic orbitals. When one of the three is one it is a first-order Gaussian, resembling p-type orbitals.&lt;/p&gt;
 
-&lt;p&gt;The above formulation shows how the energy of a polyelectronic system is obtained from provided the MOs.&lt;/p&gt;
+&lt;p&gt;Often a linear combinations of GTOs are used to approximate STOs. Fitting is done via minimising least square error for example. After optimisation, in the linear combination, the coefficient in front of each GTO and the $\alpha$ is often fixed when calculating the final MO form. In addition, the $\alpha$ term is fixed for s and p type orbitals This is again for computational cost.&lt;/p&gt;
 
-&lt;p&gt;The MOs are obtained in this way.
-The variation theorem states the &lt;em&gt;ground state&lt;/em&gt; electronic configuration of a system will be an energy minimum. We have an expression of energy in terms of the MOs, we can find the MOs that minimises the energy with the additional requirement that MOs need to be orthonormal. This is a constraint minimisation problem. The Hatree-Fock formulation transforms this optimisation problem into the following format:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Minimal basis set&lt;/em&gt; includes all the filled orbitals in each atom, each such orbital is represented by a set of Gaussian orbitals. The notation “STO-3G” therefore means each Slater type orbital is approximated by 4 Gaussian orbitals. For &lt;em&gt;ab initio&lt;/em&gt;, 3 is the bare minimum. Reminder of the hierarchy, MOs are approxmiate by LCAO, AOs are approximated by STO, and STOs are approximated by GTOs.&lt;/p&gt;
 
-&lt;p&gt;f̂ Φ = ϵ Φ&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Split valence basis set&lt;/em&gt; accounts for anistropy problems for the minimal basis set by allowing more than one type of STOs to be used to model the valence atomic orbitals. The most used type is the double split zeta basis set (zeta is the coefficient in front of the exponent in the radial part of STO) which models valence orbitals with two different STOs and inner shell orbitals with one. For example, in the 3-21G basis set, each inner shell atomic orbital is approximated by one STO, which is in turn approximated by three GTOs. While the valence shell orbitals are modeled by two different types of STOs, one of the two is approximated by two GTOs, the other by one.&lt;/p&gt;
 
-&lt;p&gt;This very Schrondinger-like equation says the wavefunction of a molecular orbital where a electron resides acted upon by the Fock operator (on the left) equals the same wavefunction multiplied by a constant. The Fock operator encompasses the three energy contribution terms alluded to above. As you can see, the Fock opertor is a function of the MOs for all the other electrons in the system. No analytical solution exists for this. The numerical solution involves starting with an initial guess for the set of MOs and use them to obtain the Fock operators. Using the derived Fock operators, a better approximation of the MO wavefunctions can then be obtained, which are again plugged in to obtain a new set of Fock operators. This iterative process continuous until some convergence condition is met. This is called the &lt;strong&gt;self-consistent field&lt;/strong&gt; approach.&lt;/p&gt;
+&lt;p&gt;One can further account for the charge distortion effect on the orbitals by modelling polarisations - reducing the charge symmetry by including un-occupied p orbitals to the basis set to atoms only having filled s orbitals, similarly adding d to atoms only with s and p characters. 3-21G* means polarisations is done on all heavy atom (d type). Two asterisks means polarisation is done on hydrogen and helium (p type polarisation) too. To account for species with large electron density away from the nuclei (where all Gaussians for a given orbital center on), one can add extra set of diffused orbitals. This is what the “+” notation means.&lt;/p&gt;
 
-&lt;p&gt;Two levels of simplifications are added to the HF formulation to reduce the search space.&lt;/p&gt;
+&lt;p&gt;So, 3-21+ +G* means for a given atom, each of its inner shell orbital is modelled by one STO - approximated by three GTOs. Each of its valence orbital is modelled by two STOs, one approximated by two GTOs and the other by one. On top, each atom has a extra set of diffuse s and p type GTOs added (indicated by + +, + would be for each non-hydrogen atom). Additionally, extra unoccupied (d) orbitals (still approximated by GTOs) is added for each non-hydrogen atom. The asterisk can be replaced by more precise notation such as 3-21++G(3df, 3pd), which means 3 d-type GTOs 1 f-type GTOs are added for heavy atoms and 3 p-type GTOs and 1 d-type GTO is added to each hydrogen.&lt;/p&gt;
 
-&lt;p&gt;Firstly, molecular orbitals are constructed by weighted combinations of atomic orbitals(obtained from solving for the hydrogen atom), abbreviated as LCAO:&lt;/p&gt;
-
-&lt;p&gt;Φ = ∑ c_i * φ_i&lt;/p&gt;
-
-&lt;p&gt;The set of atomic orbitals chosen to become the molecular orbitals are referred to as the &lt;strong&gt;basis set&lt;/strong&gt;. Combinations of N atomic orbitals yields N molecular orbitals, which do not necessarily need to be occupied by electrons. The difference between these molecular orbitals are therefore only in the coefficients “c_i” terms in front of the atomic orbitals.&lt;/p&gt;
-
-&lt;p&gt;Secondly, Slater type orbitals (STO) simplifies the radial part of atomic orbital wavefuntions. Such simplification contains an empirical coefficient which is estimated by the Slater Rules. Finding the solution becomes getting the “c_i”s that minimises the energy for each and every molecular orbital.&lt;/p&gt;
+&lt;p&gt;There are other basis sets too, e.g. see wikipedia.&lt;/p&gt;
 </description>
-                <link>http://hjuinj.github.io/scholastic/2016/07/20/Hatree-Fock</link>
-                <guid>http://hjuinj.github.io/scholastic/2016/07/20/Hatree-Fock</guid>
+                <link>http://hjuinj.github.io/scholastic/2016/07/20/BasisSet</link>
+                <guid>http://hjuinj.github.io/scholastic/2016/07/20/BasisSet</guid>
                 <pubDate>Wed, 20 Jul 2016 00:00:00 +0800</pubDate>
         </item>
 
@@ -1740,43 +1735,56 @@ suggest using the processor as a way to test what methodology might be about to 
         </item>
 
         <item>
-                <title>Basis Sets Notes</title>
-                <description>&lt;p&gt;Additions, insertions and deletions will be done as my understanding of the topic progresses. This serves as a test-ground for me to elucidate my understanding in computational chemistry as well as a sand-box for formatting documents containing maths equations in markdown. Hence &lt;strong&gt;This is by no means a rigorous piece of work&lt;/strong&gt;&lt;/p&gt;
+                <title>Hatree-Fock Notes</title>
+                <description>&lt;p&gt;In computaional chemistry, the wavefunction of the entire molecular system is a function of all its electronic and nuclear coordinates. Due to the Born–Oppenheimer approximation, electronic and nuclear motion can be separated. This means, for a stationary frame of nuclear coordinates, the total wavefunction is the product of a wavefunction of the electronic coordinates multiplied by constant.The following mention of wavefunction will refer to this electronic wavefunction.&lt;/p&gt;
 
-&lt;p&gt;Maths equations markdown reminder
-&lt;a href=&quot;http://www.statpower.net/Content/310/R%20Stuff/SampleMarkdown.html&quot;&gt;http://www.statpower.net/Content/310/R%20Stuff/SampleMarkdown.html&lt;/a&gt;
-markdown cheatshet
-&lt;a href=&quot;https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet&quot;&gt;https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The wavefunction of the molecule is approximated by the product of individual &lt;strong&gt;molecular orbital (MO) wavefunction&lt;/strong&gt; - a function of only one electron within the molecule. Thus a N-electron system will have N (filled) molecular orbitals:&lt;/p&gt;
 
-&lt;p&gt;From this, one can begin to see why when compared to MM methods, QM calculations are deemed a lot more expensive. In order to simulation a system requires evaluation of the system evolution over time. For each time step, a MM approach only requires the evaluation of the analytical function composing of the different energy contributions (torsion, electrostatic, etc), but a QM calculation would need to iteratively solve for the new MOs for the changed nuclei coordinates before the energy evaluations.&lt;/p&gt;
-
-&lt;p&gt;For an atomic orbital calculation, these are typically the orbitals for a hydrogenic atom (an atom with only one electron, but the appropriate nuclear charge). For a molecular orbital or crystalline calculation, the initial approximate one-electron wave functions are typically a linear combination of atomic orbitals (LCAO).&lt;/p&gt;
-
-&lt;h2 id=&quot;basis-sets-ab-initio&quot;&gt;Basis Sets (&lt;em&gt;ab initio&lt;/em&gt;)&lt;/h2&gt;
-&lt;p&gt;The adaptation of Gaussian orbital over Slater type orbital (STO) is due to its efficiency in computation. Such orbital has a general form of:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;                                x^ay^bz^c exp(-\alpha  r^2)
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div style=&quot;text-align:center&quot;&gt;
+&lt;b&gt; Φ(n = 1,2,3....) &lt;/b&gt; = ∏ Φ_n
 &lt;/div&gt;
 
-&lt;p&gt;The exponential format allows orbital joining (multiplication) very cheap to calculate.&lt;/p&gt;
+&lt;p&gt;In the Slater determinant, each element is a molecular orbital wavefunction. It is made up of all the molecular orbitals that are occupied by electrons. Hence for a N-electron system the determinant is NxN in dimension. The ith row is all the N possible wavefunctions the ith electron could reside in (can be the same MO, since each orbital accommodates two electrons).&lt;/p&gt;
 
-&lt;p&gt;Depending on the powers a,b,c which can take on values of 1 or 0. When all of them equal to zero, it is a zeroth-order Gaussian that resembles the formalism of s-type atomic orbitals. When one of the three is one it is a first-order Gaussian, resembling p-type orbitals.&lt;/p&gt;
+&lt;p&gt;The total energy Hamiltonian of a polyelectronic system can be split and attributed to three separable parts:
+1. Each electron has its own kinetic and potential energy that depends on all the nuclei in the system. This is the &lt;strong&gt;H_ii&lt;/strong&gt; part where “ii” means it is due to the same electron. (think of the Hamiltonian operator, where the potential energy part is made up of the summation of all the electrostatic potential from each nucleus)
+2. Each &lt;em&gt;pair&lt;/em&gt; of electrons experience electrostatic repulsion due to each other, denoted as &lt;strong&gt;J_ij&lt;/strong&gt; where “ij” means it is interaction between different electrons.
+3. Energy arising from spin correlation, or exchange interaction. Electron cannot reside in the same orbital if they have parallel spins. When two electrons have parallel spins, they cannot be in the same MO hence electron motions are not independent (that is even without considering part(2)). This is denoted &lt;strong&gt;K_ij&lt;/strong&gt;, which is only non-zero when i and j have the same spin.&lt;/p&gt;
 
-&lt;p&gt;Often a linear combinations of GTOs are used to approximate STOs. Fitting is done via minimising least square error for example. After optimisation, in the linear combination, the coefficient in front of each GTO and the $\alpha$ is often fixed when calculating the final MO form. In addition, the $\alpha$ term is fixed for s and p type orbitals This is again for computational cost.&lt;/p&gt;
+&lt;p&gt;For a system of N electrons, there is N * &lt;strong&gt;H_ii&lt;/strong&gt;. There are N*(N-1) * &lt;strong&gt;J_ij&lt;/strong&gt;, similarly for &lt;strong&gt;K_ij&lt;/strong&gt;, but some of these terms would be zero. Thus the energy Hamiltonian of the electronic wavefunction is the summation of these three terms. Bear in mind the total energy of the system would have an additional Columbic repulsion between all the nuclei, for the given nuclear arrangement it is a fixed constant added onto the three terms which all dynamically depends on the trajectory of the electrons.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Minimal basis set&lt;/em&gt; includes all the filled orbitals in each atom, each such orbital is represented by a set of Gaussian orbitals. The notation “STO-3G” therefore means each Slater type orbital is approximated by 4 Gaussian orbitals. For &lt;em&gt;ab initio&lt;/em&gt;, 3 is the bare minimum. Reminder of the hierarchy, MOs are approxmiate by LCAO, AOs are approximated by STO, and STOs are approximated by GTOs.&lt;/p&gt;
+&lt;hr /&gt;
 
-&lt;p&gt;&lt;em&gt;Split valence basis set&lt;/em&gt; accounts for anistropy problems for the minimal basis set by allowing more than one type of STOs to be used to model the valence atomic orbitals. The most used type is the double split zeta basis set (zeta is the coefficient in front of the exponent in the radial part of STO) which models valence orbitals with two different STOs and inner shell orbitals with one. For example, in the 3-21G basis set, each inner shell atomic orbital is approximated by one STO, which is in turn approximated by three GTOs. While the valence shell orbitals are modeled by two different types of STOs, one of the two is approximated by two GTOs, the other by one.&lt;/p&gt;
+&lt;p&gt;The above formulation shows how the energy of a polyelectronic system is obtained when provided the MOs.&lt;/p&gt;
 
-&lt;p&gt;One can further account for the charge distortion effect on the orbitals by modelling polarisations - reducing the charge symmetry by including un-occupied p orbitals to the basis set to atoms only having filled s orbitals, similarly adding d to atoms only with s and p characters. 3-21G* means polarisations is done on all heavy atom (d type). Two asterisks means polarisation is done on hydrogen and helium (p type polarisation) too. To account for species with large electron density away from the nuclei (where all Gaussians for a given orbital center on), one can add extra set of diffused orbitals. This is what the “+” notation means.&lt;/p&gt;
+&lt;p&gt;The MOs themselves are obtained in this way, using Hatree-Fock formulism.&lt;/p&gt;
 
-&lt;p&gt;So, 3-21+ +G* means for a given atom, each of its inner shell orbital is modelled by one STO - approximated by three GTOs. Each of its valence orbital is modelled by two STOs, one approximated by two GTOs and the other by one. On top, each atom has a extra set of diffuse s and p type GTOs added (indicated by + +, + would be for each non-hydrogen atom). Additionally, extra unoccupied (d) orbitals (still approximated by GTOs) is added for each non-hydrogen atom. The asterisk can be replaced by more precise notation such as 3-21++G(3df, 3pd), which means 3 d-type GTOs 1 f-type GTOs are added for heavy atoms and 3 p-type GTOs and 1 d-type GTO is added to each hydrogen.&lt;/p&gt;
+&lt;p&gt;The variation theorem states the energy of the &lt;strong&gt;ground state&lt;/strong&gt; electronic configuration of a system will be at an minimum. Above, we have an expression of energy in terms of the MOs (Hamiltonian times wavefunction), we can find the MOs that minimises the energy with the additional requirement that MOs need to be orthonormal. This is a constraint minimisation problem. The Hatree-Fock formulation transforms this optimisation problem into the following format:&lt;/p&gt;
 
-&lt;p&gt;There are other basis sets too, e.g. see wikipedia.&lt;/p&gt;
+&lt;div style=&quot;text-align:center&quot;&gt;
+ f̂ Φ = ϵ Φ  
+ &lt;/div&gt;
+
+&lt;p&gt;This very Schrondinger-like equation says the molecular orbital wavefunction for a given electron acted upon by the Fock operator (the left-most symbol) equals the same wavefunction multiplied by a constant. The Fock operator encompasses the three energy contribution terms alluded to above. As you can see, the Fock opertor is a function of all the other MOs in the system. No analytical solution exists for this formulation. An iterative solution exists: the numerical solution involves starting with an initial guess for the set of MOs to describe all the electron and use them to obtain the Fock operators. Next, using the determined Fock operator, a better approximation of the MO wavefunctions can then be obtained, which are plugged back into obtain a new set of Fock operators. This iterative process continuous until some convergence condition is met. This is called the &lt;strong&gt;self-consistent field&lt;/strong&gt; approach.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Two levels of simplifications are added to the HF formulation to reduce the search space:&lt;/p&gt;
+
+&lt;p&gt;Firstly, each MO is constructed by a weighted combinations of atomic orbitals(obtained from solving for the hydrogen atom), abbreviated as LCAO:&lt;/p&gt;
+
+&lt;div style=&quot;text-align:center&quot;&gt;
+Φ = ∑ c_i * φ_i
+&lt;/div&gt;
+
+&lt;p&gt;The set of atomic orbitals being combined to become the molecular orbitals are referred to as the &lt;strong&gt;basis set&lt;/strong&gt;. Combinations of M atomic orbitals yields M molecular orbitals, which &lt;em&gt;do not&lt;/em&gt; necessarily need to be occupied by electrons. This means the functional form of the atomic orbitals would stay the same for every MO, the only difference is therefore only in the coefficients “c_i” terms in front of each atomic orbitals.&lt;/p&gt;
+
+&lt;p&gt;Secondly, Slater type orbitals (STO) simplifies the radial part of atomic orbital wavefuntions. Such simplification contains an empirical coefficient which is estimated by the Slater Rules.&lt;/p&gt;
+
+&lt;p&gt;To reformulate for the last time, obtaining MOs for a given molecular system becomes finding the “c_i”s that minimises the energy for each and every molecular orbital.&lt;/p&gt;
 </description>
-                <link>http://hjuinj.github.io/scholastic/2016/07/19/BasisSet</link>
-                <guid>http://hjuinj.github.io/scholastic/2016/07/19/BasisSet</guid>
+                <link>http://hjuinj.github.io/scholastic/2016/07/19/Hatree-Fock</link>
+                <guid>http://hjuinj.github.io/scholastic/2016/07/19/Hatree-Fock</guid>
                 <pubDate>Tue, 19 Jul 2016 00:00:00 +0800</pubDate>
         </item>
 
