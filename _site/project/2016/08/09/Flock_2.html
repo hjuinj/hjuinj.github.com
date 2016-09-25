@@ -147,7 +147,7 @@
     <div class="content">
       <p>Since the <a href="/project/2016/07/23/flock_1">previous post</a>, I have added three more functionalities:</p>
 
-<p>First, as delineated last time, I suspect the jiggling motion of the flock simulation I showed last time was due to the individual members making too large turns between time steps. Animals all have a maximum degree they can turn with respect to their orientations (imagine a vector draw from its body to its head). It is more natural to define turning directions in terms of polar coordinates (angles) rather than Cartesians. What I have done is to keep a register of the direction each member is moving at (the angle theta and phi are defined with respect to the positive x-axis). One can quite easily transform the polar into Cartesian.</p>
+<p>First, as delineated last time, I suspect the jiggling motion of the flock simulation I showed last time was due to the individual members making too large turns between time steps. Animals all have a maximum degree they can turn with respect to their orientations (imagine a vector draw from its body to its head). It is more natural to define turning directions in terms of polar coordinates (angles) rather than Cartesians. What I have done is to keep a register of the direction each member is moving at (the angle theta and phi are defined with respect to the positive x-axis). One can quite easily transform between polar and Cartesian.</p>
 
 <p>The code is as below, appended into the flock class. Here, each member are still moving randomly, but only within a restricted angle (45 degree by default).</p>
 
@@ -176,7 +176,7 @@
 </pre>
 <p>The part that restricts the change in direction between time steps is going to be important when it comes to actually simulating swarms.</p>
 
-<p>Secondly, I have added the detection for any collisions between flock members. As you probably have seen, the depth perception from the simulation is not very good, there is no way to determine whether two members are overlapping from purely looking. To do this, the pair-wise distance between members need to be calculated.</p>
+<p>Secondly, I have added the detection for any collisions between flock members. As you probably have seen, the depth perception from the simulation visualisation is not very good, there is no way to determine whether two members are overlapping from purely looking. To do this, the pair-wise distance between members need to be calculated.</p>
 
 <p>The pair-wise distance of the flock members is as below, using <em>spatial</em> class in the scipy package. The positions of every member in the flock is stored in the self.positions numpy array. Here, the euclidean distance between pairs makes the most sense for me. This is also in the flock class.</p>
 
@@ -227,7 +227,7 @@
 <img src="/assets/img/Flock/II plot directional random.png" alt="plot" />
 </div>
 
-<p>For something exhibiting flock behaviour, I would expect the plot not be a incrementing function. Instead, there ought to be oscillation around a transient number.</p>
+<p>For something exhibiting flock behaviour, I would expect the plot not be a incrementing function. Instead, there ought to be oscillation around a certain value as the transient behaviour.</p>
 
 <p>For the full code, visit my GitHub page for this project : <a href="https://GitHub.com/hjuinj/Flock-Simulation">https://GitHub.com/hjuinj/Flock-Simulation</a></p>
 
@@ -330,7 +330,7 @@
     <div class="content">
       <p>Since the <a href="/project/2016/07/23/flock_1">previous post</a>, I have added three more functionalities:</p>
 
-<p>First, as delineated last time, I suspect the jiggling motion of the flock simulation I showed last time was due to the individual members making too large turns between time steps. Animals all have a maximum degree they can turn with respect to their orientations (imagine a vector draw from its body to its head). It is more natural to define turning directions in terms of polar coordinates (angles) rather than Cartesians. What I have done is to keep a register of the direction each member is moving at (the angle theta and phi are defined with respect to the positive x-axis). One can quite easily transform the polar into Cartesian.</p>
+<p>First, as delineated last time, I suspect the jiggling motion of the flock simulation I showed last time was due to the individual members making too large turns between time steps. Animals all have a maximum degree they can turn with respect to their orientations (imagine a vector draw from its body to its head). It is more natural to define turning directions in terms of polar coordinates (angles) rather than Cartesians. What I have done is to keep a register of the direction each member is moving at (the angle theta and phi are defined with respect to the positive x-axis). One can quite easily transform between polar and Cartesian.</p>
 
 <p>The code is as below, appended into the flock class. Here, each member are still moving randomly, but only within a restricted angle (45 degree by default).</p>
 
@@ -359,7 +359,7 @@
 </pre>
 <p>The part that restricts the change in direction between time steps is going to be important when it comes to actually simulating swarms.</p>
 
-<p>Secondly, I have added the detection for any collisions between flock members. As you probably have seen, the depth perception from the simulation is not very good, there is no way to determine whether two members are overlapping from purely looking. To do this, the pair-wise distance between members need to be calculated.</p>
+<p>Secondly, I have added the detection for any collisions between flock members. As you probably have seen, the depth perception from the simulation visualisation is not very good, there is no way to determine whether two members are overlapping from purely looking. To do this, the pair-wise distance between members need to be calculated.</p>
 
 <p>The pair-wise distance of the flock members is as below, using <em>spatial</em> class in the scipy package. The positions of every member in the flock is stored in the self.positions numpy array. Here, the euclidean distance between pairs makes the most sense for me. This is also in the flock class.</p>
 
@@ -410,7 +410,7 @@
 <img src="/assets/img/Flock/II plot directional random.png" alt="plot" />
 </div>
 
-<p>For something exhibiting flock behaviour, I would expect the plot not be a incrementing function. Instead, there ought to be oscillation around a transient number.</p>
+<p>For something exhibiting flock behaviour, I would expect the plot not be a incrementing function. Instead, there ought to be oscillation around a certain value as the transient behaviour.</p>
 
 <p>For the full code, visit my GitHub page for this project : <a href="https://GitHub.com/hjuinj/Flock-Simulation">https://GitHub.com/hjuinj/Flock-Simulation</a></p>
 

@@ -5,8 +5,8 @@
         <description>Main() - </description>
         <link>http://hjuinj.github.io</link>
         <atom:link href="http://hjuinj.github.io/rss.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Sun, 25 Sep 2016 19:28:59 +0800</lastBuildDate>
-        <pubDate>Sun, 25 Sep 2016 19:28:59 +0800</pubDate>
+        <lastBuildDate>Mon, 26 Sep 2016 02:56:24 +0800</lastBuildDate>
+        <pubDate>Mon, 26 Sep 2016 02:56:24 +0800</pubDate>
         <ttl>60</ttl>
 
 
@@ -68,7 +68,7 @@ IconGen()
   &lt;/code&gt;
 &lt;/pre&gt;
 
-&lt;p&gt;At the time of writing, I updated the QM posts to have the ‘psi’ character icon prepended to them. I will slowly updates other icons as I find interesting/inspirational/suitable images…&lt;/p&gt;
+&lt;p&gt;At the time of writing, I updated the QM posts to have the φ character icon prepended to them. I will slowly updates other icons as I find interesting/inspirational/suitable images…&lt;/p&gt;
 </description>
                 <link>http://hjuinj.github.io/generic/2016/09/15/icon</link>
                 <guid>http://hjuinj.github.io/generic/2016/09/15/icon</guid>
@@ -137,7 +137,7 @@ IconGen()
                 <title>Exploratory Data Analysis of IC Chemistry Publication Records</title>
                 <description>&lt;p&gt;Having crawled the data in the &lt;a href=&quot;http://hjuinj.github.io/project/2016/08/25/ICchemI&quot;&gt;previous post&lt;/a&gt;, I can extract different portions of it from my database and cleanse it to generate some plots and summary statistics.&lt;/p&gt;
 
-&lt;p&gt;First, load packages and establish connection to Mongodb (here my db is located on the default port on my localhost).&lt;/p&gt;
+&lt;p&gt;First, load packages and establish connection to MongoDB (here my db is located on the default port on my localhost).&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rmongodb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stringr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
@@ -965,20 +965,24 @@ The natural language processing done here is very crude and hence the numbers he
                 <title>Crawling IC Chemistry Researchers&#39; Publication Record</title>
                 <description>&lt;p&gt;My first encounter with web scrapping/crawling was with R, I read ‘&lt;em&gt;Automated Data Collection with R: A Practical Guide to Web Scraping and Text Mining&lt;/em&gt;’ by Simon Munzert et al. It is a really well-written, thorough book, I would definitely recommend having a read.&lt;/p&gt;
 
-&lt;p&gt;However, I have to admit the potential with python is far greater than that with R. To do anything sophisticated, one shouldn’t burden oneself with R.&lt;/p&gt;
+&lt;p&gt;However, I have to admit the potential for scrapping the web using python is far greater than that with R. To do anything sophisticated, one shouldn’t burden oneself with R.&lt;/p&gt;
 
 &lt;p&gt;I had this idea of extracting the publication records from staffs in the department and then performing some data analysis on it about a month or two ago. Recently I started slowly writing the code from time to time.&lt;/p&gt;
 
-&lt;p&gt;The crawler technology required to achieve this is rather simple, so it is a good way to familiarise myself with the pythonic way of crawling. More importantly, I would like to take this course on EdX about node.js that uses &lt;strong&gt;mongodb&lt;/strong&gt; as its back end. The data I will extract from this experiment is a good way for me to utilise such No-SQL database.&lt;/p&gt;
+&lt;p&gt;The crawler technology required to achieve this is rather simple, so it is a good way to familiarise myself with the pythonic way of crawling. More importantly, I would like to take this course on EdX about node.js that uses &lt;strong&gt;MongoDB&lt;/strong&gt; as its back end. The data I will extract from this experiment is a good way for me to utilise such No-SQL database.&lt;/p&gt;
 
-&lt;p&gt;The procedure is quite straight forward:
-1. I found all the staffs from IC chemistry is registered on &lt;a href=&quot;https://www.imperial.ac.uk/chemistry/about/contacts/all-staff/&quot;&gt;this page&lt;/a&gt;. And researchers who have publications have an url connecting to their homepage. So I need to extract the relevant html element to connect me to each researchers’ homepage.&lt;/p&gt;
+&lt;p&gt;The procedure is quite straight forward:&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;The relevant researchers will have a &lt;em&gt;publications&lt;/em&gt; tab on their homepage. Once navigated to &lt;em&gt;publications&lt;/em&gt;, I can just iterated through the pages, and extract the required information for each publication record, and store it.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;I found all the staffs from IC chemistry is registered on &lt;a href=&quot;https://www.imperial.ac.uk/chemistry/about/contacts/all-staff/&quot;&gt;this page&lt;/a&gt;. And researchers who have publications have an url connecting to their homepage. So I need to extract the relevant html element to connect me to each researchers’ homepage.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The relevant researchers will have a &lt;em&gt;publications&lt;/em&gt; tab on their homepage. Once navigated to &lt;em&gt;publications&lt;/em&gt;, I can just iterated through the pages, and extract the required information for each publication record, and store it.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;The libraries required for this are as below. Obviously mongodb needs to be installed separately as well.&lt;/p&gt;
+&lt;p&gt;The libraries required for this are as below. Obviously MongoDB needs to be installed separately as well.&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;bs4&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BeautifulSoup&lt;/span&gt;
@@ -1030,10 +1034,10 @@ The natural language processing done here is very crude and hence the numbers he
 &lt;ul&gt;
   &lt;li&gt;turn page -&amp;gt; nextPage()&lt;/li&gt;
   &lt;li&gt;get all the publication records on that page -&amp;gt; getPapers()&lt;/li&gt;
-  &lt;li&gt;extract the relevant information in the correct fields for a given publication html div element, then store it in a mongodb collection -&amp;gt; registerPaper()&lt;/li&gt;
+  &lt;li&gt;extract the relevant information in the correct fields for a given publication html div element, then store it in a MongoDB collection -&amp;gt; registerPaper()&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;The last function is tricky, given the these publication records are not adhering to a strict schema. The way I am doing it here is not perfect.&lt;/p&gt;
+&lt;p&gt;The last function is tricky, given these publication records are not adhering to a strict schema. The way I am doing it here is not perfect.&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;nextPage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;a&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;attrs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;class&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;icon next&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
@@ -1137,11 +1141,14 @@ The natural language processing done here is very crude and hence the numbers he
 
 &lt;p&gt;The complete repo for this project is &lt;a href=&quot;https://github.com/hjuinj/Web-Scrappers/blob/master/3.IC%20Chem/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;In the &lt;a href=&quot;http://hjuinj.github.io/project/2016/08/25/ICchemII&quot;&gt;next post&lt;/a&gt; I choose to switch to R for data cleaning, and looking at some interesting statistics. I chose to switch to R for a few reasons:
-- I like Rstudio, it is very interactive.
-- I like R for exploratory data analysis.
-- I like ggplot2, way more beautiful than matplotlib.
-- Good practice with Rmarkdown&lt;/p&gt;
+&lt;p&gt;In the &lt;a href=&quot;http://hjuinj.github.io/project/2016/08/25/ICchemII&quot;&gt;next post&lt;/a&gt; I choose to switch to R for data cleaning, and looking at some interesting statistics. I chose to switch to R for a few reasons:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;I like Rstudio, it is very interactive&lt;/li&gt;
+  &lt;li&gt;I like R for exploratory data analysis purposes&lt;/li&gt;
+  &lt;li&gt;I like ggplot2, way more beautiful than matplotlib&lt;/li&gt;
+  &lt;li&gt;Good practice with Rmarkdown&lt;/li&gt;
+&lt;/ul&gt;
 </description>
                 <link>http://hjuinj.github.io/project/2016/08/25/ICchemI</link>
                 <guid>http://hjuinj.github.io/project/2016/08/25/ICchemI</guid>
@@ -1152,7 +1159,7 @@ The natural language processing done here is very crude and hence the numbers he
                 <title>Flock Simulation II - Three Added Functionalities</title>
                 <description>&lt;p&gt;Since the &lt;a href=&quot;/project/2016/07/23/flock_1&quot;&gt;previous post&lt;/a&gt;, I have added three more functionalities:&lt;/p&gt;
 
-&lt;p&gt;First, as delineated last time, I suspect the jiggling motion of the flock simulation I showed last time was due to the individual members making too large turns between time steps. Animals all have a maximum degree they can turn with respect to their orientations (imagine a vector draw from its body to its head). It is more natural to define turning directions in terms of polar coordinates (angles) rather than Cartesians. What I have done is to keep a register of the direction each member is moving at (the angle theta and phi are defined with respect to the positive x-axis). One can quite easily transform the polar into Cartesian.&lt;/p&gt;
+&lt;p&gt;First, as delineated last time, I suspect the jiggling motion of the flock simulation I showed last time was due to the individual members making too large turns between time steps. Animals all have a maximum degree they can turn with respect to their orientations (imagine a vector draw from its body to its head). It is more natural to define turning directions in terms of polar coordinates (angles) rather than Cartesians. What I have done is to keep a register of the direction each member is moving at (the angle theta and phi are defined with respect to the positive x-axis). One can quite easily transform between polar and Cartesian.&lt;/p&gt;
 
 &lt;p&gt;The code is as below, appended into the flock class. Here, each member are still moving randomly, but only within a restricted angle (45 degree by default).&lt;/p&gt;
 
@@ -1181,7 +1188,7 @@ The natural language processing done here is very crude and hence the numbers he
 &lt;/pre&gt;
 &lt;p&gt;The part that restricts the change in direction between time steps is going to be important when it comes to actually simulating swarms.&lt;/p&gt;
 
-&lt;p&gt;Secondly, I have added the detection for any collisions between flock members. As you probably have seen, the depth perception from the simulation is not very good, there is no way to determine whether two members are overlapping from purely looking. To do this, the pair-wise distance between members need to be calculated.&lt;/p&gt;
+&lt;p&gt;Secondly, I have added the detection for any collisions between flock members. As you probably have seen, the depth perception from the simulation visualisation is not very good, there is no way to determine whether two members are overlapping from purely looking. To do this, the pair-wise distance between members need to be calculated.&lt;/p&gt;
 
 &lt;p&gt;The pair-wise distance of the flock members is as below, using &lt;em&gt;spatial&lt;/em&gt; class in the scipy package. The positions of every member in the flock is stored in the self.positions numpy array. Here, the euclidean distance between pairs makes the most sense for me. This is also in the flock class.&lt;/p&gt;
 
@@ -1232,7 +1239,7 @@ The natural language processing done here is very crude and hence the numbers he
 &lt;img src=&quot;/assets/img/Flock/II plot directional random.png&quot; alt=&quot;plot&quot; /&gt;
 &lt;/div&gt;
 
-&lt;p&gt;For something exhibiting flock behaviour, I would expect the plot not be a incrementing function. Instead, there ought to be oscillation around a transient number.&lt;/p&gt;
+&lt;p&gt;For something exhibiting flock behaviour, I would expect the plot not be a incrementing function. Instead, there ought to be oscillation around a certain value as the transient behaviour.&lt;/p&gt;
 
 &lt;p&gt;For the full code, visit my GitHub page for this project : &lt;a href=&quot;https://GitHub.com/hjuinj/Flock-Simulation&quot;&gt;https://GitHub.com/hjuinj/Flock-Simulation&lt;/a&gt;&lt;/p&gt;
 
@@ -1499,7 +1506,12 @@ w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
 
 &lt;h1 id=&quot;genetics&quot;&gt;GENETICS&lt;/h1&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.bio.bg.ac.rs/materijali_predmeta/med-eng-griffiths-an-introduction-to-genetic-analysis.pdf&quot;&gt;Genetic Analysis Textbook&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.bio.bg.ac.rs/materijali_predmeta/med-eng-griffiths-an-introduction-to-genetic-analysis.pdf&quot;&gt;Genetic Analysis Textbook&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;del&gt;&lt;a href=&quot;http://www.cell.com/abstract/S0092-8674(13)00645-4&quot;&gt;The Hallmarks of Aging&lt;/a&gt;&lt;/del&gt; (23/07/16)&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://www.nature.com/nrg/series/epigenetics/index.html&quot;&gt;Nature Genetics Reviews: Epigenetics&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
@@ -1682,54 +1694,52 @@ w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
 
         <item>
                 <title>Recent Reads #0</title>
-                <description>&lt;p&gt;I hope will be the first of a continuous, regular series of posts providing brief summaries concerning different areas of the scientific literature. By attempting to rephrase the encountered material I can probably better understand the underlying theory. It also allows me to keep a record of what I have done.&lt;/p&gt;
+                <description>&lt;p&gt;I hope this will be the first of a continuous, regular series of posts providing brief summaries concerning scientific literatures I recently encountered. By attempting to rephrase the encountered material I can probably better understand the underlying theory. It also allows me to keep a record of what I have done.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.cell.com/abstract/S0092-8674(13)00645-4&quot;&gt;The Hallmarks of Aging&lt;/a&gt;.&lt;/p&gt;
+    &lt;p&gt;Quantum Mechanics for Scientist and Engineers&lt;/p&gt;
+
+    &lt;p&gt;This is a book by David Miller. It is a very thorough encounter of QM often delving deeper into the mathemtaical formalisms then one would find in a regular physical chemistry book (e.g. Atkins). For example, it actually explains the origin of the Fermi’s Golden Rule and unpaired spin for fermions. There is also need concepts I have not met in my undergrad course such as the purturbation theory and transformation between the matrix and integral form of the representation.&lt;/p&gt;
+
+    &lt;p&gt;I got a bit lost starting chapter 14 and stopped so I need to read on from there.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Quantum Mechanics for Scientist and Engineers.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://biorxiv.org/content/early/2016/05/26/055624&quot;&gt;Could a neuroscientist understand a microprocessor?&lt;/a&gt;
-The preprint paper begs the question that can &lt;em&gt;fundamental insights&lt;/em&gt; be gained through more and better data?
-reverse-engineered a simple processor unit MOS6502 with manageable number of transistors.
-using more and more detailed analysis
-a simulational program was written to mimic the performance of the processor unit.
-However, we can not currently evaluate if better analysis techniques, even with far more data, can figure out meaningful models of the brain.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
+    &lt;p&gt;&lt;a href=&quot;http://biorxiv.org/content/early/2016/05/26/055624&quot;&gt;Could a neuroscientist understand a microprocessor?&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;what is classified as an understanding of the system
-suggest using the processor as a way to test what methodology might be about to lead to correct conclusions for the brain, despite gross differences between the two systems.&lt;/p&gt;
+    &lt;p&gt;It is a preprint paper at the time of writing. It begs the question that can &lt;em&gt;fundamental insights&lt;/em&gt; be gained through more and better data? The investigators used a rather cool method of experimentation (in my opinion).&lt;/p&gt;
 
-&lt;ul&gt;
+    &lt;p&gt;The method of investigation is via reverse-engineering of a simple processor unit (MOS6502), which has manageable number of transistors and then the processor unit’s behaviour was mimiced by a piece of simulational software.
+  One can manipulate the processor to perform certain task which generates some output. One wishes to explain the functions of different components of the processor using the output. This is very similar to current available method to probe the brain.&lt;/p&gt;
+
+    &lt;p&gt;The conclusion they drew was the inference about the processor functions was not always correct. From this, they concluded we would not necessarily construct correct models of the brain using our current methodologies. This reminds me of a recent article saying physics is not a pure experimental science, one always needs a hypothesis &lt;em&gt;a priori&lt;/em&gt; in the precise form of mathemtics. Then the experiments can tell you whether the hypothesis seems to be correct. So for a system like the CPU or even more complex like the brain, would correlation based on large data be actually useful?&lt;/p&gt;
+
+    &lt;p&gt;Although I guess using the processor as a way to test what methodology may not lead to correct conclusions for the brain due to the gross differences between the two systems.&lt;/p&gt;
+  &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;http://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf&quot;&gt;A Neural Probabilistic Language Mode&lt;/a&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.ncbi.nlm.nih.gov/pubmed/16588492&quot;&gt;Genetic Control of Biochemical Reactions in Neurospora&lt;/a&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2135445&amp;amp;tool=pmcentrez&amp;amp;rendertype=abstract&quot;&gt;STUDIES ON THE CHEMICAL NATURE OF THE SUBSTANCE INDUCING TRANSFORMATION OF PNEUMOCOCCAL TYPES&lt;/a&gt;.&lt;/p&gt;
+
+    &lt;p&gt;A statistical view of trying to peak through the underlying genetics&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;http://pubs.acs.org/doi/abs/10.1021/acs.jmedchem.5b01946&quot;&gt;Hydrogen Bond Basicity Prediction for Medicinal Chemistry Design&lt;/a&gt;.&lt;/p&gt;
+
+    &lt;p&gt;Using electrostatic minima to estimate hydrogen bond donor strength and using the electrostatic potential at the van der Waals radius to estmate hydrogen bond acceptor strength.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Introduction to Apache Spark.&lt;/p&gt;
+    &lt;p&gt;Data Science and Machine Learning with Apache Spark.&lt;/p&gt;
+
+    &lt;p&gt;This is a three module lecture series offered by UC Berkely on &lt;a href=&quot;edx.org&quot;&gt;edX&lt;/a&gt;, a relatively gentle lead into the area of data science using Apache Spark, which is a distributed framework to treat big data via parallelism. I participated in a similar offering about a year ago. Due to the dynamic and vibrant nature of the field, features have been amended and added since then. This time ,they have also chosen to have the assignment run on &lt;a href=&quot;databricks.com&quot;&gt;Databricks&lt;/a&gt;, who is the main contributor to Apache Spark, rather than having to configure a virtual machine to run the code last time which meant it is cumbersome to adapt the hardware architecture to perform customary jobs. Plus they are adding more content into the series.&lt;/p&gt;
+
+    &lt;p&gt;To do this course requires some programming foundation in python. It is certainly very interesting to follow, though I suspect to fully appreciate the usefulness of the content requires at least a vague understanding of the time bottlenecks of manipulating massive datasets.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;This is a 3 week course offered on &lt;a href=&quot;edx.org&quot;&gt;edX&lt;/a&gt;, a relatively gentle lead into the area of data science using Apache Spark, which is a distributed framework to treat big data via parallelism. I participated in a similar offering about a year ago. Due to the dynamic and vibrant nature of the field, additional features have been amended and added since then. This time ,they have also chosen to have the assignment directly done on &lt;a href=&quot;databricks.com&quot;&gt;Databricks&lt;/a&gt;, who is the main contributor to Apache Spark, rather than having to configure a virtual machine to run this last time which meant it cumbersome to adapt the hardware architecture to perform customary jobs. Plus they are adding more content into the series. This is the first of a series of 3 (or potentially 5) course in data science using this architecture. So this is a somewhat revision.&lt;/p&gt;
-
-&lt;p&gt;To do this course requires some programming foundation in python. It is certainly very interesting to follow, though I suspect to fully appreciate the usefulness of the content requires at least a vague understanding of the time bottleneck of manipulating massive datasets.&lt;/p&gt;
-
-&lt;p&gt;The assignments&lt;/p&gt;
 </description>
-                <link>http://hjuinj.github.io/scholastic/2016/07/20/recentRead1</link>
-                <guid>http://hjuinj.github.io/scholastic/2016/07/20/recentRead1</guid>
+                <link>http://hjuinj.github.io/scholastic/2016/07/20/recentRead0</link>
+                <guid>http://hjuinj.github.io/scholastic/2016/07/20/recentRead0</guid>
                 <pubDate>Wed, 20 Jul 2016 00:00:00 +0800</pubDate>
         </item>
 
@@ -2224,6 +2234,8 @@ Close and open tabs &amp;lt;http://www.ituring.com.cn/article/66275&amp;gt;
 &lt;h2 id=&quot;a-program-to-play-24-points--using-julia-ideally-using-meta-programming-ideas&quot;&gt;A program to play 24 points (二十四点) using Julia, ideally using meta-programming ideas&lt;/h2&gt;
 
 &lt;h2 id=&quot;webcrawler-using-google-apis-such-as-maps-and-translation-building-predictive-models&quot;&gt;Webcrawler using Google APIs such as maps and translation, building predictive models&lt;/h2&gt;
+
+&lt;h2 id=&quot;first-plugin-for-atom&quot;&gt;First plugin for Atom&lt;/h2&gt;
 </description>
                 <link>http://hjuinj.github.io/plan/2016/04/11/toDo</link>
                 <guid>http://hjuinj.github.io/plan/2016/04/11/toDo</guid>
@@ -2241,7 +2253,7 @@ Close and open tabs &amp;lt;http://www.ituring.com.cn/article/66275&amp;gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/img/Posts/firstPost1.png&quot; alt=&quot;qzone&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;I never go back and read what I write: afraid I will be overwhelmed by the level stupidity. But to be fair, I think I write well, at least in Chinese.&lt;/p&gt;
+&lt;p&gt;I never went back and read what I wrote - afraid I would be overwhelmed by the level stupidity. But to be fair, I think I wrote well, at least in Chinese.&lt;/p&gt;
 
 &lt;h2 id=&quot;why-this&quot;&gt;Why this?&lt;/h2&gt;
 
@@ -2255,12 +2267,12 @@ I would like to especially write about cheminformatics, which sadly isn’t at a
 
 &lt;p&gt;I aim to explain what were once esoteric concepts to me or present interesting literatures I have encountered at the level of a science undergrad. Also I would like to point to some resources I found to be useful.&lt;/p&gt;
 
-&lt;p&gt;So what’s in this for &lt;strong&gt;me&lt;/strong&gt;? Well, manifold really. For one, I think writing blogs can definitely improve my writing skill. Those papers ain’t gonna write themselves.&lt;/p&gt;
+&lt;p&gt;So what’s in this for &lt;strong&gt;me&lt;/strong&gt;? Well, manifold really. For one, I think writing blogs can definitely improve my writing skill and speed. Those papers ain’t gonna write themselves.&lt;/p&gt;
 
 &lt;h2 id=&quot;anything-else&quot;&gt;Anything else?&lt;/h2&gt;
 &lt;p&gt;YES!!!!!! As you can see this blog is hosted on GitHub, using Jekyll, which is a new tool I am learning to use, along with other funky stuffs I am or planning to work on, (text scrappers, plugins, open sourced projects, etc).&lt;/p&gt;
 
-&lt;p&gt;I have taken far far far too many online courses. It is time to put those knowledge to test. I enjoy science, I enjoy technology. Atoms + Bits = the way forward.&lt;/p&gt;
+&lt;p&gt;I have taken far far far too many online courses. It is time to put those knowledge to test. I enjoy science, I enjoy technology. Atoms + Bits = The Way Forward.&lt;/p&gt;
 
 &lt;h2 id=&quot;so&quot;&gt;So&lt;/h2&gt;
 &lt;p&gt;So, I hope I will keep up, well, who knows…&lt;/p&gt;
