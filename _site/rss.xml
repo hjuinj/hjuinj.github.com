@@ -5,8 +5,8 @@
         <description>Main() - </description>
         <link>http://hjuinj.github.io</link>
         <atom:link href="http://hjuinj.github.io/rss.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Sun, 25 Sep 2016 19:07:52 +0800</lastBuildDate>
-        <pubDate>Sun, 25 Sep 2016 19:07:52 +0800</pubDate>
+        <lastBuildDate>Sun, 25 Sep 2016 19:28:59 +0800</lastBuildDate>
+        <pubDate>Sun, 25 Sep 2016 19:28:59 +0800</pubDate>
         <ttl>60</ttl>
 
 
@@ -1644,34 +1644,36 @@ w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
                 <title>Basis Sets Notes</title>
                 <description>&lt;p&gt;Notes from reading Andrew Leach’s Molecular Modelling book.&lt;/p&gt;
 
-&lt;h2 id=&quot;basis-sets-ab-initio&quot;&gt;Basis Sets (&lt;em&gt;ab initio&lt;/em&gt;)&lt;/h2&gt;
 &lt;p&gt;To reiterate, basis sets are the orbital sets used to approxmiate the atomics orbitals, which are linearly combined (weighted) to form molecular orbitals.&lt;/p&gt;
 
-&lt;p&gt;Slater type orbitals (STOs) is one way to simplify atomic orbitals obtained from solving the Schrondinger equation on the hydrogen atom.&lt;/p&gt;
+&lt;p&gt;Slater type orbitals (STOs) is one way to simplify atomic orbitals obtained from solving the Schrondinger equation on the hydrogen atom. It replaces the Legendre polynomial spherical harmonics in the radial parts with a simpler form involving an empirical quantity, the effect charge.&lt;/p&gt;
 
-&lt;p&gt;The adaptation of Gaussian orbital over STO is due to its efficiency in computation. Such orbital has a general form of:&lt;/p&gt;
+&lt;p&gt;Simplifying the functional form is all about computaional efficiency. The adaptation of Gaussian type orbital (GTOs) over STOs is due to its efficiency in computation. Such orbital has a general form of:&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;x^ay^bz^c exp(-\alpha  r^2)&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;φ = x^ay^bz^c exp(-\alpha  r^2)&lt;/script&gt;
 
 &lt;p&gt;The exponential format allows orbital joining (multiplication) very cheap to calculate.&lt;/p&gt;
 
-&lt;p&gt;Depending on the powers a,b,c which can take on values of 1 or 0. When all of them equal to zero, it is a zeroth-order Gaussian that resembles the formalism of s-type atomic orbitals. When one of the three is one it is a first-order Gaussian, resembling p-type orbitals.&lt;/p&gt;
+&lt;p&gt;The powers a,b,c which can take on values of 1 or 0. When all of them equal to zero, it is a zeroth-order Gaussian that resembles the formalism of s-type atomic orbitals. When one of the three is one it is a first-order Gaussian, resembling p-type orbitals.&lt;/p&gt;
 
-&lt;p&gt;Often a linear combinations of GTOs are used to approximate STOs. Fitting is done via minimising least square error for example. After optimisation, in the linear combination, the coefficient in front of each GTO and the $\alpha$ is often fixed when calculating the final MO form. In addition, the $\alpha$ term is fixed for s and p type orbitals This is again for computational cost.&lt;/p&gt;
+&lt;p&gt;Often a linear combinations of GTOs are used to approximate STOs. Fitting is done via minimising least square error for example. After optimisation the linear combination, the coefficient in front of each GTO and the &lt;script type=&quot;math/tex&quot;&gt;\alpha&lt;/script&gt; is often fixed when calculating the final MO form. In addition, the &lt;script type=&quot;math/tex&quot;&gt;\alpha&lt;/script&gt; term is fixed for s and p type orbitals. This is again for saving computational cost.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Minimal basis set&lt;/em&gt; includes all the filled orbitals in each atom, each such orbital is represented by a set of Gaussian orbitals. The notation “STO-3G” therefore means each Slater type orbital is approximated by 4 Gaussian orbitals. For &lt;em&gt;ab initio&lt;/em&gt;, 3 is the bare minimum. Reminder of the hierarchy, MOs are approxmiate by LCAO, AOs are approximated by STO, and STOs are approximated by GTOs.&lt;/p&gt;
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;some-basis-sets&quot;&gt;Some Basis Sets&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Minimal basis set&lt;/em&gt; includes all the filled orbitals for an atom, each such orbital is represented by a set of Gaussian orbitals. The notation “STO-3G” therefore means each Slater type orbital is approximated by 4 Gaussian orbitals. For &lt;em&gt;ab initio&lt;/em&gt; calculation, approximation by 3 Gaussians is the bare minimum. Reminder of the hierarchy, MOs are approxmiate by LCAO, AOs are approximated by STO, and STOs are approximated by GTOs.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;Split valence basis set&lt;/em&gt; accounts for anistropy problems for the minimal basis set by allowing more than one type of STOs to be used to model the valence atomic orbitals. The most used type is the double split zeta basis set (zeta is the coefficient in front of the exponent in the radial part of STO) which models valence orbitals with two different STOs and inner shell orbitals with one. For example, in the 3-21G basis set, each inner shell atomic orbital is approximated by one STO, which is in turn approximated by three GTOs. While the valence shell orbitals are modeled by two different types of STOs, one of the two is approximated by two GTOs, the other by one.&lt;/p&gt;
 
-&lt;p&gt;One can further account for the charge distortion effect on the orbitals by modelling polarisations - reducing the charge symmetry by including un-occupied p orbitals to the basis set to atoms only having filled s orbitals, similarly adding d to atoms only with s and p characters. 3-21G* means polarisations is done on all heavy atom (d type). Two asterisks means polarisation is done on hydrogen and helium (p type polarisation) too. To account for species with large electron density away from the nuclei (where all Gaussians for a given orbital center on), one can add extra set of diffused orbitals. This is what the “+” notation means.&lt;/p&gt;
+&lt;p&gt;One can further account for the charge distortion effect on the orbitals by modelling polarisations - reducing the charge symmetry by including un-occupied p orbitals to the basis set to atoms only having filled s orbitals, similarly adding d to atoms only with s and p characters. 3-21G* means polarisations is done on all heavy atom (with occupied d orbitals). Two asterisks means polarisation is done on hydrogen and helium (p type polarisation) too. To account for species with large electron density away from the nuclei (where all Gaussians for a given orbital center on), one can add extra set of diffused orbitals. This is what the “+” notation means.&lt;/p&gt;
 
-&lt;p&gt;So, 3-21+ +G* means for a given atom, each of its inner shell orbital is modelled by one STO - approximated by three GTOs. Each of its valence orbital is modelled by two STOs, one approximated by two GTOs and the other by one. On top, each atom has a extra set of diffuse s and p type GTOs added (indicated by + +, + would be for each non-hydrogen atom). Additionally, extra unoccupied (d) orbitals (still approximated by GTOs) is added for each non-hydrogen atom. The asterisk can be replaced by more precise notation such as 3-21++G(3df, 3pd), which means 3 d-type GTOs 1 f-type GTOs are added for heavy atoms and 3 p-type GTOs and 1 d-type GTO is added to each hydrogen.&lt;/p&gt;
+&lt;p&gt;So, 3-21++G* means for a given atom, each of its inner shell orbital is modelled by one STO - approximated by three GTOs. Each of its valence orbital is modelled by two STOs, one approximated by two GTOs and the other by one. On top, each atom has a extra set of diffuse s and p type GTOs added (indicated by + +, + would be for each non-hydrogen atom). Additionally, extra unoccupied (d) orbitals (still approximated by GTOs) is added for each non-hydrogen atom. The asterisk can be replaced by more precise notation such as 3-21++G(3df, 3pd), which means 3 d-type GTOs 1 f-type GTOs are added for heavy atoms and 3 p-type GTOs and 1 d-type GTO is added to each hydrogen.&lt;/p&gt;
 
 &lt;p&gt;There are other basis sets too, e.g. see wikipedia.&lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;A quick comparison between molecular mechanics and quantuam mechanics can show why the latter is so much more expensive than the former. In order to simulation a system requires evaluation of the system evolution over time. For each time step, a MM approach only requires the evaluation of the analytical function composing of the different energy contributions (torsion, electrostatic, etc), but a QM calculation would need to iteratively solve for the new MOs for the changed nuclei coordinates before the energy evaluations.&lt;/p&gt;
+&lt;p&gt;At this point, a quick comparison between molecular mechanics and quantuam mechanics can show why the latter is so much more expensive than the former. Say for evaluation of the system evolution over time. For each time step, a MM approach only requires the evaluation of the analytical functions composing of the different energy contributions (torsion, electrostatic, etc) due to the nuclear coordinate. But a QM calculation would need to iteratively solve for the new MOs for the changed nuclei coordinates before even starting the energy evaluations.&lt;/p&gt;
 </description>
                 <link>http://hjuinj.github.io/scholastic/2016/07/20/BasisSet</link>
                 <guid>http://hjuinj.github.io/scholastic/2016/07/20/BasisSet</guid>
