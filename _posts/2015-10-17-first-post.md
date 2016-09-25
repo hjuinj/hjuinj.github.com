@@ -17,7 +17,7 @@ To give you a glimpse [Qzone](http://user.qzone.qq.com/348601585):
 ![qzone](/assets/img/Posts/firstPost1.png)
 
 
-I never go back and read what I write: afraid I will be overwhelmed by the level stupidity. But to be fair, I think I write well, at least in Chinese.
+I never went back and read what I wrote - afraid I would be overwhelmed by the level stupidity. But to be fair, I think I wrote well, at least in Chinese.
 
 ## Why this?
 
@@ -31,12 +31,12 @@ I would like to especially write about cheminformatics, which sadly isn't at all
 
 I aim to explain what were once esoteric concepts to me or present interesting literatures I have encountered at the level of a science undergrad. Also I would like to point to some resources I found to be useful.
 
-So what's in this for **me**? Well, manifold really. For one, I think writing blogs can definitely improve my writing skill. Those papers ain't gonna write themselves.
+So what's in this for **me**? Well, manifold really. For one, I think writing blogs can definitely improve my writing skill and speed. Those papers ain't gonna write themselves.
 
 ## Anything else?
 YES!!!!!! As you can see this blog is hosted on GitHub, using Jekyll, which is a new tool I am learning to use, along with other funky stuffs I am or planning to work on, (text scrappers, plugins, open sourced projects, etc).
 
-I have taken far far far too many online courses. It is time to put those knowledge to test. I enjoy science, I enjoy technology. Atoms + Bits = the way forward.
+I have taken far far far too many online courses. It is time to put those knowledge to test. I enjoy science, I enjoy technology. Atoms + Bits = The Way Forward.
 
 ## So
 So, I hope I will keep up, well, who knows...
