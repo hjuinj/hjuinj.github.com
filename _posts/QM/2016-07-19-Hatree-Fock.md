@@ -10,13 +10,14 @@ tags :
   - physics
   - chemistry
 ---
+Notes from reading Andrew Leach's Molecular Modelling book.
+
+
 In computaional chemistry, the wavefunction of the entire molecular system is a function of all its electronic and nuclear coordinates. Due to the Born–Oppenheimer approximation, electronic and nuclear motion can be separated. This means, for a stationary frame of nuclear coordinates, the total wavefunction is the product of a wavefunction of the electronic coordinates multiplied by constant.The following mention of wavefunction will refer to this electronic wavefunction.
 
 The wavefunction of the molecule is approximated by the product of individual **molecular orbital (MO) wavefunction** - a function of only one electron within the molecule. Thus a N-electron system will have N (filled) molecular orbitals:
 
-<div style="text-align:center">
-<b> Φ(n = 1,2,3....) </b> = ∏ Φ_n
-</div>
+$$ Φ_{total}(n = 1,2,3....)  = ∏ Φ_n $$
 
 In the Slater determinant, each element is a molecular orbital wavefunction. It is made up of all the molecular orbitals that are occupied by electrons. Hence for a N-electron system the determinant is NxN in dimension. The ith row is all the N possible wavefunctions the ith electron could reside in (can be the same MO, since each orbital accommodates two electrons).
 
@@ -35,9 +36,7 @@ The MOs themselves are obtained in this way, using Hatree-Fock formulism.
 
 The variation theorem states the energy of the **ground state** electronic configuration of a system will be at an minimum. Above, we have an expression of energy in terms of the MOs (Hamiltonian times wavefunction), we can find the MOs that minimises the energy with the additional requirement that MOs need to be orthonormal. This is a constraint minimisation problem. The Hatree-Fock formulation transforms this optimisation problem into the following format:
 
-<div style="text-align:center">
- f̂ Φ = ϵ Φ  
- </div>
+ $$ f̂ Φ = ϵ Φ  $$
 
  This very Schrondinger-like equation says the molecular orbital wavefunction for a given electron acted upon by the Fock operator (the left-most symbol) equals the same wavefunction multiplied by a constant. The Fock operator encompasses the three energy contribution terms alluded to above. As you can see, the Fock opertor is a function of all the other MOs in the system. No analytical solution exists for this formulation. An iterative solution exists: the numerical solution involves starting with an initial guess for the set of MOs to describe all the electron and use them to obtain the Fock operators. Next, using the determined Fock operator, a better approximation of the MO wavefunctions can then be obtained, which are plugged back into obtain a new set of Fock operators. This iterative process continuous until some convergence condition is met. This is called the **self-consistent field** approach.  
 
@@ -45,11 +44,9 @@ The variation theorem states the energy of the **ground state** electronic confi
 
 Two levels of simplifications are added to the HF formulation to reduce the search space:
 
-Firstly, each MO is constructed by a weighted combinations of atomic orbitals(obtained from solving for the hydrogen atom), abbreviated as LCAO:
+Firstly, the functional form of MOs are assumed to be constructed by a weighted combinations of atomic orbitals(obtained from solving for the hydrogen atom), abbreviated as LCAO:
 
-<div style="text-align:center">
-Φ = ∑ c_i * φ_i
-</div>
+$$ Φ = ∑ c_i * φ_i $$
 
 The set of atomic orbitals being combined to become the molecular orbitals are referred to as the **basis set**. Combinations of M atomic orbitals yields M molecular orbitals, which *do not* necessarily need to be occupied by electrons. This means the functional form of the atomic orbitals would stay the same for every MO, the only difference is therefore only in the coefficients "c_i" terms in front of each atomic orbitals.
 

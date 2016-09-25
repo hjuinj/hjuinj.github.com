@@ -4,7 +4,7 @@
  <title>Main()</title>
  <link href="http://hjuinj.github.io/atom.xml" rel="self"/>
  <link href="http://hjuinj.github.io"/>
- <updated>2016-09-25T18:41:33+08:00</updated>
+ <updated>2016-09-25T19:07:52+08:00</updated>
  <id>http://hjuinj.github.io</id>
  <author>
    <name></name>
@@ -1647,23 +1647,16 @@ w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
    <link href="http://hjuinj.github.io/scholastic/2016/07/20/BasisSet"/>
    <updated>2016-07-20T00:00:00+08:00</updated>
    <id>http://hjuinj.github.io/scholastic/2016/07/20/BasisSet</id>
-   <content type="html">&lt;p&gt;Additions, insertions and deletions will be done as my understanding of the topic progresses. This serves as a test-ground for me to elucidate my understanding in computational chemistry as well as a sand-box for formatting documents containing maths equations in markdown. Hence &lt;strong&gt;This is by no means a rigorous piece of work&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Maths equations markdown reminder
-&lt;a href=&quot;http://www.statpower.net/Content/310/R%20Stuff/SampleMarkdown.html&quot;&gt;http://www.statpower.net/Content/310/R%20Stuff/SampleMarkdown.html&lt;/a&gt;
-markdown cheatshet
-&lt;a href=&quot;https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet&quot;&gt;https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;From this, one can begin to see why when compared to MM methods, QM calculations are deemed a lot more expensive. In order to simulation a system requires evaluation of the system evolution over time. For each time step, a MM approach only requires the evaluation of the analytical function composing of the different energy contributions (torsion, electrostatic, etc), but a QM calculation would need to iteratively solve for the new MOs for the changed nuclei coordinates before the energy evaluations.&lt;/p&gt;
-
-&lt;p&gt;For an atomic orbital calculation, these are typically the orbitals for a hydrogenic atom (an atom with only one electron, but the appropriate nuclear charge). For a molecular orbital or crystalline calculation, the initial approximate one-electron wave functions are typically a linear combination of atomic orbitals (LCAO).&lt;/p&gt;
+   <content type="html">&lt;p&gt;Notes from reading Andrew Leach’s Molecular Modelling book.&lt;/p&gt;
 
 &lt;h2 id=&quot;basis-sets-ab-initio&quot;&gt;Basis Sets (&lt;em&gt;ab initio&lt;/em&gt;)&lt;/h2&gt;
-&lt;p&gt;The adaptation of Gaussian orbital over Slater type orbital (STO) is due to its efficiency in computation. Such orbital has a general form of:&lt;/p&gt;
+&lt;p&gt;To reiterate, basis sets are the orbital sets used to approxmiate the atomics orbitals, which are linearly combined (weighted) to form molecular orbitals.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;                                x^ay^bz^c exp(-\alpha  r^2)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;p&gt;Slater type orbitals (STOs) is one way to simplify atomic orbitals obtained from solving the Schrondinger equation on the hydrogen atom.&lt;/p&gt;
+
+&lt;p&gt;The adaptation of Gaussian orbital over STO is due to its efficiency in computation. Such orbital has a general form of:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x^ay^bz^c exp(-\alpha  r^2)&lt;/script&gt;
 
 &lt;p&gt;The exponential format allows orbital joining (multiplication) very cheap to calculate.&lt;/p&gt;
 
@@ -1680,6 +1673,10 @@ markdown cheatshet
 &lt;p&gt;So, 3-21+ +G* means for a given atom, each of its inner shell orbital is modelled by one STO - approximated by three GTOs. Each of its valence orbital is modelled by two STOs, one approximated by two GTOs and the other by one. On top, each atom has a extra set of diffuse s and p type GTOs added (indicated by + +, + would be for each non-hydrogen atom). Additionally, extra unoccupied (d) orbitals (still approximated by GTOs) is added for each non-hydrogen atom. The asterisk can be replaced by more precise notation such as 3-21++G(3df, 3pd), which means 3 d-type GTOs 1 f-type GTOs are added for heavy atoms and 3 p-type GTOs and 1 d-type GTO is added to each hydrogen.&lt;/p&gt;
 
 &lt;p&gt;There are other basis sets too, e.g. see wikipedia.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;A quick comparison between molecular mechanics and quantuam mechanics can show why the latter is so much more expensive than the former. In order to simulation a system requires evaluation of the system evolution over time. For each time step, a MM approach only requires the evaluation of the analytical function composing of the different energy contributions (torsion, electrostatic, etc), but a QM calculation would need to iteratively solve for the new MOs for the changed nuclei coordinates before the energy evaluations.&lt;/p&gt;
 </content>
  </entry>
  
@@ -1741,13 +1738,13 @@ suggest using the processor as a way to test what methodology might be about to 
    <link href="http://hjuinj.github.io/scholastic/2016/07/19/Hatree-Fock"/>
    <updated>2016-07-19T00:00:00+08:00</updated>
    <id>http://hjuinj.github.io/scholastic/2016/07/19/Hatree-Fock</id>
-   <content type="html">&lt;p&gt;In computaional chemistry, the wavefunction of the entire molecular system is a function of all its electronic and nuclear coordinates. Due to the Born–Oppenheimer approximation, electronic and nuclear motion can be separated. This means, for a stationary frame of nuclear coordinates, the total wavefunction is the product of a wavefunction of the electronic coordinates multiplied by constant.The following mention of wavefunction will refer to this electronic wavefunction.&lt;/p&gt;
+   <content type="html">&lt;p&gt;Notes from reading Andrew Leach’s Molecular Modelling book.&lt;/p&gt;
+
+&lt;p&gt;In computaional chemistry, the wavefunction of the entire molecular system is a function of all its electronic and nuclear coordinates. Due to the Born–Oppenheimer approximation, electronic and nuclear motion can be separated. This means, for a stationary frame of nuclear coordinates, the total wavefunction is the product of a wavefunction of the electronic coordinates multiplied by constant.The following mention of wavefunction will refer to this electronic wavefunction.&lt;/p&gt;
 
 &lt;p&gt;The wavefunction of the molecule is approximated by the product of individual &lt;strong&gt;molecular orbital (MO) wavefunction&lt;/strong&gt; - a function of only one electron within the molecule. Thus a N-electron system will have N (filled) molecular orbitals:&lt;/p&gt;
 
-&lt;div style=&quot;text-align:center&quot;&gt;
-&lt;b&gt; Φ(n = 1,2,3....) &lt;/b&gt; = ∏ Φ_n
-&lt;/div&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;Φ_{total}(n = 1,2,3....)  = ∏ Φ_n&lt;/script&gt;
 
 &lt;p&gt;In the Slater determinant, each element is a molecular orbital wavefunction. It is made up of all the molecular orbitals that are occupied by electrons. Hence for a N-electron system the determinant is NxN in dimension. The ith row is all the N possible wavefunctions the ith electron could reside in (can be the same MO, since each orbital accommodates two electrons).&lt;/p&gt;
 
@@ -1766,9 +1763,7 @@ suggest using the processor as a way to test what methodology might be about to 
 
 &lt;p&gt;The variation theorem states the energy of the &lt;strong&gt;ground state&lt;/strong&gt; electronic configuration of a system will be at an minimum. Above, we have an expression of energy in terms of the MOs (Hamiltonian times wavefunction), we can find the MOs that minimises the energy with the additional requirement that MOs need to be orthonormal. This is a constraint minimisation problem. The Hatree-Fock formulation transforms this optimisation problem into the following format:&lt;/p&gt;
 
-&lt;div style=&quot;text-align:center&quot;&gt;
- f̂ Φ = ϵ Φ  
- &lt;/div&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f̂ Φ = ϵ Φ&lt;/script&gt;
 
 &lt;p&gt;This very Schrondinger-like equation says the molecular orbital wavefunction for a given electron acted upon by the Fock operator (the left-most symbol) equals the same wavefunction multiplied by a constant. The Fock operator encompasses the three energy contribution terms alluded to above. As you can see, the Fock opertor is a function of all the other MOs in the system. No analytical solution exists for this formulation. An iterative solution exists: the numerical solution involves starting with an initial guess for the set of MOs to describe all the electron and use them to obtain the Fock operators. Next, using the determined Fock operator, a better approximation of the MO wavefunctions can then be obtained, which are plugged back into obtain a new set of Fock operators. This iterative process continuous until some convergence condition is met. This is called the &lt;strong&gt;self-consistent field&lt;/strong&gt; approach.&lt;/p&gt;
 
@@ -1776,11 +1771,9 @@ suggest using the processor as a way to test what methodology might be about to 
 
 &lt;p&gt;Two levels of simplifications are added to the HF formulation to reduce the search space:&lt;/p&gt;
 
-&lt;p&gt;Firstly, each MO is constructed by a weighted combinations of atomic orbitals(obtained from solving for the hydrogen atom), abbreviated as LCAO:&lt;/p&gt;
+&lt;p&gt;Firstly, the functional form of MOs are assumed to be constructed by a weighted combinations of atomic orbitals(obtained from solving for the hydrogen atom), abbreviated as LCAO:&lt;/p&gt;
 
-&lt;div style=&quot;text-align:center&quot;&gt;
-Φ = ∑ c_i * φ_i
-&lt;/div&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;Φ = ∑ c_i * φ_i&lt;/script&gt;
 
 &lt;p&gt;The set of atomic orbitals being combined to become the molecular orbitals are referred to as the &lt;strong&gt;basis set&lt;/strong&gt;. Combinations of M atomic orbitals yields M molecular orbitals, which &lt;em&gt;do not&lt;/em&gt; necessarily need to be occupied by electrons. This means the functional form of the atomic orbitals would stay the same for every MO, the only difference is therefore only in the coefficients “c_i” terms in front of each atomic orbitals.&lt;/p&gt;
 
