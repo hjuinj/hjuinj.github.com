@@ -32,16 +32,19 @@ I hope this will be the first of a continuous, regular series of posts providing
 - [A Neural Probabilistic Language Mode](http://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf).
 
 
+    A feature vector representation was used for words. This way, all words are described by a set of descriptors each in real-number space. The set of descriptors is much smaller than the size of words. It quite dramatically outperformed trigram models in estimating the joint probability distribution of sentences. The trigram model could only account for context and only rather local contexts. The vector representation on the other hand could both account for words that are quite far apart and also words that are similar, both in terms of distance measures in vector space. However, the difference between these two situations cannot be differentiated purely from the distance, and it might be important to be able to do that. Essentially, learning the join distribution between word occurence has been transformed to learning the pairwise distance between each word descriptor vector.
 
-- [STUDIES ON THE CHEMICAL NATURE OF THE SUBSTANCE INDUCING TRANSFORMATION OF PNEUMOCOCCAL TYPES](http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2135445&tool=pmcentrez&rendertype=abstract).
+    The work uses a guessed vector representation for each word in the training set as input, which are transferred to a hidden layer (tanh activation) and then the output layer (softmax). This is a publication that guided the development of word2vec, marking it the first time neural nets in the context of NLP. However, I find it difficult to truly appreciate the issues, in particular speed penalties raised in this work and I think this is mainly due to my lack of practical experimentation with NLP methods.
 
-    A statistical view of trying to peak through the underlying genetics
+
+- [Genetic Control of Biochemical Reactions in Neurospora](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1078370/)
+
+    An early molecular genetics study using x-ray induced single-point mutations on neurospora. The idea was to associate mutation with observations of inability to carry out some essential metabolic processes (e.g. surcrose hydrolysis). This was observed by placing the fungi on different mediums lacking certain combinations of biochemicals that are known metabolites that the fungi can make. Hence, if a gene for encoding a certain process was mutated, then the fungi would not grow on medium deficient of that certain metabolite. It is worth pointing out genes have not been identified structurally and they were only a hypothetical entity at the time the paper was written. Therefore, it was only the authors' assumption to think a gene is associated to one small step of a big biochemical cascade, rather than the entire process. In their words: "it should be possible, by finding a number of mutants unable to carry out a particular step in a given synthesis, to determine whether only one gene is ordinarily concerned with the immediate regulation of a given specific chemical reaction." But such study could not elucidate the sequence of biochemical pathways.
+
 
 - [Hydrogen Bond Basicity Prediction for Medicinal Chemistry Design](http://pubs.acs.org/doi/abs/10.1021/acs.jmedchem.5b01946).
 
-    Using electrostatic minima to estimate hydrogen bond donor strength and using the electrostatic potential at the van der Waals radius to estmate hydrogen bond acceptor strength. 
-
-
+    The publication explores the empirical linear relationship between the measured hydrogen bond basicity (H-bond acceptor) and the electrostatic potential minima. By doing so, one can ultimately use hydrogen bonding complementarity for ligand design for binding to receptors. A very pragmatic paper, allowing the hydrogen bond acceptor values to be estimated when experimental measurements are not available, such as for elaborate hetrocycles and peptides.
 
 - Data Science and Machine Learning with Apache Spark.
 
