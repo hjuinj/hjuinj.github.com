@@ -35,4 +35,4 @@ class IconGen:
         output = ".".join([self.name[0 : index], "png"])
         sm.imsave(output, self.im)
 
-IconGen()
+IconGen(size = 57)
