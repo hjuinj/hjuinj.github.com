@@ -44,7 +44,7 @@ I hope this will be the first of a continuous, regular series of posts providing
 
 - [Hydrogen Bond Basicity Prediction for Medicinal Chemistry Design](http://pubs.acs.org/doi/abs/10.1021/acs.jmedchem.5b01946).
 
-    The publication explores the empirical linear relationship between the measured hydrogen bond basicity (H-bond acceptor) and the electrostatic potential minima. By doing so, one can ultimately use hydrogen bonding complementarity for ligand design for binding to receptors. A very pragmatic paper, allowing the hydrogen bond acceptor values to be estimated when experimental measurements are not available, such as for elaborate hetrocycles and peptides.
+    The publication explores the empirical linear relationship between the measured hydrogen bond basicity (H-bond acceptor) and the electrostatic potential minima. By doing so, one can ultimately use hydrogen bonding complementarity for ligand design for binding to receptors. A very pragmatic paper, allowing the hydrogen bond acceptor values to be estimated when experimental measurements are not available, such as elaborate hetrocycles and peptides.
 
 - Data Science and Machine Learning with Apache Spark.
 

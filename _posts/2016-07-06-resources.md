@@ -15,6 +15,7 @@ tags :
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [CHEMINFORMATICS](#cheminformatics)
+	- [Open Babel](#open-babel)
 	- [CDK](#cdk)
 	- [RDKit](#rdkit)
 	- [Knime](#knime)
@@ -46,13 +47,19 @@ tags :
 	- [Distributed Computing](#distributed-computing)
 	- [NLTK](#nltk)
 
-<!-- /TOC -->
----
+<!-- /TOC -->---
 ---
 ---
 
 
 # CHEMINFORMATICS
+
+## Open Babel
+Open sourced chemical toolbox
+http://openbabel.org/wiki/Main_Page
+
+[Open Babel: An open chemical toolbox](https://jcheminf.springeropen.com/articles/10.1186/1758-2946-3-33)
+
 
 ## CDK
 Main framework written in Java

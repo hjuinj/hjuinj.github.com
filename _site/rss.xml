@@ -5,10 +5,104 @@
         <description>Main() - </description>
         <link>http://hjuinj.github.io</link>
         <atom:link href="http://hjuinj.github.io/rss.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Mon, 26 Sep 2016 02:56:24 +0800</lastBuildDate>
-        <pubDate>Mon, 26 Sep 2016 02:56:24 +0800</pubDate>
+        <lastBuildDate>Mon, 10 Oct 2016 02:31:56 +0800</lastBuildDate>
+        <pubDate>Mon, 10 Oct 2016 02:31:56 +0800</pubDate>
         <ttl>60</ttl>
 
+
+        <item>
+                <title>Recent Reads #1</title>
+                <description>&lt;p&gt;My placement at UCB Celltech has finally come to an end yesterday. With that I came home with a huge pile of papers that I glanced over during the year for personal gain (mainly at the beginning as I switched to electronic papers later on).&lt;/p&gt;
+
+&lt;p&gt;As I probably need to throw most of them away when I move house, it is a good idea to review some of the valuable ones before I do so.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;www.nature.com/nrd/journal/v4/n8/full/nrd1799.html&quot;&gt;Computer-based de novo design of drug-like molecules&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;em&gt;De Novo&lt;/em&gt; Deisgn : “The design of bioactive compounds by incremental construction of a ligand model within a model of the receptor or enzyme active site, the structure of which is known from X-ray or NMR data.”&lt;/p&gt;
+
+    &lt;p&gt;The procedure requires three main components. First, to assemble chemical fragments in synthetically tractable fashion. Second, to score the overall interactions between the assembled structure and the therapeutic target. Lastly, to ensure enough representitive strucutres have been tested for good coverage of the relevant chemical space. The last is the hardest.&lt;/p&gt;
+
+    &lt;p&gt;Determination of the shape of the binding site allows significant reduction in chemical space seraching.Optimisation on the ligand mainly consist of bettering the hydrogen bond complementarity between the recpetor and the ligand (usually grid-based search). This allows pharmacophores to be places to complement the residue interactions. Then a scheme is needed to link them together into one piece. These ligand poses then are scored by approximating the binding free energy using either explicit force-field, empirical scorin functions or knowledge-based methods (database on frequency of atom-pair interactions e.g. Superstar).   On top of binding affinity, other properties of the ligand needs to be assessed such as ADMET and structural alerts. These are collectively known as secondary target constraints and they are weighted in the score.&lt;/p&gt;
+
+    &lt;p&gt;The linking scheme between all these fragments/pharamcophores requires enumeration of different combintaions where all enumerations cannot be explictly run. Tree search algorithm or Monte Carlo or even machine learning schemes can be used to join them together.&lt;/p&gt;
+
+    &lt;p&gt;Automated de Novo design can be used as in idea generator as new chemotypes for chemists and can complement experimental techqniues like HTS or in silico screening. One major problem with which is of course its inability to consider protein motion/flexibility.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;onlinelibrary.wiley.com/doi/10.1002/anie.201508055/abstract&quot;&gt;De Novo Fragment Design for Drug Discovery and Chemical Biology&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;An example ligand based de novo design on the death associated protein kinase target. Using DOGS to perfrom virtual synthesis and scaffold hopping with a known drug as the template. A structurally very different chemcial entity to the template though with similar pharamcophores profile was ranked the highest and synthesised with X-ray structure solved to show binding at ATP site.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;jbx.sagepub.com/content/4/2/67.long&quot;&gt;A Simple Statistical Parameter for Use in Evaluation and Validation of High Throughput Screening Assays.&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Introduced the Z-factor, a measure of assay quality to allow cross-campaign comparison of HTS resutls. Using the readings for the controls to define the assay window, The Z-factor uses the ratio of SD and means between the control and sample defining the capability of hit identification for a given assay. A Z’-factor was also devised which only involves comparing the same statistical quantity of only the +ve and -ve controls, allowing a determination of quality of the assay. Z’ evaluates overall assay quality and Z reflects the quality of a configured assay.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;www.nature.com/nchembio/journal/v3/n8/full/nchembio0807-438.html&quot;&gt;Reporting data from high-throughput screening of small-molecule libraries&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Proposed standard for high HTS screen results ought to be reported. See table 1.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;www.tandfonline.com/doi/abs/10.1517/17460441.2016.1117070&quot;&gt;An overview of molecular fingerprint similarity search in virtual screening&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Topological and circular fingerprints enumerates all the bonding pathes of a molecule (up to a number of bond cut-off). These pathes are hashed into bit-strings. For a given compound, the bit strings corresponding to the chemical fragments it contained are combined together. Topological encodes the linear bonding paths of the molecular, circular fingerprint expands out radially.&lt;/p&gt;
+
+    &lt;p&gt;Structural key fingerprints have a pre-defined sets of functional groups and a bit string can be generated based on the presence and absence of these functional environments for a given molecule.&lt;/p&gt;
+
+    &lt;p&gt;Pharmacophore fingerprints encodes combinations of chemcial environemnts in the moelcular and their distance of sepration into bits that are joined.&lt;/p&gt;
+
+    &lt;p&gt;All these schemes can yield molecules encoded by a series of zeros and ones. So two molecules can be compared by different distance measures. A comprehensive table of different fingerprint distance measure is &lt;a href=&quot;http://www.daylight.com/dayhtml/doc/theory/theory.finger.html&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Some usages in the context of viertual screening: 1). measure compound deck diversity 2). prioritise compounds based on similarity to a template molecule 3). measure activity probability based on similarity to template compound&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;pubs.acs.org/doi/abs/10.1021/jm401411z&quot;&gt;Molecular Similarity in Medicinal Chemistry&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Similarity property pricinple : similar compounds should have similar property. “molecular similarity values are rarely of interest per se. Rather, they are used as a basis for correlating similarity, however assessed, with compounddependent properties such as biological activity”&lt;/p&gt;
+
+    &lt;p&gt;Many levels of similarity: physicochemical similarity, topological similarity, shape similarity, biological similarity, local similarity…&lt;/p&gt;
+
+    &lt;p&gt;Pharmacophore models in drug design focuses only on selected atoms, groups, or functionalities that are known or hypothesized to be responsible for activity. This represents a local view of similarity.&lt;/p&gt;
+
+    &lt;p&gt;Use of similarity should be exercised with caution. Its applicability varies based depending on the combination of compound class, similarity matric, molecular representation.  The absolute magnitude of similarity is not as meaningful as relative magnitude of similarity.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;pubs.acs.org/doi/abs/10.1021/ci3002606&quot;&gt;Data Mining of Protein-Binding Profiling Data Identifies Structural Modifications that Distinguish Selective and Promiscuous Compounds&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Utilised binding assay data on a set of compounds against 100 sequence-unrelated proteins where the compounds are divided into three main classes : natural proudct, commerical synthesised cpds and diverse synthesised compounds. The goal was to find structural motifs that distinguish highly specific and promiscuous binders.&lt;/p&gt;
+
+    &lt;p&gt;Pair-wise cpd structural similarity was defined by MACCS fingerprint with Tanimoto metric. A structure-promiscuity index difference (SPID) was divised for compound pairs that measures the relation between the number of proteins bound by the two molecules and their structural similarity. Compounds that bound many proteins and compounds that were very specific were selected to have the SPID calculated. This way chemical motifs that could lead to promiscuity issues can be identified.&lt;/p&gt;
+
+    &lt;p&gt;“It was concluded that small structural changes in synthetic compounds from academic groups showed greater promiscuity difference than do synthetic compounds from commercial sources. Natural products showed the lowest drastic changes in promiscuity due to small structural  modifications.”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;dl.kums.ac.ir/bitstream/Hannan/172114/1/2015%20Volume%2081%20Issue%206%20April%20(3).pdf&quot;&gt;Chemography of Natural Product Space&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Reduced a series of pharamcophoric features into 2 dimensions using generative topological mapping, a non-linear dimensional reduction scheme to visualise chemical space. Observed natural products and drug/lead moleculers have very similar profiles. Infere this method can be used to measure functional similarities between these two classes.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://jcheminf.springeropen.com/articles/10.1186/1758-2946-3-19&quot;&gt;Linked open drug data for pharmaceutical research and development&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Aim to allow sharing of interlinked &lt;em&gt;data&lt;/em&gt; at very detailed levels with the visual of revolutionise global data sharing, integration and analysis. Each single piece of data is represented by a URL. The data object is composed of subject-predicate-object triples within a resource description framework, allowing individual data pieces be linked into a network. Linked data sets include databases such as ChEMBL and Drugbank. Used by Open PHACTS under the IMI.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;www.pnas.org/content/112/52/15910.short&quot;&gt;Detection of secondary binding sites in proteins using fragment screening&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;“Indeed, given the significant size of most proteins it could be argued that it would be inefficient for evolution not to have resulted in multiple binding sites that could be used to regulate function. Furthermore, drug molecules that target such sites can offer an orthogonal mechanism for modulating the biological activity of a target protein and may have improved selectivity and resistance profiles. … ligands targeting these sites can provide a mechanism for activating enzymes, something that is unlikely to be achievable by binding to the catalytic site.”&lt;/p&gt;
+
+    &lt;p&gt;Frgament screening solving X-ray structure on 2 dozen proteins revealed on average more than 2 secondary fragment binding sites. The functional relevance for such sites were by and large unknown.&lt;/p&gt;
+
+    &lt;p&gt;Orthologs of the screened proteins were minded to see whether the residues in those defined sites are evolutionarily conserved. They were.  An atom mobility index was devised which indicate how rigid regions of the proteins are. These secondary sites were quite rigid (also used B-factor). Other physicochemical properties were test, e.g. such sites are also quite buried and thus polar. All three points point to these site exibiting function.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+                <link>http://hjuinj.github.io/scholastic/2016/10/08/recentRead1</link>
+                <guid>http://hjuinj.github.io/scholastic/2016/10/08/recentRead1</guid>
+                <pubDate>Sat, 08 Oct 2016 00:00:00 +0800</pubDate>
+        </item>
 
         <item>
                 <title>Icon Generator</title>
@@ -1718,16 +1812,20 @@ w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;http://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf&quot;&gt;A Neural Probabilistic Language Mode&lt;/a&gt;.&lt;/p&gt;
+
+    &lt;p&gt;A feature vector representation was used for words. This way, all words are described by a set of descriptors each in real-number space. The set of descriptors is much smaller than the size of words. It quite dramatically outperformed trigram models in estimating the joint probability distribution of sentences. The trigram model could only account for context and only rather local contexts. The vector representation on the other hand could both account for words that are quite far apart and also words that are similar, both in terms of distance measures in vector space. However, the difference between these two situations cannot be differentiated purely from the distance, and it might be important to be able to do that. Essentially, learning the join distribution between word occurence has been transformed to learning the pairwise distance between each word descriptor vector.&lt;/p&gt;
+
+    &lt;p&gt;The work uses a guessed vector representation for each word in the training set as input, which are transferred to a hidden layer (tanh activation) and then the output layer (softmax). This is a publication that guided the development of word2vec, marking it the first time neural nets in the context of NLP. However, I find it difficult to truly appreciate the issues, in particular speed penalties raised in this work and I think this is mainly due to my lack of practical experimentation with NLP methods.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2135445&amp;amp;tool=pmcentrez&amp;amp;rendertype=abstract&quot;&gt;STUDIES ON THE CHEMICAL NATURE OF THE SUBSTANCE INDUCING TRANSFORMATION OF PNEUMOCOCCAL TYPES&lt;/a&gt;.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1078370/&quot;&gt;Genetic Control of Biochemical Reactions in Neurospora&lt;/a&gt;&lt;/p&gt;
 
-    &lt;p&gt;A statistical view of trying to peak through the underlying genetics&lt;/p&gt;
+    &lt;p&gt;An early molecular genetics study using x-ray induced single-point mutations on neurospora. The idea was to associate mutation with observations of inability to carry out some essential metabolic processes (e.g. surcrose hydrolysis). This was observed by placing the fungi on different mediums lacking certain combinations of biochemicals that are known metabolites that the fungi can make. Hence, if a gene for encoding a certain process was mutated, then the fungi would not grow on medium deficient of that certain metabolite. It is worth pointing out genes have not been identified structurally and they were only a hypothetical entity at the time the paper was written. Therefore, it was only the authors’ assumption to think a gene is associated to one small step of a big biochemical cascade, rather than the entire process. In their words: “it should be possible, by finding a number of mutants unable to carry out a particular step in a given synthesis, to determine whether only one gene is ordinarily concerned with the immediate regulation of a given specific chemical reaction.” But such study could not elucidate the sequence of biochemical pathways.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;http://pubs.acs.org/doi/abs/10.1021/acs.jmedchem.5b01946&quot;&gt;Hydrogen Bond Basicity Prediction for Medicinal Chemistry Design&lt;/a&gt;.&lt;/p&gt;
 
-    &lt;p&gt;Using electrostatic minima to estimate hydrogen bond donor strength and using the electrostatic potential at the van der Waals radius to estmate hydrogen bond acceptor strength.&lt;/p&gt;
+    &lt;p&gt;The publication explores the empirical linear relationship between the measured hydrogen bond basicity (H-bond acceptor) and the electrostatic potential minima. By doing so, one can ultimately use hydrogen bonding complementarity for ligand design for binding to receptors. A very pragmatic paper, allowing the hydrogen bond acceptor values to be estimated when experimental measurements are not available, such as elaborate hetrocycles and peptides.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Data Science and Machine Learning with Apache Spark.&lt;/p&gt;
@@ -1804,6 +1902,7 @@ w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#cheminformatics&quot;&gt;CHEMINFORMATICS&lt;/a&gt;
     &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#open-babel&quot;&gt;Open Babel&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#cdk&quot;&gt;CDK&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#rdkit&quot;&gt;RDKit&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#knime&quot;&gt;Knime&lt;/a&gt;&lt;/li&gt;
@@ -1856,6 +1955,12 @@ w.playAnimation(f, w.animate3D_trace, f.uniformVel, frames = 1)
 &lt;hr /&gt;
 
 &lt;h1 id=&quot;cheminformatics&quot;&gt;CHEMINFORMATICS&lt;/h1&gt;
+
+&lt;h2 id=&quot;open-babel&quot;&gt;Open Babel&lt;/h2&gt;
+&lt;p&gt;Open sourced chemical toolbox
+http://openbabel.org/wiki/Main_Page&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://jcheminf.springeropen.com/articles/10.1186/1758-2946-3-33&quot;&gt;Open Babel: An open chemical toolbox&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;cdk&quot;&gt;CDK&lt;/h2&gt;
 &lt;p&gt;Main framework written in Java&lt;/p&gt;
